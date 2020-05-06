@@ -49,7 +49,7 @@ const HamburgerButton = ({ openMenu, toggleMenuOpen }) => {
 };
 
 HamburgerButton.propTypes = {
-  open: PropTypes.bool.isRequired,
+  openMenu: PropTypes.bool.isRequired,
   toggleMenuOpen: PropTypes.func.isRequired,
 };
 

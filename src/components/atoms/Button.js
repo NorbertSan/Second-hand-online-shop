@@ -18,6 +18,7 @@ const Button = styled.button`
       border: 1px solid ${theme.colors.secondary};
       color: ${theme.colors.secondary}!important;
       background: ${theme.colors.whiteish};
+      font-weight: bold;
     `}
 `;
 

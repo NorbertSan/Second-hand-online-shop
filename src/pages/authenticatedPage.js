@@ -37,7 +37,7 @@ const StyledParagraph = styled.p`
 `;
 
 const AuthenticatedPage = () => {
-  const [userHasAccount, toggleForm] = useState(false);
+  const [userHasAccount, toggleForm] = useState(true);
   return (
     <StyledWrapper>
       <StyledTitle>Join to us !</StyledTitle>
@@ -53,7 +53,7 @@ const AuthenticatedPage = () => {
           Login
         </StyledElement>
       </StyledButtons>
-      {userHasAccount ? <LoginForm /> : <SignUpForm />}
+      {userHasAccount ? <LoginForm /> : <SignUpForm toggleForm={toggleForm} />}
     </StyledWrapper>
   );
 };

@@ -14,7 +14,7 @@ const appear = keyframes`
     transform:translateY(-50px);
   }
   50%{
-    transform:translateY(5px);
+    transform:translateY(8px);
   }
   100%{
     transform:translateY(0);
