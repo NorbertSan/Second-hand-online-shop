@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import theme from "utils/theme";
 
 import LikeIcon from "assets/icons/like.svg";
@@ -27,15 +28,19 @@ const StyledButton = styled.button`
   outline: none;
   cursor: pointer;
 `;
-const LikeButton = () => {
+const LikeButton = ({ likes }) => {
   return (
     <StyledWrapper>
-      <div>12</div>
+      <div>{likes}</div>
       <StyledButton>
         <StyledIcon src={LikeIcon} alt="like icon" />
       </StyledButton>
     </StyledWrapper>
   );
+};
+
+LikeButton.propTypes = {
+  likes: PropTypes.number.isRequired,
 };
 
 export default LikeButton;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import Dropzone from "react-dropzone";
@@ -47,9 +47,12 @@ const StyledValidateAlert = styled(ValidateAlert)`
   font-size: ${theme.fontSize.s};
 `;
 
-const UploadFile = ({ refreshFunction }) => {
+const UploadFile = ({ refreshFunction, clearImages }) => {
   const [errors, setErrors] = useState({});
   const [images, setImages] = useState([]);
+  useEffect(() => {
+    if (clearImages) setImages([]);
+  }, [clearImages]);
   const onDropHandle = async (files) => {
     setErrors({});
     if (!files[0].type.includes("image/"))

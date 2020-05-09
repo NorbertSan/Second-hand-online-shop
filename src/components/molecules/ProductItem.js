@@ -1,19 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
+import PropTypes from "prop-types";
 
 // COMPONENTS
 import UserIcon from "components/atoms/UserIcon";
 import NickName from "components/atoms/NickName";
 import LikeButton from "components/molecules/LikeButton";
+import ImageSlider from "components/molecules/ImageSlider";
 // ASSETS
 import IconUser from "assets/icons/userIcon.svg";
-import dummyPhoto from "assets/images/dummyPhoto.jpg";
 
 const StyledWrapper = styled.li`
-  margin-bottom: 25px;
-  width: 170px;
+  /* margin-bottom: 25px; */
+  /* min-width: 150px;
+  max-width: 170px; */
   position: relative;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 3px;
   &:after {
     content: "";
     position: absolute;
@@ -42,14 +46,11 @@ const StyledAuthorInfo = styled.div`
 const StyledUserIcon = styled(UserIcon)`
   margin-right: 5px;
 `;
-const StyledImage = styled.img`
-  object-fit: cover;
-  width: 100%;
-`;
 const StyledProductInformation = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
+  margin-top: 7px;
   span {
     color: grey;
     font-size: ${theme.fontSize.xs};
@@ -58,22 +59,26 @@ const StyledProductInformation = styled.div`
   }
 `;
 
-const ClothesItem = () => {
+const ProductItem = ({ product }) => {
   return (
     <StyledWrapper>
       <StyledAuthorInfo>
         <StyledUserIcon src={IconUser} alt="user icon" />
-        <NickName>norbasss</NickName>
+        <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>
-      <StyledImage src={dummyPhoto} alt="clothes image" />
+      <ImageSlider images={product.images} />
       <StyledProductInformation>
-        <LikeButton />
-        <span>14.99 zł</span>
-        <span>M/38/40</span>
-        <span>Bershka</span>
+        <LikeButton likes={product.likes} />
+        <span>Price : {product.price} PLN</span>
+        <span>Size : {product.size}</span>
+        <span>Brand : {product.brand}</span>
       </StyledProductInformation>
     </StyledWrapper>
   );
 };
 
-export default ClothesItem;
+ProductItem.propTypes = {
+  product: PropTypes.object.isRequired,
+};
+
+export default ProductItem;

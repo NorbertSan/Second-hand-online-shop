@@ -6,7 +6,7 @@ import womenSearchingClothes from "assets/images/womenSearchingClothes.jpg";
 
 // COMPONENTS
 import Button from "components/atoms/Button";
-import ClothesItemsGrid from "components/molecules/ClothesItemsGrid";
+import ProductsItemsGrid from "components/molecules/ProductsItemsGrid";
 
 const StyledWrapper = styled.section``;
 const StyledHero = styled.img`
@@ -35,7 +35,7 @@ const homePage = () => (
       </Button>
     </StyledWellcomeInfo>
     <StyledTitle>Latest adverts</StyledTitle>
-    <ClothesItemsGrid />
+    <ProductsItemsGrid />
   </StyledWrapper>
 );
 

@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
-import { useHistory } from "react-router-dom";
 
 import { addProductValidator } from "utils/validators";
 // COMPONENTS
@@ -15,21 +14,26 @@ import Loader from "react-loader-spinner";
 // REDUX STUFF
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "redux/actions/dataActions";
+import { CLEAR_ERRORS_ADD_PRODUCT } from "redux/types";
 
 const types = [
-  { key: 1, value: "shirt" },
-  { key: 2, value: "dress" },
-  { key: 3, value: "trousers" },
-  { key: 4, value: "shoes" },
+  { key: 1, value: "Shirt" },
+  { key: 2, value: "Dress" },
+  { key: 3, value: "Trousers" },
+  { key: 4, value: "Shoes" },
 ];
-const conditions = [
-  { key: 1, value: "new" },
-  { key: 2, value: "little used" },
-  { key: 3, value: "used" },
+const sizes = [
+  { key: 1, value: "XS" },
+  { key: 2, value: "S" },
+  { key: 3, value: "M" },
+  { key: 4, value: "L" },
+  { key: 5, value: "XL" },
+  { key: 6, value: "XXL" },
 ];
 const genders = [
-  { key: 1, value: "male" },
-  { key: 2, value: "female" },
+  { key: 1, value: "Male" },
+  { key: 2, value: "Female" },
+  { key: 3, value: "Kid" },
 ];
 
 // STYLES
@@ -80,27 +84,31 @@ const AddProductPage = () => {
   const success = useSelector((state) => state.UI.successAddProduct);
   const serverError = useSelector((state) => state.UI.errorsAddProduct);
   const loading = useSelector((state) => state.UI.loadingAddProduct);
+  const [clearImages, setClearImages] = useState(false);
   const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  const history = useHistory();
-  const [inputsValue, setInputsValue] = useState({
+  useEffect(() => {
+    dispatch({ type: CLEAR_ERRORS_ADD_PRODUCT });
+  }, [dispatch]);
+  const initialState = {
     brand: "",
     price: 0,
     description: "",
     type: types[0].value,
-    condition: conditions[0].value,
+    size: sizes[0].value,
     gender: genders[0].value,
     images: [],
-  });
+  };
+  const [inputsValue, setInputsValue] = useState(initialState);
   const handleInputChange = (e) =>
     setInputsValue({ ...inputsValue, [e.target.name]: e.target.value });
 
   const handlePriceChange = (e) =>
-    setInputsValue({ ...inputsValue, price: parseInt(e.target.value) });
+    setInputsValue({ ...inputsValue, price: parseFloat(e.target.value) });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setInputsValue({ ...inputsValue, price: parseInt(inputsValue.price) });
+    setInputsValue({ ...inputsValue, price: inputsValue.price.toFixed(2) });
     const validateErrors = addProductValidator(inputsValue);
     setErrors(validateErrors);
     if (Object.keys(validateErrors).length > 0) return;
@@ -108,7 +116,9 @@ const AddProductPage = () => {
       writer: userId,
       ...inputsValue,
     };
-    dispatch(addProduct(data, history));
+    dispatch(addProduct(data));
+    setInputsValue(initialState);
+    setClearImages(true);
   };
   const setImagesHandle = (files) => {
     setInputsValue({ ...inputsValue, images: files });
@@ -118,7 +128,7 @@ const AddProductPage = () => {
       {success && <AddProductAlert success text={success} />}
       {serverError && <AddProductAlert error text={serverError} />}
       <StyledTitle>Sell cloth form</StyledTitle>
-      <UploadFile refreshFunction={setImagesHandle} />
+      <UploadFile refreshFunction={setImagesHandle} clearImages={clearImages} />
       <StyledInnerWrapper>
         <StyledInput
           type="text"
@@ -156,13 +166,13 @@ const AddProductPage = () => {
           ))}
         </StyledSelect>
         <StyledSelect
-          value={inputsValue.condition}
+          value={inputsValue.size}
           onChange={handleInputChange}
-          name="condition"
+          name="size"
         >
-          {conditions.map((condition) => (
-            <option key={condition.key} value={condition.value}>
-              {condition.value}
+          {sizes.map((size) => (
+            <option key={size.key} value={size.value}>
+              {size.value}
             </option>
           ))}
         </StyledSelect>

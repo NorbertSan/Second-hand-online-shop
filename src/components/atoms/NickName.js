@@ -10,6 +10,11 @@ const NickName = styled.span`
     css`
       font-size: ${theme.fontSize.s};
     `}
+  ${({ black }) =>
+    black &&
+    css`
+      color: ${theme.colors.blackish};
+    `}
 `;
 
 export default NickName;

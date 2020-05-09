@@ -42,7 +42,7 @@ export const addProductValidator = (data) => {
     isEmpty(data.brand) ||
     isEmpty(data.description) ||
     isEmpty(data.type) ||
-    isEmpty(data.condition) ||
+    isEmpty(data.size) ||
     isEmpty(data.gender) ||
     isLessThanZero(data.price) ||
     !areImagesUpload(data.images)

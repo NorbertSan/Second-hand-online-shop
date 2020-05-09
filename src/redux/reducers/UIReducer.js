@@ -2,6 +2,7 @@ import {
   SET_ERRORS_SIGNUP,
   LOADING_SIGN_UP,
   LOADING_LOGIN,
+  LOADING_ADD_PRODUCT,
   SET_ERRORS_LOGIN,
   SET_SUCCESS_ADD_PRODUCT,
   SET_ERRORS_ADD_PRODUCT,
@@ -59,6 +60,10 @@ export default (state = initialState, action) => {
         ...state,
         successAddProduct: null,
         errorsAddProduct: null,
+      };
+    case LOADING_ADD_PRODUCT:
+      return {
+        ...state,
         loadingAddProduct: true,
       };
     default:
