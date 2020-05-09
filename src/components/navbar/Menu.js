@@ -1,13 +1,19 @@
 import React from "react";
-import styled, { keyframes } from "styled-components";
+import styled, { keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import theme from "utils/theme";
 
+// REDUX STUFF
+import { useSelector } from "react-redux";
 // ICONS
 import WomenIcon from "assets/icons/women.svg";
 import KidIcon from "assets/icons/kid.svg";
 import ManIcon from "assets/icons/man.svg";
+import NoFaceIcon from "assets/icons/NoFaceIcon.svg";
+// COMPONENTS
 import Button from "components/atoms/Button";
+import Logout from "components/molecules/Logout";
+import NickName from "components/atoms/NickName";
 
 const appear = keyframes`
   0%{
@@ -79,39 +85,87 @@ const StyledIcon = styled.img`
   width: 20px;
   height: 20px;
   margin-right: 5px;
+  border-radius: 50%;
+  ${({ big }) =>
+    big &&
+    css`
+      padding: 5px;
+      width: 40px;
+      height: 40px;
+    `}
+`;
+const StyledUserInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
+const StyledUserPanel = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-self: start;
+  margin-bottom: 15px;
+  padding-bottom: 5px;
+  width: 100%;
+  border-bottom: 1px solid ${theme.colors.secondary};
 `;
 
-const Menu = ({ toggleMenuOpen }) => (
-  <StyledBackground>
-    <StyledMenuList>
-      <StyledButton as={Link} to="/sell" onClick={() => toggleMenuOpen(false)}>
-        Sell now
-      </StyledButton>
-      <StyledButton
-        as={Link}
-        to="/signup/select_type"
-        onClick={() => toggleMenuOpen(false)}
-        secondary
-      >
-        Sign up | Sign in
-      </StyledButton>
-      <StyledCategoryList>
-        <h4>Category</h4>
-        <StyledLink to="/women" onClick={() => toggleMenuOpen(false)}>
-          <StyledIcon src={WomenIcon} alt="woman icon" />
-          <span>Women</span>
-        </StyledLink>
-        <StyledLink to="/men" onClick={() => toggleMenuOpen(false)}>
-          <StyledIcon src={ManIcon} alt="man icon" />
-          <span>Men</span>
-        </StyledLink>
-        <StyledLink to="/kids" onClick={() => toggleMenuOpen(false)}>
-          <StyledIcon src={KidIcon} alt="kid icon" />
-          <span>Kid</span>
-        </StyledLink>
-      </StyledCategoryList>
-    </StyledMenuList>
-  </StyledBackground>
-);
-
+const Menu = ({ toggleMenuOpen }) => {
+  const auth = useSelector((state) => state.user.auth);
+  const avatar = useSelector((state) => state.user.avatar);
+  const nickName = useSelector((state) => state.user.nickName);
+  return (
+    <StyledBackground>
+      <StyledMenuList>
+        {auth && (
+          <StyledUserPanel>
+            <StyledUserInfo>
+              <StyledIcon big src={avatar || NoFaceIcon} alt="profile image" />
+              <NickName big>{nickName}</NickName>
+            </StyledUserInfo>
+            <Button
+              secondary
+              onClick={() => toggleMenuOpen(false)}
+              as={Link}
+              to={`/user/${nickName}`}
+            >
+              My account
+            </Button>
+          </StyledUserPanel>
+        )}
+        <StyledButton
+          as={Link}
+          to="/add_product"
+          onClick={() => toggleMenuOpen(false)}
+        >
+          Sell now
+        </StyledButton>
+        {!auth && (
+          <StyledButton
+            secondary
+            as={Link}
+            to="/signup/select_type"
+            onClick={() => toggleMenuOpen(false)}
+          >
+            Sign up | Sign in
+          </StyledButton>
+        )}
+        <StyledCategoryList>
+          <h4>Category</h4>
+          <StyledLink to="/women" onClick={() => toggleMenuOpen(false)}>
+            <StyledIcon src={WomenIcon} alt="woman icon" />
+            <span>Women</span>
+          </StyledLink>
+          <StyledLink to="/men" onClick={() => toggleMenuOpen(false)}>
+            <StyledIcon src={ManIcon} alt="man icon" />
+            <span>Men</span>
+          </StyledLink>
+          <StyledLink to="/kids" onClick={() => toggleMenuOpen(false)}>
+            <StyledIcon src={KidIcon} alt="kid icon" />
+            <span>Kid</span>
+          </StyledLink>
+        </StyledCategoryList>
+        {auth && <Logout />}
+      </StyledMenuList>
+    </StyledBackground>
+  );
+};
 export default Menu;

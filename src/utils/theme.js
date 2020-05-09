@@ -4,6 +4,8 @@ const theme = {
     secondary: "#bb3b0e", // orangeish
     blackish: "#1b1b2f",
     whiteish: "#f9f9f9",
+    greenish: "#3BB54A",
+    redish: "#D7443E",
   },
   fontSize: {
     xs: "1.0rem",

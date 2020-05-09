@@ -20,6 +20,12 @@ const Input = styled.input`
       border: none;
       border-bottom: 1px solid grey;
     `}
+  ${({ tertiary }) =>
+    tertiary &&
+    css`
+      background: ${theme.colors.whiteish};
+      box-shadow: 0 0 1px grey;
+    `}
 `;
 
 export default Input;

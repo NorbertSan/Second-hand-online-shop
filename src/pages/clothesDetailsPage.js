@@ -20,7 +20,7 @@ const StyledButton = styled(Button)`
   align-self: center;
 `;
 
-const ClothesDetailsView = () => {
+const clothesDetailsPage = () => {
   return (
     <StyledWrapper>
       <PhotosGallery />
@@ -32,4 +32,4 @@ const ClothesDetailsView = () => {
   );
 };
 
-export default ClothesDetailsView;
+export default clothesDetailsPage;

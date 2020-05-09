@@ -11,12 +11,23 @@ const Button = styled.button`
   text-transform: uppercase;
   border: none;
   letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: ${theme.fontSize.s}!important;
   ${({ secondary }) =>
     secondary &&
     css`
       border: 1px solid ${theme.colors.secondary};
       color: ${theme.colors.secondary}!important;
+      background: ${theme.colors.whiteish};
+      font-weight: bold;
+    `}
+  ${({ tertiary }) =>
+    tertiary &&
+    css`
+      border: 1px solid ${theme.colors.blackish};
+      color: ${theme.colors.blackish}!important;
       background: ${theme.colors.whiteish};
       font-weight: bold;
     `}

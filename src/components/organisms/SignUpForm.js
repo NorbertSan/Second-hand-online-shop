@@ -46,9 +46,14 @@ const StyledHintPassword = styled.div`
   margin-bottom: 10px;
   text-align: start;
 `;
+const StyledValidateAlert = styled(ValidateAlert)`
+  margin-top: 10px;
+  text-align: center;
+`;
 
 const SignUpForm = ({ toggleForm }) => {
   const loading = useSelector((state) => state.UI.loadingSignUp);
+  const serverErrors = useSelector((state) => state.UI.errorsSignUp);
   const dispatch = useDispatch();
   const [errors, setInputErrors] = useState({});
   const [isPasswordShown, togglePasswordShown] = useState(false);
@@ -69,13 +74,14 @@ const SignUpForm = ({ toggleForm }) => {
     }
   );
   useEffect(() => {
+    const passwordInput = passwordInputRef.current;
     const openHint = () => toggleHintPasswordShown(true);
     const closeHint = () => toggleHintPasswordShown(false);
     passwordInputRef.current.addEventListener("focus", openHint);
     passwordInputRef.current.addEventListener("blur", closeHint);
     return () => {
-      passwordInputRef.current.removeEventListener("focus", openHint);
-      passwordInputRef.current.removeEventListener("blur", closeHint);
+      passwordInput.removeEventListener("focus", openHint);
+      passwordInput.removeEventListener("blur", closeHint);
     };
   }, []);
 
@@ -171,6 +177,9 @@ const SignUpForm = ({ toggleForm }) => {
           "Register"
         )}
       </Button>
+      {serverErrors.general && (
+        <StyledValidateAlert>{serverErrors.general}</StyledValidateAlert>
+      )}
     </StyledWrapper>
   );
 };
