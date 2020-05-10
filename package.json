@@ -11,6 +11,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "jwt-decode": "^2.2.0",
+    "query-string": "^6.12.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-dropzone": "^11.0.1",

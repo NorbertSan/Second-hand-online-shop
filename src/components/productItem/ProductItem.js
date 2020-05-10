@@ -6,8 +6,8 @@ import PropTypes from "prop-types";
 // COMPONENTS
 import UserIcon from "components/atoms/UserIcon";
 import NickName from "components/atoms/NickName";
-import LikeButton from "components/molecules/LikeButton";
-import ImageSlider from "components/molecules/ImageSlider";
+import LikeButton from "./LikeButton";
+import ImageSlider from "./ImageSlider";
 // ASSETS
 import IconUser from "assets/icons/userIcon.svg";
 

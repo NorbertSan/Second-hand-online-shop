@@ -23,7 +23,6 @@ export const addProduct = (data) => async (dispatch) => {
 export const getProducts = (variables) => async (dispatch) => {
   // variables contain { skip, limit, type && gender(optional)}
   console.log("get products action");
-  console.log(variables);
   try {
     const res = await axios.post("/product", variables);
     dispatch({ type: SET_PRODUCTS, payload: res.data });

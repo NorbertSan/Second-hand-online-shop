@@ -48,7 +48,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
   margin-top: 10px;
 `;
 
-const LoginForm = () => {
+const SignInForm = () => {
   const loading = useSelector((state) => state.UI.loadingLogin);
   const errors = useSelector((state) => state.UI.errorsLogin);
   const dispatch = useDispatch();
@@ -116,4 +116,4 @@ const LoginForm = () => {
     </StyledWrapper>
   );
 };
-export default LoginForm;
+export default SignInForm;

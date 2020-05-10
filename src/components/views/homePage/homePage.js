@@ -6,7 +6,7 @@ import womenSearchingClothes from "assets/images/womenSearchingClothes.jpg";
 
 // COMPONENTS
 import Button from "components/atoms/Button";
-import ProductsItemsGrid from "components/molecules/ProductsItemsGrid";
+import ProductsItemsGrid from "./ProductsItemsGrid";
 
 const StyledWrapper = styled.section``;
 const StyledHero = styled.img`
@@ -30,7 +30,7 @@ const homePage = () => (
     <StyledHero src={womenSearchingClothes} alt="womenSearchingClothes" />
     <StyledWellcomeInfo>
       <h4>Ready to show you clothes ? </h4>
-      <Button as={Link} to="/sell">
+      <Button as={Link} to="/add_product">
         Start selling
       </Button>
     </StyledWellcomeInfo>

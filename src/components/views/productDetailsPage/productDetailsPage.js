@@ -2,10 +2,10 @@ import React from "react";
 import styled from "styled-components";
 
 // COMPONENTS
-import PhotosGallery from "components/molecules/PhotosGallery";
-import TagsSection from "components/molecules/TagsSection";
-import ClothesItemSummary from "components/molecules/ClothesItemSummary";
 import Button from "components/atoms/Button";
+import PhotosGallery from "./PhotosGallery";
+import TagsSection from "./TagsSection";
+import ClothesItemSummary from "./ClothesItemSummary";
 
 const StyledWrapper = styled.section`
   padding: 15px;

@@ -7,9 +7,9 @@ import { addProductValidator } from "utils/validators";
 import Input from "components/atoms/Input";
 import Button from "components/atoms/Button";
 import Textarea from "components/atoms/Textarea";
-import UploadFile from "components/molecules/UploadFile";
+import UploadFile from "./UploadFile";
 import ValidateAlert from "components/atoms/ValidateAlert";
-import AddProductAlert from "components/molecules/AddProductAlert";
+import AddProductAlert from "./AddProductAlert";
 import Loader from "react-loader-spinner";
 // REDUX STUFF
 import { useSelector, useDispatch } from "react-redux";

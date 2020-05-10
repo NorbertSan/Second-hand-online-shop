@@ -9,14 +9,15 @@ import NoAuthRoute from "utils/NoAuthRoute";
 //REDUX STUFF
 import { Provider } from "react-redux";
 import store from "redux/store";
-// COMPONENTS
-import Navbar from "components/navbar/Navbar";
-//pages
-import homePage from "pages/homePage";
-import authenticatedPage from "pages/authenticatedPage";
-import clothesDetailsPage from "pages/clothesDetailsPage";
-import addProductPage from "pages/addProductPage";
-import userProfilePage from "pages/userProfilePage";
+
+// VIEWS
+import Navbar from "components/views/navbar/Navbar";
+import homePage from "components/views/homePage/homePage";
+import addProductPage from "components/views/addProductPage/addProductPage";
+import signInSignUpPage from "components/views/signInSignUpPage/signInSignUpPage";
+import productDetailsPage from "components/views/productDetailsPage/productDetailsPage";
+import userProfilePage from "components/views/userProfilePage";
+import searchProductsPage from "components/views/searchProductsPage/searchProductsPage";
 
 const BASE_URL = "http://localhost:5000/";
 axios.defaults.baseURL = BASE_URL;
@@ -33,10 +34,11 @@ const App = () => (
         <NoAuthRoute
           exact
           path="/signup/select_type"
-          component={authenticatedPage}
+          component={signInSignUpPage}
         />
-        <Route exact path="/clothes/:id" component={clothesDetailsPage} />
+        <Route exact path="/clothes/:id" component={productDetailsPage} />
         <Route exact path="/user/:nickName" component={userProfilePage} />
+        <Route path="/clothes" component={searchProductsPage} />
         <AuthRoute exact path="/add_product" component={addProductPage} />
       </Switch>
     </Router>

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useRef } from "react";
 import styled, { keyframes, css } from "styled-components";
 import { Link } from "react-router-dom";
 import theme from "utils/theme";
 
+// HOOK
+import useDetectClickOutside from "hooks/useDetectClickOutside";
 // REDUX STUFF
 import { useSelector } from "react-redux";
 // ICONS
@@ -12,8 +14,8 @@ import ManIcon from "assets/icons/man.svg";
 import NoFaceIcon from "assets/icons/NoFaceIcon.svg";
 // COMPONENTS
 import Button from "components/atoms/Button";
-import Logout from "components/molecules/Logout";
 import NickName from "components/atoms/NickName";
+import Logout from "./Logout";
 
 const appear = keyframes`
   0%{
@@ -112,9 +114,11 @@ const Menu = ({ toggleMenuOpen }) => {
   const auth = useSelector((state) => state.user.auth);
   const avatar = useSelector((state) => state.user.avatar);
   const nickName = useSelector((state) => state.user.nickName);
+  const menuRef = useRef(null);
+  useDetectClickOutside(menuRef, toggleMenuOpen);
   return (
     <StyledBackground>
-      <StyledMenuList>
+      <StyledMenuList ref={menuRef}>
         {auth && (
           <StyledUserPanel>
             <StyledUserInfo>
@@ -139,14 +143,11 @@ const Menu = ({ toggleMenuOpen }) => {
           Sell now
         </StyledButton>
         {!auth && (
-          <StyledButton
-            secondary
-            as={Link}
-            to="/signup/select_type"
-            onClick={() => toggleMenuOpen(false)}
-          >
-            Sign up | Sign in
-          </StyledButton>
+          <Link style={{ width: "100%" }} to="/signup/select_type">
+            <StyledButton secondary onClick={() => toggleMenuOpen(false)}>
+              Sign up | Sign in
+            </StyledButton>
+          </Link>
         )}
         <StyledCategoryList>
           <h4>Category</h4>

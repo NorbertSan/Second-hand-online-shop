@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 
 // COMPONENTS
-import ProductItem from "./ProductItem";
+import ProductItem from "components/productItem/ProductItem";
 import Button from "components/atoms/Button";
 // REDUX STUFF
 import { useSelector, useDispatch } from "react-redux";
@@ -33,15 +34,18 @@ const ProductsItemsGrid = () => {
   const [skip, setSkip] = useState(0);
   const products = useSelector((state) => state.data.products);
   const [fetchMore, setFetchMore] = useState(true);
+  const location = useLocation();
   const dispatch = useDispatch();
+  const quries = queryString.parse(location.search);
   useEffect(() => {
-    const variables = { skip, limit };
+    const variables = { skip, limit, ...quries };
     getProductsHandle(variables);
   }, []);
   const loadMore = () => {
     const variables = {
       skip: skip + limit,
       limit,
+      ...quries,
     };
     getProductsHandle(variables);
     setSkip(skip + limit);

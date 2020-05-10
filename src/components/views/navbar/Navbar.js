@@ -6,10 +6,9 @@ import { Link } from "react-router-dom";
 import useScrollNavigationDetect from "hooks/useScrollNavigationDetect";
 // COMPONENNTS
 import HamburgerButton from "./HamburgerButton";
-import DropDownSearch from "./DropDownSearch";
 import Menu from "./Menu";
 import SearchInput from "./SearchInput";
-import Logo from "components/atoms/Logo";
+import Logo from "./Logo";
 
 const StyledWrapper = styled.header`
   width: 100vw;
@@ -23,6 +22,7 @@ const StyledWrapper = styled.header`
   top: 0;
   left: 0;
   z-index: 2;
+
   &.hidden {
     transform: translateY(-160%);
   }
@@ -38,13 +38,6 @@ const StyledNavigationWrapper = styled.nav`
   justify-content: space-between;
   padding: 0 30px;
 `;
-const StyledSearchWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 30px;
-  background: ${theme.colors.whiteish};
-`;
 
 const Navbar = () => {
   const NavbarRef = useRef(null);
@@ -59,10 +52,7 @@ const Navbar = () => {
         </Logo>
         <HamburgerButton openMenu={openMenu} toggleMenuOpen={toggleMenuOpen} />
       </StyledNavigationWrapper>
-      <StyledSearchWrapper>
-        <DropDownSearch />
-        <SearchInput />
-      </StyledSearchWrapper>
+      <SearchInput />
     </StyledWrapper>
   );
 };

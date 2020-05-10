@@ -3,8 +3,8 @@ import styled, { css } from "styled-components";
 import theme from "utils/theme";
 
 // COMPONENTS
-import LoginForm from "components/organisms/LoginForm";
-import SignUpForm from "components/organisms/SignUpForm";
+import SignInForm from "./SignInForm";
+import SignUpForm from "./SignUpForm";
 
 const StyledWrapper = styled.section`
   margin-top: 150px;
@@ -36,7 +36,7 @@ const StyledParagraph = styled.p`
   color: grey;
 `;
 
-const AuthenticatedPage = () => {
+const SignInSignUpPage = () => {
   const [userHasAccount, toggleForm] = useState(true);
   return (
     <StyledWrapper>
@@ -53,8 +53,8 @@ const AuthenticatedPage = () => {
           Login
         </StyledElement>
       </StyledButtons>
-      {userHasAccount ? <LoginForm /> : <SignUpForm toggleForm={toggleForm} />}
+      {userHasAccount ? <SignInForm /> : <SignUpForm toggleForm={toggleForm} />}
     </StyledWrapper>
   );
 };
-export default AuthenticatedPage;
+export default SignInSignUpPage;
