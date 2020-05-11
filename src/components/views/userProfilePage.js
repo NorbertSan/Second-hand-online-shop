@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 // REACT STUFF
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.section`
   padding: 15px;

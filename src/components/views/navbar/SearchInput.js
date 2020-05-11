@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import SearchIcon from "assets/icons/search.svg";
 import theme from "utils/theme";
 
 // COMPONENTS
 import Input from "components/atoms/Input";
+import DownshiftInput from "./DownshiftInput";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.form`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -14,7 +15,7 @@ const StyledWrapper = styled.div`
   background: ${theme.colors.whiteish};
   box-shadow: 0 0 1px grey;
 `;
-const StyledForm = styled.form`
+const StyledInputSearchWrapper = styled.div`
   position: relative;
 `;
 
@@ -30,6 +31,7 @@ const StyledButton = styled.button`
   top: 50%;
   left: 5px;
   transform: translateY(-50%);
+  z-index: 1;
 `;
 const StyledIcon = styled.img`
   width: 10px;
@@ -57,18 +59,27 @@ const StyledOption = styled.option`
 `;
 
 const SearchInput = () => {
+  const [searchType, setSearchType] = useState("products");
+  const handleChange = (e) => setSearchType(e.target.value);
+  const setFilters = (e) => {
+    console.log(e);
+  };
   return (
-    <StyledWrapper>
-      <StyledDropDown>
-        <StyledOption value="clothes">clothes</StyledOption>
-        <StyledOption value="users">users</StyledOption>
+    <StyledWrapper action={`/${searchType}`}>
+      <StyledDropDown onChange={handleChange}>
+        <StyledOption value="products">Clothes</StyledOption>
+        <StyledOption value="users">Users</StyledOption>
       </StyledDropDown>
-      <StyledForm action="/clothes">
+      <StyledInputSearchWrapper>
         <StyledButton type="submit">
           <StyledIcon src={SearchIcon} alt="search icon" />
         </StyledButton>
-        <StyledInput name="type" placeholder="Find the item" />
-      </StyledForm>
+        {searchType === "products" ? (
+          <DownshiftInput setFiltersParent={setFilters} />
+        ) : (
+          <StyledInput name="nickName" placeholder="Enter user nick" />
+        )}
+      </StyledInputSearchWrapper>
     </StyledWrapper>
   );
 };

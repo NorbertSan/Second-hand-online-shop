@@ -38,7 +38,7 @@ const App = () => (
         />
         <Route exact path="/clothes/:id" component={productDetailsPage} />
         <Route exact path="/user/:nickName" component={userProfilePage} />
-        <Route path="/clothes" component={searchProductsPage} />
+        <Route path="/products" component={searchProductsPage} />
         <AuthRoute exact path="/add_product" component={addProductPage} />
       </Switch>
     </Router>

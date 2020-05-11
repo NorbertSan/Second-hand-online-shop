@@ -37,7 +37,7 @@ const StyledMenuList = styled.ul`
   top: 0;
   left: 0;
   background: ${theme.colors.whiteish};
-  z-index: 999;
+  z-index: 9;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -57,7 +57,7 @@ const StyledBackground = styled.div`
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.7);
-  z-index: 1;
+  z-index: 9;
 `;
 const StyledCategoryList = styled.ul`
   display: flex;
@@ -125,14 +125,11 @@ const Menu = ({ toggleMenuOpen }) => {
               <StyledIcon big src={avatar || NoFaceIcon} alt="profile image" />
               <NickName big>{nickName}</NickName>
             </StyledUserInfo>
-            <Button
-              secondary
-              onClick={() => toggleMenuOpen(false)}
-              as={Link}
-              to={`/user/${nickName}`}
-            >
-              My account
-            </Button>
+            <Link to={`/user/${nickName}`}>
+              <Button secondary onClick={() => toggleMenuOpen(false)}>
+                My account
+              </Button>
+            </Link>
           </StyledUserPanel>
         )}
         <StyledButton

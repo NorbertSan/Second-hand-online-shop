@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import queryString from "query-string";
 import styled from "styled-components";
 
 // COMPONENTS
-// import ProductsItemsGrid from "components/molecules/ProductsItemsGrid";
 import FiltersProducts from "./FiltersProducts";
+import ProductsItemsGrid from "./ProductsItemsGrid";
 
 const StyledWrapper = styled.section`
   padding: 15px;
@@ -14,11 +16,17 @@ const StyledWrapper = styled.section`
 `;
 
 const SearchProductsPage = () => {
-  const [filters, setFilters] = useState({});
+  const [page, setPage] = useState(1);
+  const location = useLocation();
+  useEffect(() => {
+    const queries = queryString.parse(location.search);
+    const page = queries.page;
+    setPage(parseInt(page || 1));
+  }, []);
   return (
     <StyledWrapper>
-      <FiltersProducts setFiltersParent={setFilters} />
-      {/* <ProductsItemsGrid /> */}
+      <FiltersProducts setPage={setPage} page={page} />
+      <ProductsItemsGrid page={page} setPage={setPage} />
     </StyledWrapper>
   );
 };

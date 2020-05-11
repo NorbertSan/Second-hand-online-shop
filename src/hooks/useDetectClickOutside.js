@@ -5,6 +5,7 @@ const useDetectClickOutside = (ref, handler) => {
   useEffect(() => {
     document.addEventListener("click", listener);
     return () => document.removeEventListener("click", listener);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 };
 export default useDetectClickOutside;

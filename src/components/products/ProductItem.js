@@ -12,9 +12,6 @@ import ImageSlider from "./ImageSlider";
 import IconUser from "assets/icons/userIcon.svg";
 
 const StyledWrapper = styled.li`
-  /* margin-bottom: 25px; */
-  /* min-width: 150px;
-  max-width: 170px; */
   position: relative;
   background: rgba(0, 0, 0, 0.03);
   padding: 3px;

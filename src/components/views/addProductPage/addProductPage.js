@@ -15,26 +15,8 @@ import Loader from "react-loader-spinner";
 import { useSelector, useDispatch } from "react-redux";
 import { addProduct } from "redux/actions/dataActions";
 import { CLEAR_ERRORS_ADD_PRODUCT } from "redux/types";
-
-const types = [
-  { key: 1, value: "Shirt" },
-  { key: 2, value: "Dress" },
-  { key: 3, value: "Trousers" },
-  { key: 4, value: "Shoes" },
-];
-const sizes = [
-  { key: 1, value: "XS" },
-  { key: 2, value: "S" },
-  { key: 3, value: "M" },
-  { key: 4, value: "L" },
-  { key: 5, value: "XL" },
-  { key: 6, value: "XXL" },
-];
-const genders = [
-  { key: 1, value: "Male" },
-  { key: 2, value: "Female" },
-  { key: 3, value: "Kid" },
-];
+// FILTERS
+import { types, sizes, genders, conditions } from "utils/productFilterData";
 
 // STYLES
 const StyledWrapper = styled.form`
@@ -59,12 +41,14 @@ const StyledSelect = styled.select`
   background: #eee;
   color: grey;
   margin-right: 10px;
+  margin-bottom: 5px;
   border: none;
   box-shadow: 0 0 1px grey;
 `;
 const StyledSelectWrapper = styled.div`
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
 `;
 const StyledInput = styled(Input)`
@@ -95,6 +79,7 @@ const AddProductPage = () => {
     price: 0,
     description: "",
     type: types[0].value,
+    condition: conditions[0].value,
     size: sizes[0].value,
     gender: genders[0].value,
     images: [],
@@ -162,6 +147,17 @@ const AddProductPage = () => {
           {types.map((type) => (
             <option key={type.key} value={type.value}>
               {type.value}
+            </option>
+          ))}
+        </StyledSelect>
+        <StyledSelect
+          value={inputsValue.condition}
+          onChange={handleInputChange}
+          name="condition"
+        >
+          {conditions.map((condition) => (
+            <option key={condition.key} value={condition.value}>
+              {condition.value}
             </option>
           ))}
         </StyledSelect>
