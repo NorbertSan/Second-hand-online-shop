@@ -1,12 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
+import PropTypes from "prop-types";
 import moment from "moment";
 
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 300px;
+  width: 100%;
   margin: auto;
   background: #eee;
   padding: 15px;
@@ -34,43 +35,43 @@ const StyledDescription = styled.p`
   font-size: ${theme.fontSize.s};
 `;
 
-const ClothesItemSummary = () => {
+const ProductSummary = ({ product }) => {
   return (
     <StyledWrapper>
-      <h3>29,99 zł</h3>
+      <h3>{product.price} zł</h3>
       <StyledInnerWrapper>
         <StyledLi>
           <StyledLabel>Brand</StyledLabel>
-          <span>Berschka</span>
+          <span>{product.brand}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Size</StyledLabel>
-          <span>36.5</span>
+          <span>{product.size}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Condition</StyledLabel>
-          <span>New</span>
+          <span>{product.condition}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Location</StyledLabel>
-          <span>Kielce,Poland</span>
+          <span>{product.writer.location}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Views</StyledLabel>
-          <span>167</span>
+          <span>{product.views}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Added</StyledLabel>
-          <span>{moment(Date.now()).fromNow()}</span>
+          <span>{moment(product.createdAt).fromNow()}</span>
         </StyledLi>
       </StyledInnerWrapper>
-      <StyledDescription>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus
-        nemo numquam repellendus harum libero. Repellendus quibusdam dolore illo
-        aliquid quisquam!
-      </StyledDescription>
+      <StyledDescription>{product.description}</StyledDescription>
     </StyledWrapper>
   );
 };
 
-export default ClothesItemSummary;
+ProductSummary.propTypes = {
+  product: PropTypes.object.isRequired,
+};
+
+export default ProductSummary;

@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import PropTypes from "prop-types";
-import { useLocation, useHistory } from "react-router-dom";
-import queryString from "query-string";
 // filters
 import {
   sizes,
   conditions,
   types,
   productsPerPage,
+  genders,
 } from "utils/productFilterData";
 // COMPONENTS
 import FilterLabel from "./FilterLabel";
+import ClearFilters from "./ClearFilters";
+// HOOKS
+import useParseFiltersFromURL from "hooks/useParseFiltersFromURL";
+import useDetectFiltersChange from "hooks/useDetectFiltersChange";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -27,10 +29,11 @@ const StyledSelect = styled.select`
   color: grey;
   margin-right: 10px;
   margin-bottom: 10px;
-  border: none;
-  box-shadow: 0 0 1px grey;
+  option {
+    width: 80%;
+    padding: 0;
+  }
 `;
-
 const StyledFilterList = styled.div`
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
@@ -39,66 +42,43 @@ const StyledFilterList = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
+const StyledOption = styled.option`
+  &.selected {
+    background: #cbe2b0;
+  }
+`;
 
-const FiltersProducts = ({ page, setPage }) => {
-  const [limit, setLimit] = useState(8);
-  const history = useHistory();
-  const [filters, setFilters] = useState({
+const FiltersProducts = () => {
+  const initialFilters = {
     type: [],
     condition: [],
     size: [],
-  });
-  const location = useLocation();
-  useEffect(() => {
-    const query = queryString.parse(location.search);
-    setFilters({
-      type: query.type
-        ? typeof query.type === "object"
-          ? [...query.type]
-          : [query.type]
-        : [],
-      condition: query.condition
-        ? typeof query.condition === "object"
-          ? [...query.condition]
-          : [query.condition]
-        : [],
-      size: query.size
-        ? typeof query.size === "object"
-          ? [...query.size]
-          : [query.size]
-        : [],
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  useEffect(() => {
-    let newUrl = "/products?";
-    Object.keys(filters).map(
-      (category) =>
-        filters[category].length > 0 &&
-        filters[category].map((filter) => (newUrl += `&${category}=${filter}`))
-    );
-    newUrl += `&page=${page}`;
-    newUrl += `&limit=${limit}`;
-    history.push(newUrl);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filters, page, limit]);
+    gender: [],
+    limit: [],
+    page: [],
+  };
+  const [filters, setFilters] = useState(initialFilters);
+  useParseFiltersFromURL(setFilters, initialFilters);
+  useDetectFiltersChange(filters);
 
   const handleFilterChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    setPage(1);
     setFilters((prevState) => ({
       ...prevState,
       [name]: [...prevState[name], value].filter(
         (item, index, arr) => arr.indexOf(item) === index
       ),
+      page: [1],
     }));
   };
 
   const handleLimitChange = (e) => {
-    setPage(1);
-    setLimit(e.target.value);
+    setFilters((prevState) => ({
+      ...prevState,
+      limit: [e.target.value],
+      page: [1],
+    }));
   };
 
   const deleteFilter = (filterName, category) => {
@@ -109,47 +89,78 @@ const FiltersProducts = ({ page, setPage }) => {
       ),
     }));
   };
+
+  const clearAllFilters = () => setFilters(initialFilters);
+
   return (
-    <StyledWrapper>
+    <StyledWrapper onSubmit={(e) => e.preventDefault()}>
       <StyledFormWrapper>
-        <StyledSelect name="size" onChange={handleFilterChange}>
-          <option value="" hidden>
+        <StyledSelect value="" name="size" onChange={handleFilterChange}>
+          <StyledOption value="" hidden>
             Size
-          </option>
+          </StyledOption>
           {sizes.map((size) => (
-            <option key={size.key} value={size.value}>
+            <StyledOption
+              className={filters.size.includes(size.value) && "selected"}
+              key={size.key}
+              value={size.value}
+            >
               {size.value}
-            </option>
+            </StyledOption>
           ))}
         </StyledSelect>
-        <StyledSelect name="condition" onChange={handleFilterChange}>
-          <option value="" hidden>
+        <StyledSelect value="" name="condition" onChange={handleFilterChange}>
+          <StyledOption value="" hidden>
             Condition
-          </option>
+          </StyledOption>
           {conditions.map((condition) => (
-            <option key={condition.key} value={condition.value}>
+            <StyledOption
+              className={
+                filters.condition.includes(condition.value) && "selected"
+              }
+              key={condition.key}
+              value={condition.value}
+            >
               {condition.value}
-            </option>
+            </StyledOption>
           ))}
         </StyledSelect>
-        <StyledSelect name="type" onChange={handleFilterChange}>
-          <option value="" hidden>
+        <StyledSelect value="" name="type" onChange={handleFilterChange}>
+          <StyledOption value="" hidden>
             Type
-          </option>
+          </StyledOption>
           {types.map((type) => (
-            <option key={type.key} value={type.value}>
+            <StyledOption
+              className={filters.type.includes(type.value) && "selected"}
+              key={type.key}
+              value={type.value}
+            >
               {type.value}
-            </option>
+            </StyledOption>
+          ))}
+        </StyledSelect>
+        <StyledSelect value="" name="gender" onChange={handleFilterChange}>
+          <StyledOption value="" hidden>
+            Gender
+          </StyledOption>
+          {genders.map((gender) => (
+            <StyledOption
+              className={filters.gender.includes(gender.value) && "selected"}
+              key={gender.key}
+              value={gender.value}
+            >
+              {gender.value}
+            </StyledOption>
           ))}
         </StyledSelect>
         <StyledSelect name="limit" onChange={handleLimitChange}>
-          <option value="" hidden>
+          <StyledOption value="" hidden>
             Per page
-          </option>
+          </StyledOption>
           {productsPerPage.map((amount) => (
-            <option key={amount.key} value={amount.value}>
+            <StyledOption key={amount.key} value={amount.value}>
               {amount.value}
-            </option>
+            </StyledOption>
           ))}
         </StyledSelect>
       </StyledFormWrapper>
@@ -157,6 +168,8 @@ const FiltersProducts = ({ page, setPage }) => {
         {Object.keys(filters).map(
           (category) =>
             filters[category].length > 0 &&
+            category !== "page" &&
+            category !== "limit" &&
             filters[category].map((filter, index) => (
               <FilterLabel
                 deleteFilter={deleteFilter}
@@ -167,12 +180,9 @@ const FiltersProducts = ({ page, setPage }) => {
             ))
         )}
       </StyledFilterList>
+      <ClearFilters clearAllFilters={clearAllFilters} filters={filters} />
     </StyledWrapper>
   );
 };
 
-FiltersProducts.propTypes = {
-  page: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
-};
 export default FiltersProducts;

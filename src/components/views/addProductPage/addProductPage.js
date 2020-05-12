@@ -63,6 +63,17 @@ const StyledValidateAlert = styled(ValidateAlert)`
   text-align: center;
 `;
 
+const initialState = {
+  brand: "",
+  price: "",
+  description: "",
+  type: types[0].value,
+  condition: conditions[0].value,
+  size: sizes[0].value,
+  gender: genders[0].value,
+  images: [],
+};
+
 const AddProductPage = () => {
   const userId = useSelector((state) => state.user._id);
   const success = useSelector((state) => state.UI.successAddProduct);
@@ -74,26 +85,17 @@ const AddProductPage = () => {
   useEffect(() => {
     dispatch({ type: CLEAR_ERRORS_ADD_PRODUCT });
   }, [dispatch]);
-  const initialState = {
-    brand: "",
-    price: 0,
-    description: "",
-    type: types[0].value,
-    condition: conditions[0].value,
-    size: sizes[0].value,
-    gender: genders[0].value,
-    images: [],
-  };
+
   const [inputsValue, setInputsValue] = useState(initialState);
   const handleInputChange = (e) =>
     setInputsValue({ ...inputsValue, [e.target.name]: e.target.value });
 
-  const handlePriceChange = (e) =>
-    setInputsValue({ ...inputsValue, price: parseFloat(e.target.value) });
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    setInputsValue({ ...inputsValue, price: inputsValue.price.toFixed(2) });
+    setInputsValue({
+      ...inputsValue,
+      price: parseFloat(parseFloat(inputsValue.price).toFixed(2)),
+    });
     const validateErrors = addProductValidator(inputsValue);
     setErrors(validateErrors);
     if (Object.keys(validateErrors).length > 0) return;
@@ -109,7 +111,7 @@ const AddProductPage = () => {
     setInputsValue({ ...inputsValue, images: files });
   };
   return (
-    <StyledWrapper onSubmit={handleSubmit}>
+    <StyledWrapper autoComplete="off" onSubmit={handleSubmit}>
       {success && <AddProductAlert success text={success} />}
       {serverError && <AddProductAlert error text={serverError} />}
       <StyledTitle>Sell cloth form</StyledTitle>
@@ -129,7 +131,7 @@ const AddProductPage = () => {
           placeholder="price PLN"
           name="price"
           value={inputsValue.price}
-          onChange={handlePriceChange}
+          onChange={handleInputChange}
         />
       </StyledInnerWrapper>
       <Textarea

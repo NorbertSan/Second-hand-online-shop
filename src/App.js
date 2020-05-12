@@ -19,7 +19,7 @@ import productDetailsPage from "components/views/productDetailsPage/productDetai
 import userProfilePage from "components/views/userProfilePage";
 import searchProductsPage from "components/views/searchProductsPage/searchProductsPage";
 
-const BASE_URL = "http://localhost:5000/";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
 
 AuthenticateToken();
@@ -36,7 +36,11 @@ const App = () => (
           path="/signup/select_type"
           component={signInSignUpPage}
         />
-        <Route exact path="/clothes/:id" component={productDetailsPage} />
+        <Route
+          exact
+          path="/product/:product_id"
+          component={productDetailsPage}
+        />
         <Route exact path="/user/:nickName" component={userProfilePage} />
         <Route path="/products" component={searchProductsPage} />
         <AuthRoute exact path="/add_product" component={addProductPage} />

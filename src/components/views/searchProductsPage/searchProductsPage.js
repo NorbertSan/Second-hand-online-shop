@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import queryString from "query-string";
+import React from "react";
 import styled from "styled-components";
 
 // COMPONENTS
@@ -16,17 +14,10 @@ const StyledWrapper = styled.section`
 `;
 
 const SearchProductsPage = () => {
-  const [page, setPage] = useState(1);
-  const location = useLocation();
-  useEffect(() => {
-    const queries = queryString.parse(location.search);
-    const page = queries.page;
-    setPage(parseInt(page || 1));
-  }, []);
   return (
     <StyledWrapper>
-      <FiltersProducts setPage={setPage} page={page} />
-      <ProductsItemsGrid page={page} setPage={setPage} />
+      <FiltersProducts />
+      <ProductsItemsGrid />
     </StyledWrapper>
   );
 };

@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // COMPONENTS
-import Button from "components/atoms/Button";
 import PhotosGallery from "./PhotosGallery";
-import TagsSection from "./TagsSection";
-import ClothesItemSummary from "./ClothesItemSummary";
+import ProductSummary from "./ProductSummary";
+import FuncionalityButtons from "./FuncionalityButtons";
+import AboutSeller from "./AboutSeller";
+import ProductNotFound from "./ProductNotFound";
+import { Instagram } from "react-content-loader";
+// HOOK
+import useGetSingleProduct from "hooks/useGetSingleProduct";
 
 const StyledWrapper = styled.section`
   padding: 15px;
@@ -14,22 +18,27 @@ const StyledWrapper = styled.section`
   display: flex;
   flex-direction: column;
 `;
-const StyledButton = styled(Button)`
-  margin: 7px 0;
-  width: 60%;
-  align-self: center;
-`;
-
-const clothesDetailsPage = () => {
+const ClothesDetailsPage = () => {
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+  useGetSingleProduct(setProduct, setLoading, setError);
+  if (error) return <ProductNotFound />;
   return (
     <StyledWrapper>
-      <PhotosGallery />
-      <TagsSection />
-      <ClothesItemSummary />
-      <StyledButton>Buy Now</StyledButton>
-      <StyledButton secondary>Add to favourites</StyledButton>
+      {loading && (
+        <Instagram backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
+      )}
+      {product && (
+        <>
+          <PhotosGallery product={product} />
+          <ProductSummary product={product} />
+          <FuncionalityButtons />
+          <AboutSeller authorInfo={product.writer} />
+        </>
+      )}
     </StyledWrapper>
   );
 };
 
-export default clothesDetailsPage;
+export default ClothesDetailsPage;

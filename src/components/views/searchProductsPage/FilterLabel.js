@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
+// ICON
+import xIcon from "assets/icons/xIcon.svg";
 
 const StyledWrapper = styled.div`
   background: #eee;
@@ -17,6 +19,13 @@ const StyledWrapper = styled.div`
   margin: 5px;
 `;
 
+const StyledIcon = styled.img`
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  top: 5px;
+  right: 5px;
+`;
 const FilterLabel = ({ label, category, deleteFilter }) => {
   const handleDeleteClick = (e) => {
     e.preventDefault();
@@ -25,6 +34,7 @@ const FilterLabel = ({ label, category, deleteFilter }) => {
   return (
     <StyledWrapper onClick={handleDeleteClick}>
       <span>{label}</span>
+      <StyledIcon src={xIcon} alt="close icon" />
     </StyledWrapper>
   );
 };

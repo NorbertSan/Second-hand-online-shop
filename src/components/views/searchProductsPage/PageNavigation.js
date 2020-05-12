@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
+import queryString from "query-string";
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -19,37 +21,54 @@ const StyledWrapper = styled.section`
   }
 `;
 
-const PageNavigation = ({ page, setPage, maxPages }) => {
-  const handleSetPage = (e) =>
-    setPage(parseInt(e.target.attributes.number.value));
+const PageNavigation = ({ maxPages }) => {
+  const location = useLocation();
+  const history = useHistory();
+  const queries = queryString.parse(location.search);
+  const [currentPage, setCurrentPage] = useState();
+  const handleSetCurrentPage = (e) => {
+    const previousPage = queries.page;
+    const newPage = parseInt(e.target.attributes.number.value);
+    const pathname = location.pathname;
+    const newURL = `${pathname}/${location.search.replace(
+      `page=${previousPage}`,
+      `page=${newPage}`
+    )}`;
+    history.push(newURL);
+  };
+
+  useEffect(() => {
+    setCurrentPage(parseInt(queries.page));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.search]);
   return (
     <StyledWrapper>
-      {page > 1 && (
-        <span number={1} onClick={handleSetPage}>
+      {currentPage > 1 && (
+        <span number={1} onClick={handleSetCurrentPage}>
           1
         </span>
       )}
-
-      {page > 3 && <span>...</span>}
-
-      {page > 2 && (
-        <span number={page - 1} onClick={handleSetPage}>
-          {page - 1}
+      {currentPage > 3 && <span>...</span>}
+      {currentPage > 2 && (
+        <span number={currentPage - 1} onClick={handleSetCurrentPage}>
+          {currentPage - 1}
         </span>
       )}
-
-      <span number={page} className="active" onClick={handleSetPage}>
-        {page}
+      <span
+        number={currentPage}
+        className="active"
+        onClick={handleSetCurrentPage}
+      >
+        {currentPage}
       </span>
-
-      {page < maxPages && (
-        <span number={page + 1} onClick={handleSetPage}>
-          {page + 1}
+      {currentPage < maxPages && (
+        <span number={currentPage + 1} onClick={handleSetCurrentPage}>
+          {currentPage + 1}
         </span>
       )}
-      {maxPages - page > 2 && <span>...</span>}
-      {maxPages > page + 1 && (
-        <span number={maxPages} onClick={handleSetPage}>
+      {maxPages - currentPage > 2 && <span>...</span>}
+      {maxPages > currentPage + 1 && (
+        <span number={maxPages} onClick={handleSetCurrentPage}>
           {maxPages}
         </span>
       )}
@@ -58,9 +77,7 @@ const PageNavigation = ({ page, setPage, maxPages }) => {
 };
 
 PageNavigation.propTypes = {
-  page: PropTypes.number.isRequired,
   maxPages: PropTypes.number.isRequired,
-  setPage: PropTypes.func.isRequired,
 };
 
 export default PageNavigation;

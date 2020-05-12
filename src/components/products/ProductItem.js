@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 // COMPONENTS
 import UserIcon from "components/atoms/UserIcon";
@@ -58,7 +59,7 @@ const StyledProductInformation = styled.div`
 
 const ProductItem = ({ product }) => {
   return (
-    <StyledWrapper>
+    <StyledWrapper as={Link} to={`/product/${product._id}`}>
       <StyledAuthorInfo>
         <StyledUserIcon src={IconUser} alt="user icon" />
         <NickName black>{product.writer.nickName}</NickName>

@@ -23,10 +23,10 @@ const StyledWrapper = styled.ul`
   position: relative;
 `;
 
-const ProductsItemsGrid = ({ setPage, page }) => {
+const ProductsItemsGrid = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
-  const [pages, setMaxPages] = useState(1);
+  const [maxPages, setMaxPages] = useState(1);
   const location = useLocation();
   const queries = queryString.parse(location.search);
   useGetProducts(
@@ -50,9 +50,7 @@ const ProductsItemsGrid = ({ setPage, page }) => {
           <NoPostsAlert />
         )}
       </StyledWrapper>
-      {pages > 1 && (
-        <PageNavigation page={page} maxPages={pages} setPage={setPage} />
-      )}
+      {maxPages > 1 && <PageNavigation maxPages={maxPages} />}
     </>
   );
 };

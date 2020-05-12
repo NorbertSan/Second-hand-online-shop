@@ -1,26 +1,42 @@
-import React from "react";
-import Zoom from "react-medium-image-zoom";
-import "react-medium-image-zoom/dist/styles.css";
-
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
-import dummyPhoto from "assets/images/dummyPhoto.jpg";
+import ImageGallery from "react-image-gallery";
+import "react-image-gallery/styles/css/image-gallery.css";
+
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.div`
-  width: 200px;
-  margin: auto;
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
+  width: 100%;
+  box-shadow: 0 0 1px grey;
+  margin: 0 auto;
+  z-index: 1;
 `;
 
-const PhotosGallery = () => {
+const PhotosGallery = ({ product }) => {
+  const [images, setImages] = useState([]);
+  useEffect(() => {
+    const items = [];
+    if (product.images && product.images.length > 0) {
+      product.images.forEach((image) =>
+        items.push({
+          original: `${BASE_URL}/${image}`,
+          thumbnail: `${BASE_URL}/${image}`,
+        })
+      );
+    }
+    setImages(items);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [product.images]);
   return (
     <StyledWrapper>
-      <Zoom>
-        <img alt="that wanaka tree" src={dummyPhoto} width="100%" />
-      </Zoom>
+      <ImageGallery items={images} />
     </StyledWrapper>
   );
 };
+
+PhotosGallery.propTypes = {
+  product: PropTypes.object.isRequired,
+};
+
 export default PhotosGallery;
