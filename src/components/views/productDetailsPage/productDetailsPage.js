@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 // COMPONENTS
 import PhotosGallery from "./PhotosGallery";
@@ -19,21 +20,20 @@ const StyledWrapper = styled.section`
   flex-direction: column;
 `;
 const ClothesDetailsPage = () => {
-  const [product, setProduct] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const product = useSelector((state) => state.data.singleProduct);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  useGetSingleProduct(setProduct, setLoading, setError);
+  useGetSingleProduct(setLoading, setError);
   if (error) return <ProductNotFound />;
   return (
     <StyledWrapper>
-      {loading && (
+      {loading ? (
         <Instagram backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
-      )}
-      {product && (
+      ) : (
         <>
           <PhotosGallery product={product} />
           <ProductSummary product={product} />
-          <FuncionalityButtons />
+          <FuncionalityButtons product_id={product._id} />
           <AboutSeller authorInfo={product.writer} />
         </>
       )}

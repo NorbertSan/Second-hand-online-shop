@@ -7,6 +7,8 @@ import {
   SET_SUCCESS_ADD_PRODUCT,
   SET_ERRORS_ADD_PRODUCT,
   CLEAR_ERRORS_ADD_PRODUCT,
+  LOADING_PRODUCTS,
+  SET_PRODUCTS,
 } from "redux/types";
 
 const initialState = {
@@ -17,6 +19,7 @@ const initialState = {
   errorsAddProduct: null,
   successAddProduct: null,
   loadingAddProduct: false,
+  loadingProducts: false,
 };
 
 export default (state = initialState, action) => {
@@ -66,6 +69,12 @@ export default (state = initialState, action) => {
         ...state,
         loadingAddProduct: true,
       };
+    case LOADING_PRODUCTS:
+      return { ...state, loadingProducts: true };
+
+    case SET_PRODUCTS:
+      return { ...state, loadingProducts: false };
+
     default:
       return { ...state };
   }

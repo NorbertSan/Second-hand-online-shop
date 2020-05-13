@@ -14,7 +14,7 @@ const StyledIcon = styled.img`
   height: 100px;
 `;
 
-const NoPostsAlert = () => {
+const NoProductsAlert = () => {
   return (
     <StyledWrapper>
       <div>No matching products found ☹☹</div>
@@ -23,4 +23,4 @@ const NoPostsAlert = () => {
   );
 };
 
-export default NoPostsAlert;
+export default NoProductsAlert;

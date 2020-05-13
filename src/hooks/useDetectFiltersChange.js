@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 const useDetectFiltersChange = (filters) => {
   const history = useHistory();
+  console.log(filters);
   useEffect(() => {
     let newUrl = "/products?";
     Object.keys(filters).map(

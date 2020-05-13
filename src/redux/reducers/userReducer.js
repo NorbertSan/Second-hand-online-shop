@@ -3,6 +3,7 @@ import {
   LOGOUT_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
+  TOGGLE_LIKE_PRODUCT,
 } from "redux/types";
 
 const initialState = {
@@ -30,6 +31,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         auth: false,
+      };
+    case TOGGLE_LIKE_PRODUCT:
+      return {
+        ...state,
+        likesProducts: action.payload.productsIdsList,
       };
     default:
       return { ...state };

@@ -1,33 +1,21 @@
 import React, { useRef } from "react";
-import styled, { keyframes, css } from "styled-components";
+import styled, { css } from "styled-components";
 import { Link } from "react-router-dom";
 import theme from "utils/theme";
-
+import { useLocation } from "react-router-dom";
 // HOOK
 import useDetectClickOutside from "hooks/useDetectClickOutside";
 // REDUX STUFF
 import { useSelector } from "react-redux";
 // ICONS
-import WomenIcon from "assets/icons/women.svg";
-import KidIcon from "assets/icons/kid.svg";
-import ManIcon from "assets/icons/man.svg";
 import NoFaceIcon from "assets/icons/NoFaceIcon.svg";
 // COMPONENTS
 import Button from "components/atoms/Button";
 import NickName from "components/atoms/NickName";
 import Logout from "./Logout";
-
-const appear = keyframes`
-  0%{
-    transform:translateY(-50px);
-  }
-  50%{
-    transform:translateY(8px);
-  }
-  100%{
-    transform:translateY(0);
-  }
-`;
+import GenderFilters from "./GenderFilters";
+// ANIMATIONS
+import { menuAppear } from "utils/keyframesAnimations";
 
 const StyledMenuList = styled.ul`
   margin: 0;
@@ -43,7 +31,7 @@ const StyledMenuList = styled.ul`
   flex-direction: column;
   align-items: center;
   padding: 100px 15px 15px 15px;
-  animation: ${appear} 0.4s ease forwards;
+  animation: ${menuAppear} 0.4s ease forwards;
 `;
 const StyledButton = styled(Button)`
   width: 100%;
@@ -59,30 +47,6 @@ const StyledBackground = styled.div`
   background: rgba(0, 0, 0, 0.7);
   z-index: 9;
 `;
-const StyledCategoryList = styled.ul`
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  border-top: 1px solid ${theme.colors.secondary};
-  align-self: start;
-  width: 100%;
-  h4 {
-    color: grey;
-  }
-`;
-const StyledLink = styled(Link)`
-  display: flex;
-  align-items: flex-end;
-  padding: 17px;
-  border-bottom: 1px solid ${theme.colors.secondary};
-  span {
-    font-weight: bold;
-    color: ${theme.colors.secondary};
-    font-size: ${theme.fontSize.s};
-  }
-`;
 const StyledIcon = styled.img`
   width: 20px;
   height: 20px;
@@ -96,6 +60,7 @@ const StyledIcon = styled.img`
       height: 40px;
     `}
 `;
+
 const StyledUserInfo = styled.div`
   display: flex;
   align-items: center;
@@ -115,6 +80,7 @@ const Menu = ({ toggleMenuOpen }) => {
   const avatar = useSelector((state) => state.user.avatar);
   const nickName = useSelector((state) => state.user.nickName);
   const menuRef = useRef(null);
+  const location = useLocation();
   useDetectClickOutside(menuRef, toggleMenuOpen);
   return (
     <StyledBackground>
@@ -146,21 +112,9 @@ const Menu = ({ toggleMenuOpen }) => {
             </StyledButton>
           </Link>
         )}
-        <StyledCategoryList>
-          <h4>Category</h4>
-          <StyledLink to="/women" onClick={() => toggleMenuOpen(false)}>
-            <StyledIcon src={WomenIcon} alt="woman icon" />
-            <span>Women</span>
-          </StyledLink>
-          <StyledLink to="/men" onClick={() => toggleMenuOpen(false)}>
-            <StyledIcon src={ManIcon} alt="man icon" />
-            <span>Men</span>
-          </StyledLink>
-          <StyledLink to="/kids" onClick={() => toggleMenuOpen(false)}>
-            <StyledIcon src={KidIcon} alt="kid icon" />
-            <span>Kid</span>
-          </StyledLink>
-        </StyledCategoryList>
+        {location.pathname !== "/products" && (
+          <GenderFilters toggleMenuOpen={toggleMenuOpen} />
+        )}
         {auth && <Logout />}
       </StyledMenuList>
     </StyledBackground>

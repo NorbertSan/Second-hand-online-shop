@@ -33,12 +33,13 @@ const StyledDescription = styled.p`
   margin-top: 20px;
   color: ${theme.colors.blackish};
   font-size: ${theme.fontSize.s};
+  font-style: italic;
 `;
 
 const ProductSummary = ({ product }) => {
   return (
     <StyledWrapper>
-      <h3>{product.price} zł</h3>
+      <h3>{product.price.toFixed(2)} zł</h3>
       <StyledInnerWrapper>
         <StyledLi>
           <StyledLabel>Brand</StyledLabel>
@@ -59,6 +60,10 @@ const ProductSummary = ({ product }) => {
         <StyledLi>
           <StyledLabel>Views</StyledLabel>
           <span>{product.views}</span>
+        </StyledLi>
+        <StyledLi>
+          <StyledLabel>Likes</StyledLabel>
+          <span>{product.likes}</span>
         </StyledLi>
         <StyledLi>
           <StyledLabel>Added</StyledLabel>

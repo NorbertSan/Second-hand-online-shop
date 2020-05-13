@@ -7,9 +7,12 @@ import queryString from "query-string";
 import useGetProducts from "hooks/useGetProducts";
 // COMPONENTS
 import ProductItem from "components/products/ProductItem";
-import NoPostsAlert from "components/products/NoPostsAlert";
+import NoProductsAlert from "components/products/NoProductsAlert";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
 import PageNavigation from "components/views/searchProductsPage/PageNavigation";
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import { getProducts } from "redux/actions/dataActions";
 
 const StyledWrapper = styled.ul`
   margin-top: 30px;
@@ -24,18 +27,13 @@ const StyledWrapper = styled.ul`
 `;
 
 const ProductsItemsGrid = () => {
-  const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState([]);
+  const products = useSelector((state) => state.data.products);
+  const loading = useSelector((state) => state.UI.loadingProducts);
   const [maxPages, setMaxPages] = useState(1);
   const location = useLocation();
   const queries = queryString.parse(location.search);
-  useGetProducts(
-    queries,
-    [location.search],
-    setProducts,
-    setLoading,
-    setMaxPages
-  );
+  const clearPrevious = true;
+  useGetProducts(queries, [location.search], clearPrevious, setMaxPages);
 
   return (
     <>
@@ -47,7 +45,7 @@ const ProductsItemsGrid = () => {
             <ProductItem product={product} key={product._id} />
           ))
         ) : (
-          <NoPostsAlert />
+          <NoProductsAlert />
         )}
       </StyledWrapper>
       {maxPages > 1 && <PageNavigation maxPages={maxPages} />}

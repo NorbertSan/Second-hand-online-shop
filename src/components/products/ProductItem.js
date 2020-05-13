@@ -59,15 +59,17 @@ const StyledProductInformation = styled.div`
 
 const ProductItem = ({ product }) => {
   return (
-    <StyledWrapper as={Link} to={`/product/${product._id}`}>
+    <StyledWrapper>
       <StyledAuthorInfo>
         <StyledUserIcon src={IconUser} alt="user icon" />
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>
-      <ImageSlider images={product.images} />
+      <Link to={`/product/${product._id}`}>
+        <ImageSlider images={product.images} />
+      </Link>
       <StyledProductInformation>
-        <LikeButton likes={product.likes} />
-        <span>Price : {product.price} PLN</span>
+        <LikeButton likes={product.likes} product_id={product._id} />
+        <span>Price : {product.price.toFixed(2)} PLN</span>
         <span>Size : {product.size}</span>
         <span>Brand : {product.brand}</span>
       </StyledProductInformation>

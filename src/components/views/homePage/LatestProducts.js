@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
-
+// HOOK
+import useGetProducts from "hooks/useGetProducts";
 // COMPONENTS
 import Button from "components/atoms/Button";
 import ProductItem from "components/products/ProductItem";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
+// REDUX
+import { useSelector, useDispatch } from "react-redux";
+import { CLEAR_PRODUCTS } from "redux/types";
 
 const StyledWrapper = styled.div`
   margin-top: 30px;
@@ -25,30 +28,17 @@ const StyledButton = styled(Button)`
 const LatestProducts = () => {
   const limit = 8;
   const [page, setPage] = useState(1);
-  const [latestProducts, setLatestProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [fetchMore, setFetchMore] = useState(true);
+  const latestProducts = useSelector((state) => state.data.products);
+  const loading = useSelector((state) => state.UI.loadingProducts);
+  const dispatch = useDispatch();
 
-  const getProducts = async () => {
-    setLoading(true);
-    try {
-      const variable = { limit, page };
-      const res = await axios.post("/product", variable);
-      setLatestProducts((prevState) => [...prevState, ...res.data.products]);
-      setLoading(false);
-    } catch (err) {
-      console.error(err.reponse);
-      setLoading(false);
-    }
-  };
-
+  const clearPrevious = false;
+  const queries = { limit, page };
+  useGetProducts(queries, [page], clearPrevious, null, setFetchMore);
   useEffect(() => {
-    setFetchMore(
-      latestProducts.length === 0 ? true : latestProducts.length % limit !== 0
-    );
-    getProducts();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [page]);
+    dispatch({ type: CLEAR_PRODUCTS });
+  }, []);
 
   const loadMore = () => setPage((prevState) => prevState + 1);
 

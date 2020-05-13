@@ -9,15 +9,19 @@ import { logout } from "redux/actions/userActions";
 
 const StyledButton = styled.button`
   align-self: flex-end;
-  width: 30px;
+  display: flex;
   height: 30px;
   padding: 0;
   margin-top: 10px;
   margin-right: 20px;
   border: none;
+  background: transparent;
+  font-weight: bold;
+  align-items: center;
 `;
 const StyledIcon = styled.img`
-  width: 100%;
+  width: 25px;
+  margin-right: 5px;
 `;
 
 const Logout = () => {
@@ -27,6 +31,7 @@ const Logout = () => {
   return (
     <StyledButton onClick={handleLogout}>
       <StyledIcon src={LogoutIcon} alt="logout icon" />
+      <span>Logout</span>
     </StyledButton>
   );
 };

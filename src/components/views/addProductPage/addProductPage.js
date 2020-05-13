@@ -49,7 +49,6 @@ const StyledSelectWrapper = styled.div`
   margin-top: 10px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
 `;
 const StyledInput = styled(Input)`
   width: 45%;

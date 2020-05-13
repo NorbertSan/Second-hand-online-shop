@@ -54,8 +54,8 @@ const FiltersProducts = () => {
     condition: [],
     size: [],
     gender: [],
-    limit: [],
-    page: [],
+    limit: [8],
+    page: [1],
   };
   const [filters, setFilters] = useState(initialFilters);
   useParseFiltersFromURL(setFilters, initialFilters);
@@ -74,9 +74,10 @@ const FiltersProducts = () => {
   };
 
   const handleLimitChange = (e) => {
+    const value = [e.target.value];
     setFilters((prevState) => ({
       ...prevState,
-      limit: [e.target.value],
+      limit: value,
       page: [1],
     }));
   };
