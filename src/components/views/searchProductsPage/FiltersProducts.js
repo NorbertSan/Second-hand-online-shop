@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 // filters
 import {
@@ -54,10 +55,25 @@ const FiltersProducts = () => {
     condition: [],
     size: [],
     gender: [],
+    brand: [],
     limit: [8],
     page: [1],
   };
   const [filters, setFilters] = useState(initialFilters);
+  const [brands, setBrands] = useState([]);
+  // GET BRANDS FROM DATABASE
+  useEffect(() => {
+    const fetchBrands = async () => {
+      try {
+        const res = await axios.get("/product/brands");
+        setBrands(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+    fetchBrands();
+  }, []);
+
   useParseFiltersFromURL(setFilters, initialFilters);
   useDetectFiltersChange(filters);
 
@@ -137,6 +153,20 @@ const FiltersProducts = () => {
               value={type.value}
             >
               {type.value}
+            </StyledOption>
+          ))}
+        </StyledSelect>
+        <StyledSelect value="" name="brand" onChange={handleFilterChange}>
+          <StyledOption value="" hidden>
+            Brand
+          </StyledOption>
+          {brands.map((brand, index) => (
+            <StyledOption
+              className={filters.brand.includes(brand) && "selected"}
+              key={index}
+              value={brand}
+            >
+              {brand}
             </StyledOption>
           ))}
         </StyledSelect>

@@ -7,7 +7,7 @@ import theme from "utils/theme";
 import SellerProductItem from "./SellerProductItem";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
 // HOOK
-import useGetUserProducts from "hooks/useGetUserProducts";
+import useGetProductsFromIdsArray from "hooks/useGetProductsFromIdsArray";
 
 const StyledWrapper = styled.ul`
   margin: 0;
@@ -31,7 +31,13 @@ const StyledTitle = styled.h3`
 const SellerProducts = ({ productsIds, nickName }) => {
   const [userProducts, setUserProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  useGetUserProducts(productsIds, setUserProducts, setLoading);
+  useGetProductsFromIdsArray(
+    productsIds,
+    setUserProducts,
+    setLoading,
+    null,
+    []
+  );
   return (
     <>
       <StyledTitle>{`Items user ${nickName} (${productsIds.length} products)`}</StyledTitle>

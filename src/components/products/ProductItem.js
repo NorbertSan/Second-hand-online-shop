@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // COMPONENTS
 import UserIcon from "components/atoms/UserIcon";
@@ -59,13 +59,19 @@ const StyledProductInformation = styled.div`
 `;
 
 const ProductItem = ({ product }) => {
+  const { pathname, search } = useLocation();
   return (
     <StyledWrapper>
       <StyledAuthorInfo>
         <StyledUserIcon src={IconUser} alt="user icon" />
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>
-      <Link to={`/product/${product._id}`}>
+      <Link
+        to={{
+          pathname: `/product/${product._id}`,
+          state: { prevPath: `${pathname}${search}` },
+        }}
+      >
         <ImageSlider images={product.images} />
       </Link>
       <StyledProductInformation>

@@ -12,7 +12,7 @@ const UseGetSingleProduct = (setLoading, setError) => {
   const fetchProduct = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`/product/${id}`, {
+      const res = await axios.get(`/product/singleProduct/${id}`, {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       });
       dispatch({ type: SET_SINGLE_PRODUCT, payload: res.data });

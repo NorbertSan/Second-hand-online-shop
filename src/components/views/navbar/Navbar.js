@@ -2,13 +2,16 @@ import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { Link } from "react-router-dom";
-
+// HOOK
 import useScrollNavigationDetect from "hooks/useScrollNavigationDetect";
 // COMPONENNTS
 import HamburgerButton from "./HamburgerButton";
 import Menu from "./Menu";
 import SearchInput from "./SearchInput";
 import Logo from "./Logo";
+import AuthPanelIcons from "./AuthPanelIcons";
+// REDUX STUFF
+import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.header`
   width: 100vw;
@@ -42,6 +45,7 @@ const StyledNavigationWrapper = styled.nav`
 const Navbar = () => {
   const NavbarRef = useRef(null);
   const [openMenu, toggleMenuOpen] = useState(false);
+  const auth = useSelector((state) => state.user.auth);
   useScrollNavigationDetect(NavbarRef, toggleMenuOpen);
   return (
     <StyledWrapper ref={NavbarRef}>
@@ -50,6 +54,7 @@ const Navbar = () => {
         <Logo as={Link} to="/" onClick={() => toggleMenuOpen(false)}>
           LOGO
         </Logo>
+        {auth && <AuthPanelIcons />}
         <HamburgerButton openMenu={openMenu} toggleMenuOpen={toggleMenuOpen} />
       </StyledNavigationWrapper>
       <SearchInput />

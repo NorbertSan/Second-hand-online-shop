@@ -4,6 +4,9 @@ import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import queryString from "query-string";
+// SCROLL STUFFS
+import Scroll from "react-scroll";
+const scroll = Scroll.animateScroll;
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -26,7 +29,9 @@ const PageNavigation = ({ maxPages }) => {
   const history = useHistory();
   const queries = queryString.parse(location.search);
   const [currentPage, setCurrentPage] = useState();
+
   const handleSetCurrentPage = (e) => {
+    scroll.scrollToTop({ duration: 200 });
     const previousPage = queries.page;
     const newPage = parseInt(e.target.attributes.number.value);
     const pathname = location.pathname;

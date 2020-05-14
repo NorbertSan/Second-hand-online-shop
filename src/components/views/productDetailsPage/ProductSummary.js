@@ -42,6 +42,10 @@ const ProductSummary = ({ product }) => {
       <h3>{product.price.toFixed(2)} zł</h3>
       <StyledInnerWrapper>
         <StyledLi>
+          <StyledLabel>Type</StyledLabel>
+          <span>{product.type}</span>
+        </StyledLi>
+        <StyledLi>
           <StyledLabel>Brand</StyledLabel>
           <span>{product.brand}</span>
         </StyledLi>

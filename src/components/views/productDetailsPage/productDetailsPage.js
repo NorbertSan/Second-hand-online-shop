@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
-
+import { Link, useLocation } from "react-router-dom";
+// ICON
+import BackIcon from "assets/icons/backArrow.svg";
 // COMPONENTS
 import PhotosGallery from "./PhotosGallery";
 import ProductSummary from "./ProductSummary";
@@ -13,20 +15,43 @@ import { Instagram } from "react-content-loader";
 import useGetSingleProduct from "hooks/useGetSingleProduct";
 
 const StyledWrapper = styled.section`
-  padding: 15px;
+  padding: 50px 15px 15px 15px;
   margin: 150px auto 30px;
   max-width: 960px;
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
-const ClothesDetailsPage = () => {
+const StyledBackButton = styled.button`
+  padding: 3px;
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  position: absolute;
+  top: 0;
+  left: 20px;
+`;
+const StyledImg = styled.img`
+  width: 100%;
+`;
+
+const ProductDetailsPage = () => {
   const product = useSelector((state) => state.data.singleProduct);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   useGetSingleProduct(setLoading, setError);
+  const { state } = useLocation();
+
   if (error) return <ProductNotFound />;
   return (
     <StyledWrapper>
+      <StyledBackButton
+        as={Link}
+        to={state && state.prevPath ? state.prevPath : "/"}
+      >
+        <StyledImg src={BackIcon} alt="left arrow" />
+      </StyledBackButton>
       {loading ? (
         <Instagram backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
       ) : (
@@ -41,4 +66,4 @@ const ClothesDetailsPage = () => {
   );
 };
 
-export default ClothesDetailsPage;
+export default ProductDetailsPage;

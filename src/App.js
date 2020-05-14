@@ -16,8 +16,9 @@ import homePage from "components/views/homePage/homePage";
 import addProductPage from "components/views/addProductPage/addProductPage";
 import signInSignUpPage from "components/views/signInSignUpPage/signInSignUpPage";
 import productDetailsPage from "components/views/productDetailsPage/productDetailsPage";
-import userProfilePage from "components/views/userProfilePage";
+import userProfilePage from "components/views/userProfilePage/userProfilePage";
 import searchProductsPage from "components/views/searchProductsPage/searchProductsPage";
+import favouritesProductsPage from "components/views/favouritesProductsPage/favouritesProductsPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -44,6 +45,11 @@ const App = () => (
         <Route exact path="/user/:nickName" component={userProfilePage} />
         <Route path="/products" component={searchProductsPage} />
         <AuthRoute exact path="/add_product" component={addProductPage} />
+        <AuthRoute
+          exact
+          path="/favourites"
+          component={favouritesProductsPage}
+        />
       </Switch>
     </Router>
   </Provider>

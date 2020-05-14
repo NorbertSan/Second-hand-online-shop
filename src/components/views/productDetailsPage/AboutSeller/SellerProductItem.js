@@ -2,11 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 // COMPONENTS
 import ImageSlider from "components/products/ImageSlider";
-import LikeButton from "components/products/LikeButton";
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -24,22 +23,22 @@ const StyledProductInformation = styled.div`
     font-size: ${theme.fontSize.s};
     font-weight: bold;
   }
-  div {
-    position: relative;
-  }
 `;
 
 const SellerProductItem = ({ product }) => {
+  const { pathname } = useLocation();
   return (
     <StyledWrapper>
-      <Link to={`/product/${product._id}`}>
+      <Link
+        to={{
+          pathname: `/product/${product._id}`,
+          state: { prevPath: pathname },
+        }}
+      >
         <ImageSlider images={product.images} />
       </Link>
       <StyledProductInformation>
         <span>{product.price.toFixed(2)} PLN</span>
-        <div>
-          <LikeButton likes={product.likes} product_id={product._id} />
-        </div>
       </StyledProductInformation>
     </StyledWrapper>
   );

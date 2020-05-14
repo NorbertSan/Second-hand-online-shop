@@ -11,7 +11,7 @@ const StyledWrapper = styled.section`
 `;
 
 const UserProfilePage = () => {
-  return <StyledWrapper></StyledWrapper>;
+  return <StyledWrapper>USER PROFILE </StyledWrapper>;
 };
 
 export default UserProfilePage;
