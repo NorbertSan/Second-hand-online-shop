@@ -36,17 +36,6 @@ const StyledDetails = styled.div`
   display: flex;
   flex-direction: column;
   color: ${theme.colors.blackish};
-  div {
-    font-size: ${theme.fontSize.s};
-    margin-bottom: 4px;
-    display: flex;
-    align-items: center;
-    &.big {
-      margin-bottom: 10px;
-      font-weight: bold;
-      font-size: ${theme.fontSize.m};
-    }
-  }
 `;
 const StyledIcon = styled.img`
   width: 13px;
@@ -56,27 +45,63 @@ const StyledLink = styled(Link)`
   font-style: italic;
   border-bottom: 1px solid ${theme.colors.blackish};
 `;
+const StyledDot = styled.div`
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 15px;
+  &.green {
+    background: ${theme.colors.primary};
+  }
+  &.red {
+    background: ${theme.colors.secondary};
+  }
+`;
+const StyledSingleInfo = styled.div`
+  font-size: ${theme.fontSize.s};
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  &.big {
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: ${theme.fontSize.m};
+  }
+`;
+const StyledOnlineInfo = styled.div`
+  display: flex;
+  align-items: center;
+`;
 
 const AboutSeller = ({ authorInfo }) => {
+  // IF LESS THAN 1 MINUTE MEAN ONLINE
+  const online = authorInfo.lastLogin + 60000 > Date.now();
+
   return (
     <StyledWrapper>
       <StyledUserInfo>
         <StyledAvatar src={UserIcon} alt="user avatar" />
         <StyledDetails>
-          <div className="big">
+          <StyledSingleInfo className="big">
             <StyledIcon src={UserIcon} alt="user icon" />
             <StyledLink to={`/user/${authorInfo.nickName}`}>
               {authorInfo.nickName}
             </StyledLink>
-          </div>
-          <div>
+          </StyledSingleInfo>
+          <StyledSingleInfo>
             <StyledIcon src={PinIcon} alt="pin icon" />
             <span>{authorInfo.location}</span>
-          </div>
-          <div>
-            <StyledIcon src={OfflineIcon} alt="offline icon" />
-            <span>Online : {moment(new Date()).fromNow()}</span>
-          </div>
+          </StyledSingleInfo>
+          <StyledSingleInfo>
+            {/* <StyledIcon src={OfflineIcon} alt="offline icon" /> */}
+            <StyledDot className={online ? "green" : "red"} />
+            <StyledOnlineInfo>
+              <span>
+                {online ? "Online" : "Offline, "}
+                {!online && moment(authorInfo.lastLogin).fromNow()}
+              </span>
+            </StyledOnlineInfo>
+          </StyledSingleInfo>
         </StyledDetails>
       </StyledUserInfo>
       <SellerProducts
