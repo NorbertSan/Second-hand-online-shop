@@ -14,7 +14,8 @@ import IconUser from "assets/icons/userIcon.svg";
 
 const StyledWrapper = styled.li`
   position: relative;
-  background: rgba(0, 0, 0, 0.03);
+  background: #eee;
+  box-shadow: 0 0 3px #fff;
   padding: 3px;
   &:after {
     content: "";

@@ -13,8 +13,8 @@ export const sizes = [
   { key: 6, value: "XXL" },
 ];
 export const genders = [
-  { key: 1, value: "Male" },
-  { key: 2, value: "Female" },
+  { key: 1, value: "Man" },
+  { key: 2, value: "Woman" },
   { key: 3, value: "Kid" },
 ];
 export const conditions = [

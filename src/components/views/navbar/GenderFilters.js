@@ -51,18 +51,18 @@ const GenderFilters = ({ toggleMenuOpen }) => {
     <StyledCategoryList>
       <h4>Category</h4>
       <StyledLink
-        to={`/products?&gender=Female`}
+        to={`/products?&gender=Women`}
         onClick={() => toggleMenuOpen(false)}
       >
         <StyledIcon src={WomenIcon} alt="woman icon" />
         <span>Women</span>
       </StyledLink>
       <StyledLink
-        to={`/products?&gender=Male`}
+        to={`/products?&gender=Man`}
         onClick={() => toggleMenuOpen(false)}
       >
         <StyledIcon src={ManIcon} alt="man icon" />
-        <span>Men</span>
+        <span>Man</span>
       </StyledLink>
       <StyledLink
         to={`/products?&gender=Kid`}

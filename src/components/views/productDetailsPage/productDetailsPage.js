@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import PhotosGallery from "./PhotosGallery";
 import ProductSummary from "./ProductSummary";
 import FuncionalityButtons from "./FuncionalityButtons";
-import AboutSeller from "./AboutSeller";
+import AboutSeller from "./AboutSeller/AboutSeller";
 import ProductNotFound from "./ProductNotFound";
 import { Instagram } from "react-content-loader";
 // HOOK

@@ -10,7 +10,9 @@ import ProductsSkeleton from "components/products/ProductsSkeleton";
 import { useSelector, useDispatch } from "react-redux";
 import { CLEAR_PRODUCTS } from "redux/types";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.ul`
+  margin: 0;
+  list-style: none;
   margin-top: 30px;
   padding: 0 15px 60px 15px;
   list-style: none;
