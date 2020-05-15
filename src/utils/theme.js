@@ -7,6 +7,7 @@ const theme = {
     greenish: "#3BB54A",
     redish: "#D7443E",
   },
+  // GRAY 	#808080
   fontSize: {
     xs: "1.0rem",
     s: "1.4rem",

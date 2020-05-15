@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import theme from "utils/theme";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import axios from "axios";
 import { addCommentValidator } from "utils/validators";
 // ICON
 import { ReactComponent as Icon } from "assets/icons/star.svg";
@@ -11,8 +10,13 @@ import { ReactComponent as Icon } from "assets/icons/star.svg";
 import Textarea from "components/atoms/Textarea";
 import Button from "components/atoms/Button";
 import { appearAddComment } from "utils/keyframesAnimations";
+import GreyBackground from "components/atoms/GreyBackground";
+import Loader from "react-loader-spinner";
 // HOOK
 import useDetectClickOutside from "hooks/useDetectClickOutside";
+// REDUX STUFF
+import { useDispatch } from "react-redux";
+import { addComment } from "redux/actions/dataActions";
 
 const stars = [1, 2, 3, 4, 5];
 
@@ -39,15 +43,6 @@ const StyledTextarea = styled(Textarea)`
 const StyledButton = styled(Button)`
   margin-top: 20px;
   align-self: flex-end;
-`;
-const StyledBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.4);
-  z-index: 9;
 `;
 const StyledStarsWrapper = styled.div`
   display: flex;
@@ -89,25 +84,15 @@ const StyledBodyRequired = styled.span`
   font-weight: bold;
 `;
 
-const AddComment = ({ toggleAddCommentOpen, setComments }) => {
+const AddComment = ({ toggleAddCommentOpen }) => {
   const { nickName } = useParams();
+  const [loading, setLoading] = useState(false);
   const [body, setBodyValue] = useState("");
   const [errors, setErrors] = useState({});
   const [starsNumber, setStarsNumber] = useState(0);
   const addCommentFormRef = useRef(null);
+  const dispatch = useDispatch();
   useDetectClickOutside(addCommentFormRef, toggleAddCommentOpen);
-
-  const addComment = async (data) => {
-    try {
-      const res = await axios.post(`/comment`, data);
-      const comment = res.data;
-
-      setComments((prevState) => [comment, ...prevState]);
-      toggleAddCommentOpen(false);
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const handleAddComment = (e) => {
     e.preventDefault();
@@ -115,11 +100,14 @@ const AddComment = ({ toggleAddCommentOpen, setComments }) => {
     const errorsFromValidator = addCommentValidator(data);
     if (Object.keys(errorsFromValidator).length > 0)
       setErrors(errorsFromValidator);
-    else addComment(data);
+    else {
+      setLoading(true);
+      dispatch(addComment(data, toggleAddCommentOpen));
+    }
   };
   return (
     <>
-      <StyledBackground />
+      <GreyBackground />
       <StyledWrapper ref={addCommentFormRef} onSubmit={handleAddComment}>
         {errors.body && <StyledBodyRequired>{errors.body}</StyledBodyRequired>}
         <StyledTextarea
@@ -143,7 +131,18 @@ const AddComment = ({ toggleAddCommentOpen, setComments }) => {
               )}
             </>
           </StyledStarsWrapper>
-          <StyledButton secondary>Submit</StyledButton>
+          <StyledButton secondary>
+            {loading ? (
+              <Loader
+                type="ThreeDots"
+                color={theme.colors.secondary}
+                height={15}
+                width={60}
+              />
+            ) : (
+              "Submit"
+            )}
+          </StyledButton>
         </StyledInnerWrapper>
       </StyledWrapper>
     </>
@@ -152,7 +151,6 @@ const AddComment = ({ toggleAddCommentOpen, setComments }) => {
 
 AddComment.propTypes = {
   toggleAddCommentOpen: PropTypes.func.isRequired,
-  setComments: PropTypes.func.isRequired,
 };
 
 export default AddComment;

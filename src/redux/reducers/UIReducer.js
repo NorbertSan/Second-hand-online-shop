@@ -11,6 +11,8 @@ import {
   SET_PRODUCTS,
   LOADING_USER,
   SET_USER_DATA,
+  SET_COMMENTS,
+  LOADING_COMMENTS,
 } from "redux/types";
 
 const initialState = {
@@ -23,6 +25,7 @@ const initialState = {
   loadingAddProduct: false,
   loadingProducts: false,
   loadingUserData: false,
+  loadingComments: false,
 };
 
 export default (state = initialState, action) => {
@@ -84,6 +87,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loadingUserData: false,
+      };
+    case SET_COMMENTS:
+      return {
+        ...state,
+        loadingComments: false,
+      };
+    case LOADING_COMMENTS:
+      return {
+        ...state,
+        loadingComments: true,
       };
     default:
       return { ...state };

@@ -6,6 +6,9 @@ import {
   SET_FAV_PRODUCTS,
   CLEAR_FAV_PRODUCTS,
   SET_USER_DATA,
+  SET_COMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
 } from "redux/types";
 
 const initialState = {
@@ -13,6 +16,7 @@ const initialState = {
   favProducts: [],
   singleProduct: {},
   userData: null,
+  comments: [],
 };
 
 export default (state = initialState, action) => {
@@ -71,6 +75,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         userData: action.payload,
+      };
+    case SET_COMMENTS:
+      return {
+        ...state,
+        comments: action.payload,
+      };
+    case ADD_COMMENT:
+      return {
+        ...state,
+        comments: [action.payload, ...state.comments],
+      };
+    case DELETE_COMMENT:
+      const comment_id = action.payload;
+      console.log(comment_id);
+      return {
+        ...state,
+        comments: [...state.comments].filter(
+          (comment) => comment._id !== comment_id
+        ),
       };
     default:
       return { ...state };

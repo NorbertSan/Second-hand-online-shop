@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import theme from "utils/theme";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+// REDUX STUFF
+import { useSelector } from "react-redux";
 // ICON
 import { ReactComponent as Icon } from "assets/icons/star.svg";
+import ThreeDotsIcon from "assets/icons/threeDots.svg";
 import UserIcon from "assets/icons/NoFaceIcon.svg";
 // COMPONENTS
 import NickName from "components/atoms/NickName";
+import DropDownMenu from "./DropDownMenu";
+
 const stars = [1, 2, 3, 4, 5];
 const StyledWrapper = styled.li`
   display: flex;
@@ -30,13 +36,13 @@ const StyledInnerWrapper = styled.div`
   flex-direction: column;
 `;
 const StyledParagraph = styled.p`
-  margin: 0;
-  font-size: ${theme.fontSize.s};
+  margin: 6px 0 1px 0;
+  font-size: ${theme.fontSize.xs};
 `;
 const StyledStarsWrapper = styled.div`
   display: flex;
   position: absolute;
-  right: 15px;
+  right: 30px;
   top: 10px;
 `;
 const StyledStar = styled(Icon)`
@@ -57,12 +63,39 @@ const StyledStar = styled(Icon)`
 const StyledDateInfo = styled.span`
   font-weight: bold;
   color: grey;
-  font-size: ${theme.fontSize.xs};
+  font-size: 9px;
+`;
+const CommentDropMenuButton = styled.button`
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 25px;
+  height: 25px;
+  padding: 5px;
+  border: none;
+  background: transparent;
+  z-index: 9;
+`;
+const StyledIcon = styled.img`
+  width: 100%;
 `;
 
 const CommentItem = ({ comment }) => {
+  const authUserNickName = useSelector((state) => state.user.nickName);
+  const [isDropDownMenuOpen, toggleDropDownMenu] = useState(false);
   return (
     <StyledWrapper>
+      {authUserNickName && authUserNickName === comment.writer.nickName && (
+        <CommentDropMenuButton onClick={() => toggleDropDownMenu(true)}>
+          {isDropDownMenuOpen && (
+            <DropDownMenu
+              comment_id={comment._id}
+              toggleDropDownMenu={toggleDropDownMenu}
+            />
+          )}
+          <StyledIcon src={ThreeDotsIcon} alt="three dots" />
+        </CommentDropMenuButton>
+      )}
       <StyledStarsWrapper>
         {stars.map((star) => (
           <StyledStar
@@ -74,7 +107,9 @@ const CommentItem = ({ comment }) => {
       </StyledStarsWrapper>
       <StyledAvatar src={UserIcon} alt="user icon" />
       <StyledInnerWrapper>
-        <NickName large>{comment.writer.nickName}</NickName>
+        <Link to={`/user/${comment.writer.nickName}`}>
+          <NickName big>{comment.writer.nickName}</NickName>
+        </Link>
         <StyledParagraph>{comment.body}</StyledParagraph>
         <StyledDateInfo>{moment(comment.createdAt).fromNow()}</StyledDateInfo>
       </StyledInnerWrapper>

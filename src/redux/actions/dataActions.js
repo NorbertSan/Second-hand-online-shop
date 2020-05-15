@@ -4,9 +4,14 @@ import {
   SET_ERRORS_ADD_PRODUCT,
   SET_SUCCESS_ADD_PRODUCT,
   TOGGLE_LIKE_PRODUCT,
+  SET_COMMENTS,
+  ADD_COMMENT,
+  DELETE_COMMENT,
+  LOADING_COMMENTS,
 } from "redux/types";
 import axios from "axios";
 
+// ADD PRODUCT
 export const addProduct = (data) => async (dispatch) => {
   console.log("add product  action");
   dispatch({ type: LOADING_ADD_PRODUCT });
@@ -19,7 +24,7 @@ export const addProduct = (data) => async (dispatch) => {
     console.error(err);
   }
 };
-
+// TOGGLE LIKE ON PRODUCT
 export const toggleLike = (product_id) => async (dispatch) => {
   console.log("toggle like action");
   try {
@@ -34,5 +39,39 @@ export const toggleLike = (product_id) => async (dispatch) => {
     });
   } catch (err) {
     console.error(err);
+  }
+};
+// GET ALL COMMENTS ON SPECIFIC USER
+export const getComments = (nickName) => async (dispatch) => {
+  console.log("get comments");
+  dispatch({ type: LOADING_COMMENTS });
+  try {
+    const res = await axios.get(`/comment/user/${nickName}`);
+    dispatch({ type: SET_COMMENTS, payload: res.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// ADD COMMENT UNDER USER PROFILE
+export const addComment = (data, toggleAddCommentOpen) => async (dispatch) => {
+  console.log("add comment action");
+  try {
+    const res = await axios.post(`/comment`, data);
+    dispatch({ type: ADD_COMMENT, payload: res.data });
+    toggleAddCommentOpen(false);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// DELETE COMMENT UNDER USER PROFILE
+export const deleteComment = (comment_id) => async (dispatch) => {
+  console.log("delete comment");
+  try {
+    const res = await axios.delete(`/comment/${comment_id}`);
+    console.log(res.data);
+    dispatch({ type: DELETE_COMMENT, payload: comment_id });
+  } catch (err) {
+    console.error(err);
+    console.log("error");
   }
 };

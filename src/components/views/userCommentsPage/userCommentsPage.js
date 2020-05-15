@@ -1,11 +1,15 @@
 import React, { useState, useEffect } from "react";
-import styled, { css } from "styled-components";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-
+import { Link } from "react-router-dom";
+import styled, { css } from "styled-components";
+// REDUX STUFF
+import { useSelector, useDispatch } from "react-redux";
+import { getComments } from "redux/actions/dataActions";
 // ICONS
 import CommentsIcon from "assets/icons/comments.svg";
 import PlusIcon from "assets/icons/plusInCircle.svg";
+import BackArrowIcon from "assets/icons/backArrow.svg";
 // COMPONENTS
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
@@ -18,6 +22,7 @@ const StyledWrapper = styled.section`
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;
+  position: relative;
 `;
 const StyledTitle = styled.h2`
   margin-top: 0;
@@ -52,29 +57,34 @@ const StyledAddCommentButton = styled.button`
   bottom: 30px;
   z-index: 9;
 `;
+const BackButton = styled.button`
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  position: absolute;
+  top: 0px;
+  img {
+    width: 100%;
+  }
+`;
 
 const UserCommentsPage = () => {
   const { nickName } = useParams();
-  const [loading, setLoading] = useState(true);
-  const [comments, setComments] = useState([]);
+  const loading = useSelector((state) => state.UI.loadingComments);
+  const dispatch = useDispatch();
+  const comments = useSelector((state) => state.data.comments);
   const [isAddCommentOpen, toggleAddCommentOpen] = useState(false);
   useEffect(() => {
-    const fetchComments = async () => {
-      try {
-        const res = await axios.get(`/comment/user/${nickName}`);
-        console.log(res.data);
-        setComments(res.data);
-        setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    };
-    fetchComments();
+    dispatch(getComments(nickName));
   }, []);
 
   return (
     <StyledWrapper>
+      <BackButton as={Link} to={`/user/${nickName}`}>
+        <img src={BackArrowIcon} alt="left arrow" />
+      </BackButton>
       <StyledTitle>Comments about user {nickName}</StyledTitle>
       {loading ? (
         <BulletList backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
@@ -94,10 +104,7 @@ const UserCommentsPage = () => {
         <StyledIcon small src={PlusIcon} alt="plus in circle icon" />
       </StyledAddCommentButton>
       {isAddCommentOpen && (
-        <AddComment
-          setComments={setComments}
-          toggleAddCommentOpen={toggleAddCommentOpen}
-        />
+        <AddComment toggleAddCommentOpen={toggleAddCommentOpen} />
       )}
     </StyledWrapper>
   );

@@ -50,10 +50,10 @@ const StyledDot = styled.div`
   border-radius: 50%;
   margin-right: 15px;
   &.green {
-    background: ${theme.colors.primary};
+    background: ${theme.colors.greenish};
   }
   &.red {
-    background: ${theme.colors.secondary};
+    background: ${theme.colors.redish};
   }
 `;
 const StyledSingleInfo = styled.div`
