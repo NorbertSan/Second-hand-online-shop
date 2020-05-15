@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import theme from "utils/theme";
 
 // COMPONENTS
-import SellerProductItem from "./SellerProductItem";
+import UserProductItem from "./UserProductItem";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
 // HOOK
 import useGetProductsFromIdsArray from "hooks/useGetProductsFromIdsArray";
@@ -28,7 +28,7 @@ const StyledTitle = styled.h3`
   font-weight: bold;
 `;
 
-const SellerProducts = ({ productsIds, nickName }) => {
+const UserProducts = ({ productsIds, nickName }) => {
   const [userProducts, setUserProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   useGetProductsFromIdsArray(
@@ -44,7 +44,7 @@ const SellerProducts = ({ productsIds, nickName }) => {
       <StyledWrapper>
         {userProducts.length > 0 &&
           userProducts.map((product) => (
-            <SellerProductItem key={product._id} product={product} />
+            <UserProductItem key={product._id} product={product} />
           ))}
         {loading && <ProductsSkeleton />}
       </StyledWrapper>
@@ -52,9 +52,9 @@ const SellerProducts = ({ productsIds, nickName }) => {
   );
 };
 
-SellerProducts.propTypes = {
+UserProducts.propTypes = {
   productsIds: PropTypes.array.isRequired,
   nickName: PropTypes.string.isRequired,
 };
 
-export default SellerProducts;
+export default UserProducts;

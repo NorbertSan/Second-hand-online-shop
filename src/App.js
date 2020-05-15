@@ -19,6 +19,7 @@ import productDetailsPage from "components/views/productDetailsPage/productDetai
 import userProfilePage from "components/views/userProfilePage/userProfilePage";
 import searchProductsPage from "components/views/searchProductsPage/searchProductsPage";
 import favouritesProductsPage from "components/views/favouritesProductsPage/favouritesProductsPage";
+import userCommentsPage from "components/views/userCommentsPage/userCommentsPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -41,6 +42,11 @@ const App = () => (
           exact
           path="/product/:product_id"
           component={productDetailsPage}
+        />
+        <Route
+          exact
+          path="/user/:nickName/comments"
+          component={userCommentsPage}
         />
         <Route exact path="/user/:nickName" component={userProfilePage} />
         <Route path="/products" component={searchProductsPage} />

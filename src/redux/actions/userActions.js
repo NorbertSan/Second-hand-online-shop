@@ -2,10 +2,12 @@ import {
   LOADING_SIGN_UP,
   LOADING_LOGIN,
   SET_ERRORS_LOGIN,
-  SET_USER,
+  SET_AUTH_USER,
   LOGOUT_USER,
   SET_UNAUTHENTICATED,
   SET_ERRORS_SIGNUP,
+  LOADING_USER,
+  SET_USER_DATA,
 } from "redux/types";
 import axios from "axios";
 
@@ -22,6 +24,7 @@ export const signUp = (data, switchToLoginForm) => async (dispatch) => {
   }
 };
 
+// LOGIN
 export const login = (data, history) => async (dispatch) => {
   console.log("login action ");
   dispatch({ type: LOADING_LOGIN });
@@ -36,26 +39,26 @@ export const login = (data, history) => async (dispatch) => {
     dispatch({ type: SET_ERRORS_LOGIN, payload: err.response.data });
   }
 };
-
+// GET LOGGED USER DATA
 export const getLoggedUserData = () => async (dispatch) => {
   console.log("get logged user info");
   try {
     const res = await axios.get("/user");
     dispatch({
-      type: SET_USER,
+      type: SET_AUTH_USER,
       payload: res.data,
     });
   } catch (err) {
     console.error(err);
   }
 };
-
+// AUTH TOKEN
 const setAuthorizationToken = (token) => {
   const fullToken = `Bearer ${token}`;
   localStorage.setItem("AuthToken", fullToken);
   axios.defaults.headers.common["Authorization"] = fullToken;
 };
-
+// LOGOUT
 export const logout = (email) => async (dispatch) => {
   console.log("logout action");
   try {
@@ -67,7 +70,7 @@ export const logout = (email) => async (dispatch) => {
     console.error(err);
   }
 };
-
+// CREATE TOKEN
 export const createToken = (decodedToken) => async (dispatch) => {
   console.log("create token action");
   try {
@@ -80,5 +83,16 @@ export const createToken = (decodedToken) => async (dispatch) => {
     localStorage.removeItem("AuthToken");
     dispatch({ type: SET_UNAUTHENTICATED });
     delete axios.defaults.headers.common["Authorization"];
+  }
+};
+// GET USER DATA
+export const getUserData = (nickName) => async (dispatch) => {
+  console.log("get user data");
+  dispatch({ type: LOADING_USER });
+  try {
+    const res = await axios.get(`/user/${nickName}`);
+    dispatch({ type: SET_USER_DATA, payload: res.data });
+  } catch (err) {
+    console.error(err);
   }
 };

@@ -1,5 +1,5 @@
 import {
-  SET_USER,
+  SET_AUTH_USER,
   LOGOUT_USER,
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
@@ -12,7 +12,7 @@ const initialState = {
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case SET_USER:
+    case SET_AUTH_USER:
       return {
         ...state,
         auth: true,

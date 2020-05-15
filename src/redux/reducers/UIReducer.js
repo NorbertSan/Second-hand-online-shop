@@ -9,6 +9,8 @@ import {
   CLEAR_ERRORS_ADD_PRODUCT,
   LOADING_PRODUCTS,
   SET_PRODUCTS,
+  LOADING_USER,
+  SET_USER_DATA,
 } from "redux/types";
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
   successAddProduct: null,
   loadingAddProduct: false,
   loadingProducts: false,
+  loadingUserData: false,
 };
 
 export default (state = initialState, action) => {
@@ -74,7 +77,14 @@ export default (state = initialState, action) => {
 
     case SET_PRODUCTS:
       return { ...state, loadingProducts: false };
+    case LOADING_USER:
+      return { ...state, loadingUserData: true };
 
+    case SET_USER_DATA:
+      return {
+        ...state,
+        loadingUserData: false,
+      };
     default:
       return { ...state };
   }

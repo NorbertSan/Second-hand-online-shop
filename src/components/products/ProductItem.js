@@ -62,7 +62,7 @@ const ProductItem = ({ product }) => {
   const { pathname, search } = useLocation();
   return (
     <StyledWrapper>
-      <StyledAuthorInfo>
+      <StyledAuthorInfo as={Link} to={`/user/${product.writer.nickName}`}>
         <StyledUserIcon src={IconUser} alt="user icon" />
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>

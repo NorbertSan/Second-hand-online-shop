@@ -7,10 +7,9 @@ import { Link } from "react-router-dom";
 
 // ICONS
 import PinIcon from "assets/icons/pin.svg";
-import OfflineIcon from "assets/icons/offline.svg";
 import UserIcon from "assets/icons/user.svg";
 // COMPONENTS
-import SellerProducts from "./SellerProducts";
+import UserProducts from "components/user/UserProducts";
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -104,7 +103,7 @@ const AboutSeller = ({ authorInfo }) => {
           </StyledSingleInfo>
         </StyledDetails>
       </StyledUserInfo>
-      <SellerProducts
+      <UserProducts
         nickName={authorInfo.nickName}
         productsIds={authorInfo.products}
       />

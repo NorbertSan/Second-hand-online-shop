@@ -15,6 +15,7 @@ const Button = styled.button`
   align-items: center;
   justify-content: center;
   font-size: ${theme.fontSize.s}!important;
+  cursor: pointer;
   ${({ secondary }) =>
     secondary &&
     css`

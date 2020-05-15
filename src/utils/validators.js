@@ -50,3 +50,13 @@ export const addProductValidator = (data) => {
     errors.general = "All fields are required";
   return errors;
 };
+
+// ADD COMMENT VALIDATOR
+export const addCommentValidator = (data) => {
+  console.log(data);
+  let errors = {};
+  if (isLessThanZero(data.stars)) errors.stars = "*Required";
+  if (isEmpty(data.body)) errors.body = "*Required";
+
+  return errors;
+};

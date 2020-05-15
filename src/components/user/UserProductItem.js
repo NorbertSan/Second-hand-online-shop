@@ -25,7 +25,7 @@ const StyledProductInformation = styled.div`
   }
 `;
 
-const SellerProductItem = ({ product }) => {
+const UserProductItem = ({ product }) => {
   const { pathname } = useLocation();
   return (
     <StyledWrapper>
@@ -44,8 +44,8 @@ const SellerProductItem = ({ product }) => {
   );
 };
 
-SellerProductItem.propTypes = {
+UserProductItem.propTypes = {
   product: PropTypes.object.isRequired,
 };
 
-export default SellerProductItem;
+export default UserProductItem;

@@ -10,6 +10,11 @@ const NickName = styled.span`
     css`
       font-size: ${theme.fontSize.s};
     `}
+    ${({ large }) =>
+      large &&
+      css`
+        font-size: ${theme.fontSize.l};
+      `}
   ${({ black }) =>
     black &&
     css`

@@ -27,3 +27,12 @@ export const menuAppear = keyframes`
     transform:translateY(0);
   }
 `;
+
+export const appearAddComment = keyframes`
+    0%{
+        transform:translateY(100%);
+    }100%{
+
+        transform:translateY(0);
+    }
+`;

@@ -5,12 +5,14 @@ import {
   SET_SINGLE_PRODUCT,
   SET_FAV_PRODUCTS,
   CLEAR_FAV_PRODUCTS,
+  SET_USER_DATA,
 } from "redux/types";
 
 const initialState = {
   products: [],
   favProducts: [],
   singleProduct: {},
+  userData: null,
 };
 
 export default (state = initialState, action) => {
@@ -64,6 +66,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         favProducts: [],
+      };
+    case SET_USER_DATA:
+      return {
+        ...state,
+        userData: action.payload,
       };
     default:
       return { ...state };

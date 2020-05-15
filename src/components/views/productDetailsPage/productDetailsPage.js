@@ -8,7 +8,7 @@ import BackIcon from "assets/icons/backArrow.svg";
 import PhotosGallery from "./PhotosGallery";
 import ProductSummary from "./ProductSummary";
 import FuncionalityButtons from "./FuncionalityButtons";
-import AboutSeller from "./AboutSeller/AboutSeller";
+import AboutSeller from "./AboutSeller";
 import ProductNotFound from "./ProductNotFound";
 import { Instagram } from "react-content-loader";
 // HOOK
