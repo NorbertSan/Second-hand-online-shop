@@ -32,3 +32,4 @@ export const SET_USER_DATA = "SET_USER_DATA";
 export const SET_COMMENTS = "SET_COMMENTS";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const DELETE_COMMENT = "DELETE_COMMENT";
+export const EDIT_COMMENT = "EDIT_COMMENT";

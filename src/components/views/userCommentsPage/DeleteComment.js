@@ -2,11 +2,12 @@ import React from "react";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 // REDUX STUFF
 import { useDispatch } from "react-redux";
 import { deleteComment } from "redux/actions/dataActions";
 
-const StyledAlert = styled.div`
+const StyledWrapper = styled.div`
   padding: 20px;
   box-shadow: 0 0 3px grey;
   background: #fff;
@@ -19,8 +20,8 @@ const StyledAlert = styled.div`
   transform: translate(-50%, -50%);
   border-radius: 5px;
 `;
-const StyledButton = styled.div`
-  padding: 3px 7px;
+const StyledButton = styled.button`
+  padding: 4px 10px;
   align-self: center;
   border: none;
   border-radius: 10px;
@@ -30,13 +31,15 @@ const StyledButton = styled.div`
 `;
 const DeleteComment = ({ comment_id }) => {
   const dispatch = useDispatch();
-  const deleteCommentHandle = (e) => dispatch(deleteComment(comment_id));
+  const { nickName } = useParams();
+  const deleteCommentHandle = (e) =>
+    dispatch(deleteComment(comment_id, nickName));
   return (
     <>
-      <StyledAlert>
+      <StyledWrapper>
         <h4>Are you sure to delete this comment ?</h4>
         <StyledButton onClick={deleteCommentHandle}>Delete</StyledButton>
-      </StyledAlert>
+      </StyledWrapper>
     </>
   );
 };

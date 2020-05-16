@@ -30,6 +30,7 @@ const StyledAvatar = styled.img`
   margin-right: 15px;
   padding: 3px;
   border: 2px solid #eee;
+  flex-shrink: 0;
 `;
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -65,7 +66,7 @@ const StyledDateInfo = styled.span`
   color: grey;
   font-size: 9px;
 `;
-const CommentDropMenuButton = styled.button`
+const CommentDropMenuButton = styled.div`
   position: absolute;
   right: 5px;
   top: 5px;
@@ -78,6 +79,10 @@ const CommentDropMenuButton = styled.button`
 `;
 const StyledIcon = styled.img`
   width: 100%;
+`;
+const StyledLink = styled(Link)`
+  align-self: flex-start;
+  padding: 3px 10px 3px 0;
 `;
 
 const CommentItem = ({ comment }) => {
@@ -107,11 +112,11 @@ const CommentItem = ({ comment }) => {
       </StyledStarsWrapper>
       <StyledAvatar src={UserIcon} alt="user icon" />
       <StyledInnerWrapper>
-        <Link to={`/user/${comment.writer.nickName}`}>
+        <StyledLink to={`/user/${comment.writer.nickName}`}>
           <NickName big>{comment.writer.nickName}</NickName>
-        </Link>
-        <StyledParagraph>{comment.body}</StyledParagraph>
+        </StyledLink>
         <StyledDateInfo>{moment(comment.createdAt).fromNow()}</StyledDateInfo>
+        <StyledParagraph>{comment.body}</StyledParagraph>
       </StyledInnerWrapper>
     </StyledWrapper>
   );

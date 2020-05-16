@@ -9,6 +9,7 @@ import EditIcon from "assets/icons/edit.svg";
 import useDetectClickOutside from "hooks/useDetectClickOutside";
 // COMPONENTS
 import DeleteComment from "./DeleteComment";
+import EditComment from "./EditComment";
 import GreyBackground from "components/atoms/GreyBackground";
 
 const StyledWrapper = styled.ul`
@@ -17,13 +18,12 @@ const StyledWrapper = styled.ul`
   list-style: none;
   position: absolute;
   top: 25px;
-  width: 120px;
+  width: 150px;
   right: 0;
   background: #fff;
-  box-shadow: 0 0 1px grey;
+  box-shadow: 0 0 3px grey;
   display: flex;
   flex-direction: column;
-  z-index: 9;
 `;
 const StyledOption = styled.li`
   color: grey;
@@ -51,14 +51,21 @@ const StyledIcon = styled.img`
 
 const DropDownMenu = ({ toggleDropDownMenu, comment_id }) => {
   const [isDeleteModalOpen, toggleDeleteModalOpen] = useState(false);
+  const [isEditModalOpen, toggleEditModalOpen] = useState(false);
   const dropDownRef = useRef(null);
   useDetectClickOutside(dropDownRef, toggleDropDownMenu);
   return (
     <>
       {isDeleteModalOpen && <GreyBackground />}
       <StyledWrapper ref={dropDownRef}>
+        {isEditModalOpen && (
+          <EditComment
+            comment_id={comment_id}
+            toggleDropDownMenu={toggleDropDownMenu}
+          />
+        )}
         {isDeleteModalOpen && <DeleteComment comment_id={comment_id} />}
-        <StyledOption>
+        <StyledOption onClick={() => toggleEditModalOpen(true)}>
           <span>Edit</span>
           <StyledIcon src={EditIcon} alt="edit icon" />
         </StyledOption>

@@ -9,6 +9,7 @@ import {
   SET_COMMENTS,
   ADD_COMMENT,
   DELETE_COMMENT,
+  EDIT_COMMENT,
 } from "redux/types";
 
 const initialState = {
@@ -82,18 +83,29 @@ export default (state = initialState, action) => {
         comments: action.payload,
       };
     case ADD_COMMENT:
+      const { comment, commentIdToDelete } = action.payload;
       return {
         ...state,
-        comments: [action.payload, ...state.comments],
+        comments: [comment, ...state.comments].filter(
+          (comm) => comm._id !== commentIdToDelete
+        ),
       };
     case DELETE_COMMENT:
       const comment_id = action.payload;
-      console.log(comment_id);
       return {
         ...state,
         comments: [...state.comments].filter(
           (comment) => comment._id !== comment_id
         ),
+      };
+    case EDIT_COMMENT:
+      const editedComment = action.payload;
+      return {
+        ...state,
+        comments: state.comments.reduce((res, comment) => {
+          if (comment._id === editedComment._id) return [...res, editedComment];
+          else return [...res, comment];
+        }, []),
       };
     default:
       return { ...state };

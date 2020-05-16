@@ -7,6 +7,7 @@ import {
   SET_COMMENTS,
   ADD_COMMENT,
   DELETE_COMMENT,
+  EDIT_COMMENT,
   LOADING_COMMENTS,
 } from "redux/types";
 import axios from "axios";
@@ -57,21 +58,38 @@ export const addComment = (data, toggleAddCommentOpen) => async (dispatch) => {
   console.log("add comment action");
   try {
     const res = await axios.post(`/comment`, data);
-    dispatch({ type: ADD_COMMENT, payload: res.data });
+    dispatch({
+      type: ADD_COMMENT,
+      payload: {
+        comment: res.data.comment,
+        commentIdToDelete: res.data.commentIdToDelete, // ID || NULL
+      },
+    });
     toggleAddCommentOpen(false);
   } catch (err) {
     console.error(err);
   }
 };
 // DELETE COMMENT UNDER USER PROFILE
-export const deleteComment = (comment_id) => async (dispatch) => {
+export const deleteComment = (comment_id, nickName) => async (dispatch) => {
   console.log("delete comment");
   try {
-    const res = await axios.delete(`/comment/${comment_id}`);
-    console.log(res.data);
+    await axios.delete(`/comment/${comment_id}/${nickName}`);
     dispatch({ type: DELETE_COMMENT, payload: comment_id });
   } catch (err) {
     console.error(err);
-    console.log("error");
+  }
+};
+// EDIT COMMENT UNDER USER PROFILE
+export const editComment = (data, toggleAddCommentOpen, comment_id) => async (
+  dispatch
+) => {
+  console.log("edit comment");
+  try {
+    const res = await axios.put(`/comment/${comment_id}`, data);
+    dispatch({ type: EDIT_COMMENT, payload: res.data });
+    toggleAddCommentOpen(false);
+  } catch (err) {
+    console.error(err);
   }
 };

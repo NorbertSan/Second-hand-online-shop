@@ -55,7 +55,7 @@ const StyledAddCommentButton = styled.button`
   position: fixed;
   right: 30px;
   bottom: 30px;
-  z-index: 9;
+  z-index: 5;
 `;
 const BackButton = styled.button`
   width: 20px;

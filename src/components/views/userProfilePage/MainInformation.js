@@ -37,7 +37,8 @@ const StyledInformationWrapper = styled.div`
   }
 `;
 const StyledTitle = styled.h1`
-  margin: 10px 0;
+  margin: 0;
+  margin-bottom: 10px;
 `;
 const StyledIcon = styled.img`
   width: 15px;

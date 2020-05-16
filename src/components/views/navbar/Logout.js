@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useHistory } from "react-router-dom";
 
 // ICONS
 import LogoutIcon from "assets/icons/logout.svg";
@@ -27,7 +28,11 @@ const StyledIcon = styled.img`
 const Logout = () => {
   const email = useSelector((state) => state.user.email);
   const dispatch = useDispatch();
-  const handleLogout = () => dispatch(logout(email));
+  const history = useHistory();
+  const handleLogout = () => {
+    dispatch(logout(email));
+    history.push("/signup/select_type");
+  };
   return (
     <StyledButton onClick={handleLogout}>
       <StyledIcon src={LogoutIcon} alt="logout icon" />
