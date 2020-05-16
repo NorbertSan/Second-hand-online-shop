@@ -11,8 +11,7 @@ import NoProductsAlert from "components/products/NoProductsAlert";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
 import PageNavigation from "components/views/searchProductsPage/PageNavigation";
 // REDUX
-import { useSelector, useDispatch } from "react-redux";
-import { getProducts } from "redux/actions/dataActions";
+import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.ul`
   margin-top: 30px;

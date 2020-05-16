@@ -40,6 +40,7 @@ const LatestProducts = () => {
   useGetProducts(queries, [page], clearPrevious, null, setFetchMore);
   useEffect(() => {
     dispatch({ type: CLEAR_PRODUCTS });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const loadMore = () => setPage((prevState) => prevState + 1);

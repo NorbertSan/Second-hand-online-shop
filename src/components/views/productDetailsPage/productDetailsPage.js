@@ -9,7 +9,7 @@ import PhotosGallery from "./PhotosGallery";
 import ProductSummary from "./ProductSummary";
 import FuncionalityButtons from "./FuncionalityButtons";
 import AboutSeller from "./AboutSeller";
-import ProductNotFound from "./ProductNotFound";
+import NotFoundPage from "utils/NotFoundPage";
 import { Instagram } from "react-content-loader";
 // HOOK
 import useGetSingleProduct from "hooks/useGetSingleProduct";
@@ -39,11 +39,17 @@ const StyledImg = styled.img`
 const ProductDetailsPage = () => {
   const product = useSelector((state) => state.data.singleProduct);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  useGetSingleProduct(setLoading, setError);
+  const [productNotFound, setProductNotFound] = useState(false);
+  useGetSingleProduct(setLoading, setProductNotFound);
   const { state } = useLocation();
 
-  if (error) return <ProductNotFound />;
+  if (productNotFound)
+    return (
+      <NotFoundPage
+        title="Product not found"
+        info="User has withdrawn the product or the product has been sold (⌣́_⌣̀)"
+      />
+    );
   return (
     <StyledWrapper>
       <StyledBackButton

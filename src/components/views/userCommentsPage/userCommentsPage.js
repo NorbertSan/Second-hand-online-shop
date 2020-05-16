@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 // REDUX STUFF
@@ -78,6 +77,7 @@ const UserCommentsPage = () => {
   const [isAddCommentOpen, toggleAddCommentOpen] = useState(false);
   useEffect(() => {
     dispatch(getComments(nickName));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

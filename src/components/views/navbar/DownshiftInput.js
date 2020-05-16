@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
-// FILTERS
-import { types } from "utils/productFilterData";
+import PropTypes from "prop-types";
+import SearchIcon from "assets/icons/search.svg";
+
 // COMPONENTS
 import Downshift from "downshift";
 import Input from "components/atoms/Input";
@@ -28,14 +29,40 @@ const StyledElement = styled.li`
   border-top: 1px solid #eee;
   font-size: ${theme.fontSize.s};
   padding: 8px;
+  color: ${theme.colors.blackish};
+`;
+const StyledButton = styled.button`
+  outline: none;
+  border: none;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translateY(-50%);
+  z-index: 1;
+`;
+const StyledIcon = styled.img`
+  width: 10px;
+  height: 10px;
+  z-index: -1;
 `;
 
-const DownshiftInput = ({ setFiltersParent }) => {
+const DownshiftInput = ({
+  searchList,
+  name,
+  placeholder,
+  nickNameValue,
+  handleInputChange,
+  formRef,
+}) => {
   return (
     <Downshift
-      onChange={(selection) => {
-        setFiltersParent(selection);
-      }}
+      onInputValueChange={(value) => handleInputChange(value)}
+      onChange={(e) => formRef.current.submit()}
       itemToString={(item) => (item ? item.value : "")}
     >
       {({
@@ -53,15 +80,19 @@ const DownshiftInput = ({ setFiltersParent }) => {
             style={{ display: "inline-block" }}
             {...getRootProps({}, { suppressRefError: true })}
           >
+            <StyledButton type="submit">
+              <StyledIcon src={SearchIcon} alt="search icon" />
+            </StyledButton>
             <StyledInput
-              name="type"
-              placeholder="Find the item"
+              placeholder={placeholder}
+              name={name}
               {...getInputProps()}
+              inputValue={nickNameValue}
             />
           </div>
           <StyledList {...getMenuProps()}>
             {isOpen
-              ? types
+              ? searchList
                   .filter(
                     (item) =>
                       !inputValue ||
@@ -93,6 +124,14 @@ const DownshiftInput = ({ setFiltersParent }) => {
       )}
     </Downshift>
   );
+};
+DownshiftInput.propTypes = {
+  searchList: PropTypes.array.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string.isRequired,
+  nickNameValue: PropTypes.string.isRequired,
+  handleInputChange: PropTypes.func.isRequired,
+  formRef: PropTypes.object.isRequired,
 };
 
 export default DownshiftInput;

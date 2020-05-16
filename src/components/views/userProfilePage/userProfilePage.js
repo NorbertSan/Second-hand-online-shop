@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
 // COMPONENTS
 import { Facebook, Code } from "react-content-loader";
 import MainInformation from "./MainInformation";
+import NotFoundPage from "utils/NotFoundPage";
 import UserProducts from "components/user/UserProducts";
 // REACT STUFF
 import { useSelector, useDispatch } from "react-redux";
@@ -22,11 +23,20 @@ const StyledFacebook = styled(Facebook)`
 const UserProfilePage = () => {
   const userData = useSelector((state) => state.data.userData);
   const loading = useSelector((state) => state.UI.loadingUserData);
+  const [userNotFound, setUserNotFound] = useState(false);
   const { nickName } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUserData(nickName));
-  }, []);
+    dispatch(getUserData(nickName, setUserNotFound));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nickName]);
+  if (userNotFound)
+    return (
+      <NotFoundPage
+        title="User not found"
+        info="Wrong user name provide or account has been deleted"
+      />
+    );
   return (
     <StyledWrapper>
       {loading && (

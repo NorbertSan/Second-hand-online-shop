@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 // ICONS
-import StarIcon from "assets/icons/star.svg";
 import BlueMail from "assets/icons/blueMail.svg";
 
 const StyledWrapper = styled.div`
@@ -25,9 +24,6 @@ const StyledIcon = styled.img`
 const FuncionalityIcons = () => {
   return (
     <StyledWrapper>
-      {/* <StyledButton>
-        <StyledIcon src={StarIcon} alt="star icon" />
-      </StyledButton> */}
       <StyledButton>
         <StyledIcon src={BlueMail} alt="mail icon" />
       </StyledButton>

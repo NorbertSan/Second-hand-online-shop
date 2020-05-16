@@ -1,13 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import SearchIcon from "assets/icons/search.svg";
 import theme from "utils/theme";
-
+// FILTERS
+import { types } from "utils/productFilterData";
+// HOOK
+import useSearchUsers from "hooks/useSearchUsers";
 // COMPONENTS
-import Input from "components/atoms/Input";
 import DownshiftInput from "./DownshiftInput";
 
-const StyledWrapper = styled.form`
+const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -15,33 +17,10 @@ const StyledWrapper = styled.form`
   background: ${theme.colors.whiteish};
   box-shadow: 0 0 1px grey;
 `;
-const StyledInputSearchWrapper = styled.div`
+const StyledInputSearchWrapper = styled.form`
   position: relative;
 `;
 
-const StyledButton = styled.button`
-  outline: none;
-  border: none;
-  width: 15px;
-  height: 15px;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-  position: absolute;
-  top: 50%;
-  left: 5px;
-  transform: translateY(-50%);
-  z-index: 1;
-`;
-const StyledIcon = styled.img`
-  width: 10px;
-  height: 10px;
-  z-index: -1;
-`;
-const StyledInput = styled(Input)`
-  padding-left: 25px;
-  color: grey;
-`;
 const StyledDropDown = styled.select`
   padding: 7px 10px;
   border: none;
@@ -60,25 +39,31 @@ const StyledOption = styled.option`
 
 const SearchInput = () => {
   const [searchType, setSearchType] = useState("products");
-  const handleChange = (e) => setSearchType(e.target.value);
-  const setFilters = (e) => {
-    console.log(e);
-  };
+  const handleTypeChange = (e) => setSearchType(e.target.value);
+  const formRef = useRef(null);
+  const [inputValue, setInputValue] = useState("");
+  const [userNickNameList, setUserNickNameList] = useState([]);
+
+  useSearchUsers(setUserNickNameList, inputValue);
+  const handleInputChange = (value) => setInputValue(value);
+
   return (
-    <StyledWrapper action={`/${searchType}`}>
-      <StyledDropDown onChange={handleChange}>
+    <StyledWrapper>
+      <StyledDropDown onChange={handleTypeChange}>
         <StyledOption value="products">Clothes</StyledOption>
-        <StyledOption value="users">Users</StyledOption>
+        <StyledOption value="user">Users</StyledOption>
       </StyledDropDown>
-      <StyledInputSearchWrapper>
-        <StyledButton type="submit">
-          <StyledIcon src={SearchIcon} alt="search icon" />
-        </StyledButton>
-        {searchType === "products" ? (
-          <DownshiftInput setFiltersParent={setFilters} />
-        ) : (
-          <StyledInput name="nickName" placeholder="Enter user nick" />
-        )}
+      <StyledInputSearchWrapper ref={formRef} action={`/${searchType}`}>
+        <DownshiftInput
+          nickNameValue={inputValue}
+          handleInputChange={handleInputChange}
+          placeholder={
+            searchType === "products" ? "Find the product" : "Enter user nick"
+          }
+          name={searchType === "products" ? "type" : "nickName"}
+          searchList={searchType === "products" ? types : userNickNameList}
+          formRef={formRef}
+        />
       </StyledInputSearchWrapper>
     </StyledWrapper>
   );

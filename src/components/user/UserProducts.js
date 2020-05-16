@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
-import theme from "utils/theme";
-
 // COMPONENTS
 import UserProductItem from "./UserProductItem";
 import ProductsSkeleton from "components/products/ProductsSkeleton";

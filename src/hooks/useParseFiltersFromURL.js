@@ -8,7 +8,6 @@ const useParseFiltersFromURL = (setFilters, initialFilters) => {
   const location = useLocation();
   useEffect(() => {
     const queries = queryString.parse(location.search);
-    console.log(queries);
     const queriesParseToArr = {};
     Object.keys(initialFilters).map(
       (category) =>

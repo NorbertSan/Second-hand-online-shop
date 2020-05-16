@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
+import PropTypes from "prop-types";
 
 // ICON
 import NotFoundIcon from "assets/icons/notFound.svg";
 import Button from "components/atoms/Button";
 
-const StyledWrapper = styled.div`
+const StyledWrapper = styled.section`
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -35,22 +36,25 @@ const StyledButton = styled(Button)`
   width: 170px;
 `;
 
-const ProductNotFound = () => {
+const ProductNotFound = ({ title, info }) => {
   return (
     <StyledWrapper>
       <StyledIcon src={NotFoundIcon} alt="not found icon" />
-      <StyledTitle big>Product not found</StyledTitle>
-      <StyledTitle as="h4">
-        User has withdrawn the product or the product has been sold (⌣́_⌣̀)
-      </StyledTitle>
+      <StyledTitle big>{title}</StyledTitle>
+      <StyledTitle as="h4">{info}</StyledTitle>
       <StyledButton as={Link} to="/">
         Back to home
       </StyledButton>
       <StyledButton as={Link} to="/products" secondary>
-        Browse
+        Browse products
       </StyledButton>
     </StyledWrapper>
   );
+};
+
+ProductNotFound.propTypes = {
+  title: PropTypes.string.isRequired,
+  info: PropTypes.string.isRequired,
 };
 
 export default ProductNotFound;

@@ -53,6 +53,7 @@ const FavouritesProductsPage = () => {
   };
   useEffect(() => {
     dispatch({ type: CLEAR_FAV_PRODUCTS });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     productsIds && setProductsIdsRetrieve(true);
