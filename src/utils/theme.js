@@ -6,6 +6,7 @@ const theme = {
     whiteish: "#f9f9f9",
     greenish: "#3BB54A",
     redish: "#D7443E",
+    gold: "#ffc107",
   },
   // GRAY 	#808080
   fontSize: {

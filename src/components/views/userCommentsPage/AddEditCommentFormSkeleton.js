@@ -35,7 +35,7 @@ const StyledTextarea = styled(Textarea)`
   border: 1px solid ${theme.colors.secondary};
   box-shadow: 0 0 3px ${theme.colors.secondary};
   border-radius: 5px;
-  color: grey;
+  color: ${theme.colors.blackish};
 `;
 const StyledButton = styled(Button)`
   margin-top: 20px;

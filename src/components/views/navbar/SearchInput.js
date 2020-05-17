@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import styled from "styled-components";
-import SearchIcon from "assets/icons/search.svg";
 import theme from "utils/theme";
 // FILTERS
 import { types } from "utils/productFilterData";
@@ -44,7 +43,7 @@ const SearchInput = () => {
   const [inputValue, setInputValue] = useState("");
   const [userNickNameList, setUserNickNameList] = useState([]);
 
-  useSearchUsers(setUserNickNameList, inputValue);
+  useSearchUsers(setUserNickNameList, inputValue, searchType);
   const handleInputChange = (value) => setInputValue(value);
 
   return (

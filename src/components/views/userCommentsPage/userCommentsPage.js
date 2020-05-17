@@ -12,6 +12,7 @@ import BackArrowIcon from "assets/icons/backArrow.svg";
 // COMPONENTS
 import CommentsList from "./CommentsList";
 import AddComment from "./AddComment";
+import AverageStars from "./AverageStars";
 import { BulletList } from "react-content-loader";
 
 const StyledWrapper = styled.section`
@@ -89,7 +90,10 @@ const UserCommentsPage = () => {
       {loading ? (
         <BulletList backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
       ) : comments.length > 0 ? (
-        <CommentsList comments={comments} />
+        <>
+          <AverageStars comments={comments} />
+          <CommentsList comments={comments} />
+        </>
       ) : (
         <>
           <StyledIcon src={CommentsIcon} alt="comments icon" />

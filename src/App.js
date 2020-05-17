@@ -3,13 +3,11 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import GlobalStyles from "utils/GlobalStyles";
 import axios from "axios";
 import AuthenticateToken from "utils/authenticateToken";
-
 import AuthRoute from "utils/AuthRoute";
 import NoAuthRoute from "utils/NoAuthRoute";
 //REDUX STUFF
 import { Provider } from "react-redux";
 import store from "redux/store";
-
 // VIEWS
 import Navbar from "components/views/navbar/Navbar";
 import homePage from "components/views/homePage/homePage";

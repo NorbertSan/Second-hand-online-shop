@@ -10,7 +10,7 @@ import Input from "components/atoms/Input";
 
 const StyledInput = styled(Input)`
   padding-left: 25px;
-  color: grey;
+  color: ${theme.colors.blackish};
 `;
 const StyledWrapper = styled.div`
   position: relative;

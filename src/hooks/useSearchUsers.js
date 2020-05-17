@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-const UseSearchUsers = (setUserNickNameList, inputValue) => {
+const UseSearchUsers = (setUserNickNameList, inputValue, searchType) => {
   let cancel;
   const fetchUserNames = async () => {
     try {
@@ -14,7 +14,6 @@ const UseSearchUsers = (setUserNickNameList, inputValue) => {
             []
           )
         : [];
-      console.log(mappedData);
       setUserNickNameList(mappedData);
     } catch (err) {
       if (axios.isCancel(err)) return;
@@ -22,8 +21,10 @@ const UseSearchUsers = (setUserNickNameList, inputValue) => {
     }
   };
   useEffect(() => {
-    fetchUserNames();
-    return () => cancel();
+    if (searchType === "user") {
+      fetchUserNames();
+      return () => cancel();
+    }
   }, [inputValue]);
 };
 
