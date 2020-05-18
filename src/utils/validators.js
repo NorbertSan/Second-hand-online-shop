@@ -7,6 +7,7 @@ const isEmpty = (field) => {
   if (field === null) return true;
   return field.trim().length === 0;
 };
+const hasMoreThan20Chars = (field) => field.length > 20;
 const hasUppercaseCase = (field) => field.toLowerCase() === field;
 const hasLowerCase = (field) => field.toUpperCase() === field;
 const hasDigit = (field) => !/\d/.test(field);
@@ -29,7 +30,8 @@ export const signUpValidator = (data) => {
     hasLowerCase(data.password)
   )
     errors.password = "Password is too week";
-
+  if (hasMoreThan20Chars(data.newPassword))
+    errors.password = "Password is too long";
   if (isEmpty(data.password)) errors.password = "Required*";
   if (isEmpty(data.email)) errors.email = "Required*";
 
@@ -67,5 +69,27 @@ export const changeUserInfoValidator = (data) => {
   if (isEmpty(data.fullName)) errors.fullName = "*Required";
   if (hasMoreThan100Chars(data.fullName)) errors.fullName = "Too long";
   if (hasMoreThan2000Chars(data.bio)) errors.bio = "Too long";
+  return errors;
+};
+// CHANGE PASSWORD VALIDATOR
+export const validatePassword = (data) => {
+  let errors = {};
+  if (
+    hasDigit(data.newPassword) ||
+    isShorterThan6Chars(data.newPassword) ||
+    hasUppercaseCase(data.newPassword) ||
+    hasLowerCase(data.newPassword)
+  )
+    errors.password = "Password is too week";
+  if (data.newPassword !== data.confirmNewPassword)
+    errors.password = "New passwords do not match";
+  if (hasMoreThan20Chars(data.newPassword))
+    errors.password = "Password is too long";
+  if (
+    isEmpty(data.newPassword) ||
+    isEmpty(data.oldPassword) ||
+    isEmpty(data.confirmNewPassword)
+  )
+    errors.password = "Fill all the fields";
   return errors;
 };

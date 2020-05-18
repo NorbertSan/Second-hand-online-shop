@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useRef, useEffect } from "react";
+import React, { useState, useReducer, useRef } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { signUpValidator } from "utils/validators";
@@ -15,6 +15,7 @@ import Button from "components/atoms/Button";
 import Input from "components/atoms/Input";
 import ValidateAlert from "components/atoms/ValidateAlert";
 import Loader from "react-loader-spinner";
+import PasswordStrengthHint from "utils/PasswordStrengthHint";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -39,13 +40,6 @@ const StyledIcon = styled.img`
   right: 20px;
   transform: translateY(-30%);
 `;
-const StyledHintPassword = styled.div`
-  width: 90%;
-  font-size: ${theme.fontSize.xs};
-  color: grey;
-  margin-bottom: 10px;
-  text-align: start;
-`;
 const StyledValidateAlert = styled(ValidateAlert)`
   margin-top: 10px;
   text-align: center;
@@ -57,7 +51,6 @@ const SignUpForm = ({ toggleForm }) => {
   const dispatch = useDispatch();
   const [errors, setInputErrors] = useState({});
   const [isPasswordShown, togglePasswordShown] = useState(false);
-  const [isHintPasswordShown, toggleHintPasswordShown] = useState(false);
   const [location, setUserLocation] = useState("");
   const passwordInputRef = useRef(null);
   useLocationUserFetch(setUserLocation);
@@ -73,18 +66,6 @@ const SignUpForm = ({ toggleForm }) => {
       password: "",
     }
   );
-  useEffect(() => {
-    const passwordInput = passwordInputRef.current;
-    const openHint = () => toggleHintPasswordShown(true);
-    const closeHint = () => toggleHintPasswordShown(false);
-    passwordInputRef.current.addEventListener("focus", openHint);
-    passwordInputRef.current.addEventListener("blur", closeHint);
-    return () => {
-      passwordInput.removeEventListener("focus", openHint);
-      passwordInput.removeEventListener("blur", closeHint);
-    };
-  }, []);
-
   const handleInputChange = (e) => {
     if (e.target.value.length < 30) {
       setInputContent({
@@ -99,10 +80,8 @@ const SignUpForm = ({ toggleForm }) => {
     const errorsFromValidate = signUpValidator({ ...inputsContent, location });
     if (Object.keys(errorsFromValidate).length > 0)
       setInputErrors(errorsFromValidate);
-    else {
-      // TODO 1) CALL API
+    else
       dispatch(signUp({ ...inputsContent, location }, () => toggleForm(true)));
-    }
   };
   return (
     <StyledWrapper autoComplete="off" onSubmit={handleSubmit}>
@@ -159,12 +138,7 @@ const SignUpForm = ({ toggleForm }) => {
           alt="password"
         />
       </StyledPasswordContainer>
-      {isHintPasswordShown && (
-        <StyledHintPassword>
-          Password must contain at least six characters, one uppercase, one
-          lowercase and one digit
-        </StyledHintPassword>
-      )}
+      <PasswordStrengthHint passwordInputRef={passwordInputRef} />
       <Button>
         {loading ? (
           <Loader

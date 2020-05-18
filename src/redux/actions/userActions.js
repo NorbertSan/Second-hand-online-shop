@@ -9,6 +9,7 @@ import {
   LOADING_USER,
   SET_USER_DATA,
   UPDATE_USER_INFO,
+  CHANGE_PASSWORD,
 } from "redux/types";
 import axios from "axios";
 
@@ -113,5 +114,24 @@ export const changeUserInfo = (data, setLoading, setIsChanged) => async (
     setIsChanged(true);
   } catch (err) {
     console.error(err);
+  }
+};
+// CHANGE PASSWORD
+export const changePassword = (
+  passwords,
+  setErrors,
+  setLoading,
+  setSuccess
+) => async (dispatch) => {
+  setLoading(true);
+  try {
+    const res = await axios.post("/user/password", passwords);
+    setLoading(false);
+    setSuccess(res.data);
+    setErrors({});
+  } catch (err) {
+    console.error(err);
+    setErrors(err.response.data);
+    setLoading(false);
   }
 };

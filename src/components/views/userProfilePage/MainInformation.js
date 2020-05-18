@@ -12,6 +12,10 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
   display: flex;
+  flex-direction: column;
+`;
+const StyledInnerWrapper = styled.div`
+  display: flex;
   border-bottom: 1px solid #eee;
   padding-bottom: 10px;
   position: relative;
@@ -48,11 +52,14 @@ const StyledIcon = styled.img`
   right: 10px;
   transform: translateY(-50%);
 `;
+const StyledBio = styled.p`
+  color: grey;
+`;
 
 const MainInformation = ({ userData }) => {
   return (
-    <>
-      <StyledWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
+    <StyledWrapper>
+      <StyledInnerWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
         <StyledIcon src={RightIcon} alt="right icon" />
         {userData.avatar ? (
           <StyledAvatar
@@ -68,9 +75,10 @@ const MainInformation = ({ userData }) => {
           <span>Location : {userData.location}</span>
           <span>Joined : {moment(userData.createdAt).fromNow()}</span>
         </StyledInformationWrapper>
-      </StyledWrapper>
+      </StyledInnerWrapper>
+      {userData.bio && <StyledBio>{userData.bio}</StyledBio>}
       <FuncionalityIcons />
-    </>
+    </StyledWrapper>
   );
 };
 MainInformation.propTypes = {
