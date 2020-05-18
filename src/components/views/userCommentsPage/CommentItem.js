@@ -9,10 +9,11 @@ import { useSelector } from "react-redux";
 // ICON
 import { ReactComponent as Icon } from "assets/icons/star.svg";
 import ThreeDotsIcon from "assets/icons/threeDots.svg";
-import UserIcon from "assets/icons/NoFaceIcon.svg";
 // COMPONENTS
 import NickName from "components/atoms/NickName";
 import DropDownMenu from "./DropDownMenu";
+import DefaultAvatar from "utils/DefaultAvatar";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const stars = [1, 2, 3, 4, 5];
 const StyledWrapper = styled.li`
@@ -75,7 +76,7 @@ const CommentDropMenuButton = styled.div`
   padding: 5px;
   border: none;
   background: transparent;
-  z-index: 9;
+  z-index: 1;
 `;
 const StyledIcon = styled.img`
   width: 100%;
@@ -110,7 +111,14 @@ const CommentItem = ({ comment }) => {
           />
         ))}
       </StyledStarsWrapper>
-      <StyledAvatar src={UserIcon} alt="user icon" />
+      {comment.writer.avatar ? (
+        <StyledAvatar
+          src={`${BASE_URL}/${comment.writer.avatar}`}
+          alt="user avatar"
+        />
+      ) : (
+        <DefaultAvatar medium />
+      )}
       <StyledInnerWrapper>
         <StyledLink to={`/user/${comment.writer.nickName}`}>
           <NickName big>{comment.writer.nickName}</NickName>

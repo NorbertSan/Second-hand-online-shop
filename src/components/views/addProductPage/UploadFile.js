@@ -3,12 +3,11 @@ import styled from "styled-components";
 import theme from "utils/theme";
 import Dropzone from "react-dropzone";
 import axios from "axios";
-
 // ICON
 import PlusIcon from "assets/icons/plus.svg";
 // COMPONENTS
 import ValidateAlert from "components/atoms/ValidateAlert";
-
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 const StyledWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -64,10 +63,9 @@ const UploadFile = ({ refreshFunction, clearImages }) => {
     const config = {
       header: { "content-type": "multipart/form-data" },
     };
-    console.log(files);
     formData.append("file", files[0], files[0].name);
     try {
-      const res = await axios.post("/product/uploadImage", formData, config);
+      const res = await axios.post("/uploadImage", formData, config);
       if (res.data.success) {
         setImages([res.data.image, ...images]);
         refreshFunction([res.data.image, ...images]);
@@ -101,7 +99,7 @@ const UploadFile = ({ refreshFunction, clearImages }) => {
             <StyledImage
               onClick={deleteImage}
               name={image}
-              src={`http://localhost:5000/${image}`}
+              src={`${BASE_URL}/${image}`}
               alt={`product image ${index}`}
               key={image}
             />

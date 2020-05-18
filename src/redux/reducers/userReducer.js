@@ -4,6 +4,7 @@ import {
   SET_AUTHENTICATED,
   SET_UNAUTHENTICATED,
   TOGGLE_LIKE_PRODUCT,
+  UPDATE_USER_INFO,
 } from "redux/types";
 
 const initialState = {
@@ -36,6 +37,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         likesProducts: action.payload.productsIdsList,
+      };
+    case UPDATE_USER_INFO:
+      return {
+        ...state,
+        ...action.payload,
       };
     default:
       return { ...state };

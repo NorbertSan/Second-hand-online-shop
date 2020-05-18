@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-
 // COMPONENTS
 import { Facebook, Code } from "react-content-loader";
 import MainInformation from "./MainInformation";

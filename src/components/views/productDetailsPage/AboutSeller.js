@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 import theme from "utils/theme";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
 // ICONS
 import PinIcon from "assets/icons/pin.svg";
 import UserIcon from "assets/icons/user.svg";
 // COMPONENTS
 import UserProducts from "components/user/UserProducts";
+import DefaultAvatar from "utils/DefaultAvatar";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -25,11 +26,11 @@ const StyledUserInfo = styled.section`
 const StyledAvatar = styled.img`
   width: 80px;
   height: 80px;
-  border-radius: 50%;
-  padding: 3px;
-  object-fit: cover;
+  padding: 2px;
   border: 2px solid ${theme.colors.blackish};
   margin-right: 10px;
+  border-radius: 50%;
+  object-fit: cover;
 `;
 const StyledDetails = styled.div`
   display: flex;
@@ -79,7 +80,14 @@ const AboutSeller = ({ authorInfo }) => {
   return (
     <StyledWrapper>
       <StyledUserInfo>
-        <StyledAvatar src={UserIcon} alt="user avatar" />
+        {authorInfo.avatar ? (
+          <StyledAvatar
+            src={`${BASE_URL}/${authorInfo.avatar}`}
+            alt="user avatar"
+          />
+        ) : (
+          <DefaultAvatar productDetails />
+        )}
         <StyledDetails>
           <StyledSingleInfo className="big">
             <StyledIcon src={UserIcon} alt="user icon" />
@@ -92,7 +100,6 @@ const AboutSeller = ({ authorInfo }) => {
             <span>{authorInfo.location}</span>
           </StyledSingleInfo>
           <StyledSingleInfo>
-            {/* <StyledIcon src={OfflineIcon} alt="offline icon" /> */}
             <StyledDot className={online ? "green" : "red"} />
             <StyledOnlineInfo>
               <span>
@@ -109,10 +116,6 @@ const AboutSeller = ({ authorInfo }) => {
       />
     </StyledWrapper>
   );
-};
-
-AboutSeller.propTypes = {
-  authorInfo: PropTypes.object.isRequired,
 };
 
 AboutSeller.propTypes = {

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "utils/theme";
 
 const Textarea = styled.textarea`
@@ -10,6 +10,7 @@ const Textarea = styled.textarea`
   border: none;
   padding: 5px;
   box-shadow: 0 0 1px grey;
+  outline: none;
   &::placeholder {
     color: grey;
     font-style: italic;
@@ -17,6 +18,12 @@ const Textarea = styled.textarea`
   &:focus {
     border: 1px solid ${theme.colors.secondary};
   }
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      background: transparent;
+      box-shadow: 0 0 2px ${theme.colors.blackish};
+    `}
 `;
 
 export default Textarea;

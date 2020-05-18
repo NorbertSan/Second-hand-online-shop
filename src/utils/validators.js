@@ -12,7 +12,8 @@ const hasLowerCase = (field) => field.toUpperCase() === field;
 const hasDigit = (field) => !/\d/.test(field);
 const isLessThanZero = (price) => price <= 0;
 const areImagesUpload = (images) => images.length > 0;
-
+const hasMoreThan100Chars = (field) => field.length > 100;
+const hasMoreThan2000Chars = (field) => field.length > 2000;
 // SIGN UP VALIDATOR
 export const signUpValidator = (data) => {
   let errors = {};
@@ -53,10 +54,18 @@ export const addProductValidator = (data) => {
 
 // ADD COMMENT VALIDATOR
 export const addCommentValidator = (data) => {
-  console.log(data);
   let errors = {};
   if (isLessThanZero(data.stars)) errors.stars = "*Required";
   if (isEmpty(data.body)) errors.body = "*Required";
 
+  return errors;
+};
+
+// CHANGE USER INFO VALIDATOR
+export const changeUserInfoValidator = (data) => {
+  let errors = {};
+  if (isEmpty(data.fullName)) errors.fullName = "*Required";
+  if (hasMoreThan100Chars(data.fullName)) errors.fullName = "Too long";
+  if (hasMoreThan2000Chars(data.bio)) errors.bio = "Too long";
   return errors;
 };

@@ -50,6 +50,7 @@ const FavouritesProductsPage = () => {
       type: SET_FAV_PRODUCTS,
       payload: products,
     });
+    setLoading(false);
   };
   useEffect(() => {
     dispatch({ type: CLEAR_FAV_PRODUCTS });
@@ -58,13 +59,9 @@ const FavouritesProductsPage = () => {
   useEffect(() => {
     productsIds && setProductsIdsRetrieve(true);
   }, [productsIds]);
-  useGetProductsFromIdsArray(
-    productsIds,
-    null,
-    setLoading,
-    setProductsToGlobalState,
-    [productsIdsRetrieve]
-  );
+  useGetProductsFromIdsArray(productsIds, null, setProductsToGlobalState, [
+    productsIdsRetrieve,
+  ]);
   return (
     <StyledWrapper>
       <StyledTitle>Your favourites products</StyledTitle>

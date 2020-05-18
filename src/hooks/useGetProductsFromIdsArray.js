@@ -5,9 +5,9 @@ import axios from "axios";
 const UseGetProductsFromIdsArray = (
   productsIds,
   setProductsToLocalState,
-  setLoading,
   setProductsToGlobalState,
-  extraParams
+  extraParams,
+  setLoading
 ) => {
   let cancel;
   const limit = 8;

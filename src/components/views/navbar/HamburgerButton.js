@@ -12,7 +12,7 @@ const StyledWrapper = styled.button`
   padding: 0;
   border: none;
   cursor: pointer;
-  z-index: 9;
+  z-index: 99;
   div {
     transition: all 0.15s ease-in-out;
     width: 100%;

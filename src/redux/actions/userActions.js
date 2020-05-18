@@ -8,6 +8,7 @@ import {
   SET_ERRORS_SIGNUP,
   LOADING_USER,
   SET_USER_DATA,
+  UPDATE_USER_INFO,
 } from "redux/types";
 import axios from "axios";
 
@@ -95,6 +96,21 @@ export const getUserData = (nickName, setUserNotFound) => async (dispatch) => {
       console.log("user not found");
       setUserNotFound(true);
     } else dispatch({ type: SET_USER_DATA, payload: res.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// SAVE USER INFO CHANGES
+export const changeUserInfo = (data, setLoading, setIsChanged) => async (
+  dispatch
+) => {
+  console.log("save changes");
+  setLoading(true);
+  try {
+    await axios.post("/user/update_info", data);
+    dispatch({ type: UPDATE_USER_INFO, payload: data });
+    setLoading(false);
+    setIsChanged(true);
   } catch (err) {
     console.error(err);
   }

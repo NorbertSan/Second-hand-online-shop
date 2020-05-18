@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+// ICON
+import HangerIcon from "assets/icons/hanger.svg";
 // COMPONENTS
 import UserProductItem from "./UserProductItem";
 import ProductsSkeleton from "components/products/ProductsSkeleton";
@@ -25,6 +27,14 @@ const StyledTitle = styled.h3`
   padding: 15px 0;
   font-weight: bold;
 `;
+const StyledIcon = styled.img`
+  width: 100px;
+`;
+const StyledSecondWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 
 const UserProducts = ({ productsIds, nickName }) => {
   const [userProducts, setUserProducts] = useState([]);
@@ -32,20 +42,28 @@ const UserProducts = ({ productsIds, nickName }) => {
   useGetProductsFromIdsArray(
     productsIds,
     setUserProducts,
-    setLoading,
     null,
-    []
+    [],
+    setLoading
   );
   return (
     <>
-      <StyledTitle>{`Items user ${nickName} (${productsIds.length} products)`}</StyledTitle>
-      <StyledWrapper>
-        {userProducts.length > 0 &&
-          userProducts.map((product) => (
-            <UserProductItem key={product._id} product={product} />
-          ))}
-        {loading && <ProductsSkeleton />}
-      </StyledWrapper>
+      {userProducts.length > 0 ? (
+        <>
+          <StyledTitle>{`Items user ${nickName} (${productsIds.length} products)`}</StyledTitle>
+          <StyledWrapper>
+            {userProducts.map((product) => (
+              <UserProductItem key={product._id} product={product} />
+            ))}
+          </StyledWrapper>
+        </>
+      ) : (
+        <StyledSecondWrapper>
+          <StyledTitle>This user do not have products on sell </StyledTitle>
+          <StyledIcon src={HangerIcon} alt="hanger icon" />
+        </StyledSecondWrapper>
+      )}
+      {loading && <ProductsSkeleton />}
     </>
   );
 };

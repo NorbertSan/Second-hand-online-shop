@@ -19,6 +19,7 @@ import searchProductsPage from "components/views/searchProductsPage/searchProduc
 import favouritesProductsPage from "components/views/favouritesProductsPage/favouritesProductsPage";
 import userCommentsPage from "components/views/userCommentsPage/userCommentsPage";
 import searchUserRedirect from "components/views/searchUserRedirect";
+import accountSettings from "components/views/accountSettings/accountSettings";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -56,6 +57,7 @@ const App = () => (
           path="/favourites"
           component={favouritesProductsPage}
         />
+        <AuthRoute exact path="/account/settings" component={accountSettings} />
       </Switch>
     </Router>
   </Provider>

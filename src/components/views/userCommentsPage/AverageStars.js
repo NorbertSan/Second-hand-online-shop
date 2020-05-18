@@ -11,6 +11,7 @@ const StyledWrapper = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 10px;
+  z-index: 1;
 `;
 const StyledStarsWrapper = styled.div`
   display: flex;
@@ -57,7 +58,7 @@ const AverageStars = ({ comments }) => {
       <StyledStarsWrapper>
         {stars.map((star) =>
           star - starsAverage > 0.25 && star - starsAverage < 0.75 ? (
-            <StyledHalfStar />
+            <StyledHalfStar key={star} />
           ) : (
             <StyledStar
               className={star <= starsAverage + 0.25 && "filled"}

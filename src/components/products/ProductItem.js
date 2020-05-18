@@ -3,14 +3,13 @@ import styled from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
-
 // COMPONENTS
 import UserIcon from "components/atoms/UserIcon";
 import NickName from "components/atoms/NickName";
 import LikeButton from "./LikeButton";
 import ImageSlider from "./ImageSlider";
-// ASSETS
-import IconUser from "assets/icons/userIcon.svg";
+import DefaultAvatar from "utils/DefaultAvatar";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.li`
   position: relative;
@@ -63,7 +62,14 @@ const ProductItem = ({ product }) => {
   return (
     <StyledWrapper>
       <StyledAuthorInfo as={Link} to={`/user/${product.writer.nickName}`}>
-        <StyledUserIcon src={IconUser} alt="user icon" />
+        {product.writer.avatar ? (
+          <StyledUserIcon
+            src={`${BASE_URL}/${product.writer.avatar}`}
+            alt="user icon"
+          />
+        ) : (
+          <DefaultAvatar />
+        )}
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>
       <Link

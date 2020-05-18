@@ -3,12 +3,12 @@ import styled from "styled-components";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { Link } from "react-router-dom";
-
-import dummyPhoto from "assets/images/dummyPhoto.jpg";
 // ICON
 import RightIcon from "assets/icons/simpleRightArrow.svg";
 // COMPONENTS
 import FuncionalityIcons from "./FuncionalityIcons";
+import DefaultAvatar from "utils/DefaultAvatar";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -54,7 +54,14 @@ const MainInformation = ({ userData }) => {
     <>
       <StyledWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
         <StyledIcon src={RightIcon} alt="right icon" />
-        <StyledAvatar src={dummyPhoto} alt="user avatar" />
+        {userData.avatar ? (
+          <StyledAvatar
+            src={`${BASE_URL}/${userData.avatar}`}
+            alt="user avatar"
+          />
+        ) : (
+          <DefaultAvatar userProfile />
+        )}
         <StyledInformationWrapper>
           <StyledTitle>{userData.nickName}</StyledTitle>
           <span>Name : {userData.fullName}</span>

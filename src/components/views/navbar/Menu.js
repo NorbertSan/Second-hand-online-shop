@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { Link } from "react-router-dom";
 import theme from "utils/theme";
 import { useLocation } from "react-router-dom";
@@ -7,15 +7,16 @@ import { useLocation } from "react-router-dom";
 import useDetectClickOutside from "hooks/useDetectClickOutside";
 // REDUX STUFF
 import { useSelector } from "react-redux";
-// ICONS
-import NoFaceIcon from "assets/icons/NoFaceIcon.svg";
 // COMPONENTS
 import Button from "components/atoms/Button";
 import NickName from "components/atoms/NickName";
 import Logout from "./Logout";
 import GenderFilters from "./GenderFilters";
+import GreyBackground from "components/atoms/GreyBackground";
+import DefaultAvatar from "utils/DefaultAvatar";
 // ANIMATIONS
 import { menuAppear } from "utils/keyframesAnimations";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledMenuList = styled.ul`
   margin: 0;
@@ -25,7 +26,7 @@ const StyledMenuList = styled.ul`
   top: 0;
   left: 0;
   background: ${theme.colors.whiteish};
-  z-index: 9;
+  z-index: 15;
   width: 100vw;
   display: flex;
   flex-direction: column;
@@ -38,27 +39,12 @@ const StyledButton = styled(Button)`
   margin-bottom: 10px;
   text-align: center;
 `;
-const StyledBackground = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.7);
-  z-index: 9;
-`;
-const StyledIcon = styled.img`
-  width: 20px;
-  height: 20px;
+const StyledAvatar = styled.img`
+  width: 40px;
+  height: 40px;
   margin-right: 5px;
   border-radius: 50%;
-  ${({ big }) =>
-    big &&
-    css`
-      padding: 5px;
-      width: 40px;
-      height: 40px;
-    `}
+  border: 2px solid ${theme.colors.secondary};
 `;
 
 const StyledUserInfo = styled.div`
@@ -74,6 +60,24 @@ const StyledUserPanel = styled.div`
   width: 100%;
   border-bottom: 1px solid ${theme.colors.secondary};
 `;
+const StyledAuthLinks = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  align-self: flex-start;
+  margin-top: 40px;
+  width: 100%;
+`;
+const StyledAuthLink = styled.li`
+  display: block;
+  padding: 10px;
+  box-shadow: 0 0 2px grey;
+  font-weight: bold;
+  margin-bottom: 6px;
+  background: #fff;
+  position: relative;
+  font-size: ${theme.fontSize.s};
+`;
 
 const Menu = ({ toggleMenuOpen }) => {
   const auth = useSelector((state) => state.user.auth);
@@ -83,13 +87,20 @@ const Menu = ({ toggleMenuOpen }) => {
   const location = useLocation();
   useDetectClickOutside(menuRef, toggleMenuOpen);
   return (
-    <StyledBackground>
+    <>
+      <GreyBackground />
       <StyledMenuList ref={menuRef}>
         {auth && (
           <StyledUserPanel>
             <StyledUserInfo>
-              <StyledIcon big src={avatar || NoFaceIcon} alt="profile image" />
-              <NickName big>{nickName}</NickName>
+              {avatar ? (
+                <StyledAvatar src={`${BASE_URL}/${avatar}`} alt="user avatar" />
+              ) : (
+                <DefaultAvatar smallMenuIcon />
+              )}
+              <NickName black big>
+                {nickName}
+              </NickName>
             </StyledUserInfo>
             <Link to={`/user/${nickName}`}>
               <Button secondary onClick={() => toggleMenuOpen(false)}>
@@ -115,9 +126,30 @@ const Menu = ({ toggleMenuOpen }) => {
         {location.pathname !== "/products" && (
           <GenderFilters toggleMenuOpen={toggleMenuOpen} />
         )}
-        {auth && <Logout />}
+        {auth && (
+          <>
+            <StyledAuthLinks>
+              <StyledAuthLink
+                onClick={() => toggleMenuOpen(false)}
+                as={Link}
+                to="/account/settings"
+              >
+                Account settings
+              </StyledAuthLink>
+              <StyledAuthLink
+                as={Link}
+                to="/account/purchases"
+                onClick={() => toggleMenuOpen(false)}
+              >
+                {" "}
+                Purchases
+              </StyledAuthLink>
+            </StyledAuthLinks>
+            <Logout />
+          </>
+        )}
       </StyledMenuList>
-    </StyledBackground>
+    </>
   );
 };
 export default Menu;

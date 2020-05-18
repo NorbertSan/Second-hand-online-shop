@@ -25,6 +25,7 @@ const UseSearchUsers = (setUserNickNameList, inputValue, searchType) => {
       fetchUserNames();
       return () => cancel();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 };
 

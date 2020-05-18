@@ -34,7 +34,6 @@ const LatestProducts = () => {
   const latestProducts = useSelector((state) => state.data.products);
   const loading = useSelector((state) => state.UI.loadingProducts);
   const dispatch = useDispatch();
-
   const clearPrevious = false;
   const queries = { limit, page };
   useGetProducts(queries, [page], clearPrevious, null, setFetchMore);
