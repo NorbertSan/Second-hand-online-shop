@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 // COMPONENTS
-import SentMessage from "./SentMessage";
+import SendMessage from "./SendMessage";
 import ConversationRoomsOverview from "./ConversationRoomsOverview";
 
 const StyledWrapper = styled.section`
@@ -16,7 +16,7 @@ const StyledWrapper = styled.section`
 const MessagesPage = () => {
   return (
     <StyledWrapper>
-      <SentMessage />
+      <SendMessage />
       <ConversationRoomsOverview />
     </StyledWrapper>
   );

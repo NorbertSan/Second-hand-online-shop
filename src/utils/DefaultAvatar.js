@@ -16,6 +16,7 @@ const StyledDefaultAvatar = styled.div`
   align-items: center;
   justify-content: center;
   font-size: ${theme.fontSize.xl};
+  position:relative;
   &:after {
     position: absolute;
     text-transform: uppercase;
@@ -63,9 +64,9 @@ const StyledDefaultAvatar = styled.div`
   ${({ productItem }) =>
     productItem &&
     css`
-      width: 20px;
-      height: 20px;
-      margin-right: 5px;
+      width: 25px;
+      height: 25px;
+      margin: 0 5px;
       font-size: 16px;
     `}
 `;
@@ -77,6 +78,7 @@ const DefaultAvatar = ({
   changeAvatar,
   productItem,
   nickNameProvided,
+  message,
 }) => {
   const nickName = useSelector((state) => state.user.nickName);
   return (
@@ -89,7 +91,7 @@ const DefaultAvatar = ({
       changeAvatar={changeAvatar}
       initial={
         nickNameProvided
-          ? nickNameProvided
+          ? nickNameProvided.substr(0, 1)
           : nickName
           ? nickName.substr(0, 1)
           : ""
@@ -104,7 +106,7 @@ DefaultAvatar.propTypes = {
   userProfile: PropTypes.bool,
   productDetails: PropTypes.bool,
   changeAvatar: PropTypes.bool,
-  fullNameProvided: PropTypes.string,
+  nickNameProvided: PropTypes.string,
 };
 
 export default DefaultAvatar;

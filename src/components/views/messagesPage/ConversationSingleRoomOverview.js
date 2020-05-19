@@ -51,11 +51,11 @@ const ConversationSingleRoomOverview = ({ message }) => {
   const [interlocutorNickName, setInterlocutorNickName] = useState("");
   useEffect(() => {
     if (message.writer.nickName === loggedUserNickName) {
-      setInterlocutorAvatar(message.writer.avatar);
-      setInterlocutorNickName(message.writer.nickName);
-    } else {
       setInterlocutorAvatar(message.recipient.avatar);
       setInterlocutorNickName(message.recipient.nickName);
+    } else {
+      setInterlocutorAvatar(message.writer.avatar);
+      setInterlocutorNickName(message.writer.nickName);
     }
   }, []);
   return (

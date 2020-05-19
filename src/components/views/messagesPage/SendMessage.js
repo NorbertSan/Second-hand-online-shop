@@ -87,7 +87,7 @@ const StyledSentButton = styled.button`
   background: transparent;
   border: none;
 `;
-const StyledSentIcon = styled(RightArrowIcon)`
+const StyledSendIcon = styled(RightArrowIcon)`
   width: 100%;
   path {
     fill: ${theme.colors.primary};
@@ -110,7 +110,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
   text-align: end;
 `;
 
-const SentMessage = () => {
+const SendMessage = () => {
   const dispatch = useDispatch();
   const formRef = useRef(null);
   const [body, setBodyValue] = useState("");
@@ -172,7 +172,7 @@ const SentMessage = () => {
               placeholder="Type message"
             />
             <StyledSentButton>
-              <StyledSentIcon />
+              <StyledSendIcon />
             </StyledSentButton>
           </StyledTextareaWrapper>
         </StyledAddMessageForm>
@@ -181,4 +181,4 @@ const SentMessage = () => {
   );
 };
 
-export default SentMessage;
+export default SendMessage;

@@ -11,6 +11,8 @@ import {
   DELETE_COMMENT,
   EDIT_COMMENT,
   SET_CONVERSATIONS_ROOMS,
+  SET_MESSAGES,
+  ADD_MESSAGE,
 } from "redux/types";
 
 const initialState = {
@@ -19,6 +21,7 @@ const initialState = {
   singleProduct: {},
   userData: null,
   comments: [],
+  messages: [],
   conversationRooms: [],
 };
 
@@ -113,6 +116,16 @@ export default (state = initialState, action) => {
       return {
         ...state,
         conversationRooms: action.payload,
+      };
+    case SET_MESSAGES:
+      return {
+        ...state,
+        messages: action.payload,
+      };
+    case ADD_MESSAGE:
+      return {
+        ...state,
+        messages: [...state.messages, action.payload],
       };
     default:
       return { ...state };

@@ -21,6 +21,7 @@ import userCommentsPage from "components/views/userCommentsPage/userCommentsPage
 import searchUserRedirect from "components/views/searchUserRedirect";
 import accountSettings from "components/views/accountSettings/accountSettings";
 import messagesPage from "components/views/messagesPage/messagesPage";
+import conversationRoomPage from "components/views/conversationRoomPage/conversationRoomPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -60,6 +61,11 @@ const App = () => (
         />
         <AuthRoute exact path="/account/settings" component={accountSettings} />
         <AuthRoute exact path="/messages" component={messagesPage} />
+        <AuthRoute
+          exact
+          path="/messages/:nickName"
+          component={conversationRoomPage}
+        />
       </Switch>
     </Router>
   </Provider>
