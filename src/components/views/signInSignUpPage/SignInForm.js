@@ -59,9 +59,11 @@ const SignInForm = () => {
   const history = useHistory();
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmailValue("");
-    setPasswordValue("");
-    dispatch(login({ email, password, remember }, history));
+    if (password.trim().length > 0 && email.trim().length > 0) {
+      setEmailValue("");
+      setPasswordValue("");
+      dispatch(login({ email, password, remember }, history));
+    }
   };
   return (
     <StyledWrapper onSubmit={handleSubmit}>

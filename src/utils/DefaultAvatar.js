@@ -52,6 +52,7 @@ const StyledDefaultAvatar = styled.div`
       border: 2px solid ${theme.colors.blackish};
       margin-right: 10px;
     `}
+  
   ${({ changeAvatar }) =>
     changeAvatar &&
     css`
@@ -59,7 +60,14 @@ const StyledDefaultAvatar = styled.div`
       height: 70px;
       border: 1px solid grey;
     `}
-  
+  ${({ productItem }) =>
+    productItem &&
+    css`
+      width: 20px;
+      height: 20px;
+      margin-right: 5px;
+      font-size: 16px;
+    `}
 `;
 const DefaultAvatar = ({
   comment,
@@ -67,10 +75,12 @@ const DefaultAvatar = ({
   userProfile,
   productDetails,
   changeAvatar,
+  productItem,
 }) => {
   const fullName = useSelector((state) => state.user.fullName);
   return (
     <StyledDefaultAvatar
+      productItem={productItem}
       comment={comment}
       smallMenuIcon={smallMenuIcon}
       userProfile={userProfile}

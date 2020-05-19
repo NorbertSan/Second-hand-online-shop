@@ -68,7 +68,7 @@ const ProductItem = ({ product }) => {
             alt="user icon"
           />
         ) : (
-          <DefaultAvatar />
+          <DefaultAvatar productItem />
         )}
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>

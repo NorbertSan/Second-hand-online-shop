@@ -15,6 +15,7 @@ const isLessThanZero = (price) => price <= 0;
 const areImagesUpload = (images) => images.length > 0;
 const hasMoreThan100Chars = (field) => field.length > 100;
 const hasMoreThan2000Chars = (field) => field.length > 2000;
+
 // SIGN UP VALIDATOR
 export const signUpValidator = (data) => {
   let errors = {};
@@ -30,7 +31,7 @@ export const signUpValidator = (data) => {
     hasLowerCase(data.password)
   )
     errors.password = "Password is too week";
-  if (hasMoreThan20Chars(data.newPassword))
+  if (hasMoreThan20Chars(data.password))
     errors.password = "Password is too long";
   if (isEmpty(data.password)) errors.password = "Required*";
   if (isEmpty(data.email)) errors.email = "Required*";

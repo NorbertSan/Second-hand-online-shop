@@ -9,7 +9,7 @@ import {
   LOADING_USER,
   SET_USER_DATA,
   UPDATE_USER_INFO,
-  CHANGE_PASSWORD,
+  DELETE_ACCOUNT,
 } from "redux/types";
 import axios from "axios";
 
@@ -133,5 +133,25 @@ export const changePassword = (
     console.error(err);
     setErrors(err.response.data);
     setLoading(false);
+  }
+};
+// DELETE ACCOUNT
+export const deleteAccount = (
+  password,
+  setLoading,
+  setError,
+  history
+) => async (dispatch) => {
+  setLoading(true);
+  try {
+    await axios.post("/user/account", { password });
+    dispatch({ type: SET_UNAUTHENTICATED });
+    localStorage.removeItem("AuthToken");
+    delete axios.defaults.headers.common["Authorization"];
+    history.push("/signup/select_type");
+  } catch (err) {
+    console.error(err);
+    setLoading(false);
+    setError(err.response.data);
   }
 };

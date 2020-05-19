@@ -117,7 +117,7 @@ const CommentItem = ({ comment }) => {
           alt="user avatar"
         />
       ) : (
-        <DefaultAvatar medium />
+        <DefaultAvatar comment />
       )}
       <StyledInnerWrapper>
         <StyledLink to={`/user/${comment.writer.nickName}`}>
