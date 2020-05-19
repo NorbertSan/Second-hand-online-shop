@@ -117,6 +117,7 @@ const AddProductPage = () => {
       <UploadFile refreshFunction={setImagesHandle} clearImages={clearImages} />
       <StyledInnerWrapper>
         <StyledInput
+          spellCheck="false"
           type="text"
           tertiary
           placeholder="brand"
@@ -125,6 +126,7 @@ const AddProductPage = () => {
           onChange={handleInputChange}
         />
         <StyledInput
+          spellCheck="false"
           type="number"
           tertiary
           placeholder="price PLN"
@@ -134,6 +136,7 @@ const AddProductPage = () => {
         />
       </StyledInnerWrapper>
       <Textarea
+        spellCheck="false"
         placeholder="Short description"
         name="description"
         value={inputsValue.description}

@@ -86,6 +86,7 @@ const SignUpForm = ({ toggleForm }) => {
   return (
     <StyledWrapper autoComplete="off" onSubmit={handleSubmit}>
       <StyledInput
+        spellCheck="false"
         name="fullName"
         type="text"
         value={inputsContent.fullName}
@@ -95,6 +96,7 @@ const SignUpForm = ({ toggleForm }) => {
       />
       {errors.fullName && <ValidateAlert>{errors.fullName}</ValidateAlert>}
       <StyledInput
+        spellCheck="false"
         value={inputsContent.nickName}
         onChange={handleInputChange}
         name="nickName"
@@ -104,6 +106,7 @@ const SignUpForm = ({ toggleForm }) => {
       />
       {errors.nickName && <ValidateAlert>{errors.nickName}</ValidateAlert>}
       <StyledInput
+        spellCheck="false"
         value={inputsContent.email}
         onChange={handleInputChange}
         name="email"
@@ -113,6 +116,7 @@ const SignUpForm = ({ toggleForm }) => {
       />
       {errors.email && <ValidateAlert>{errors.email}</ValidateAlert>}
       <StyledInput
+        spellCheck="false"
         value={location}
         onChange={(e) => setUserLocation(e.target.value)}
         name="location"
@@ -123,6 +127,7 @@ const SignUpForm = ({ toggleForm }) => {
       {errors.location && <ValidateAlert>{errors.location}</ValidateAlert>}
       <StyledPasswordContainer>
         <StyledInput
+          spellCheck="false"
           value={inputsContent.password}
           onChange={handleInputChange}
           name="password"

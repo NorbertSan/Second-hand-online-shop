@@ -42,9 +42,9 @@ const SearchInput = () => {
   const formRef = useRef(null);
   const [inputValue, setInputValue] = useState("");
   const [userNickNameList, setUserNickNameList] = useState([]);
-
   useSearchUsers(setUserNickNameList, inputValue, searchType);
   const handleInputChange = (value) => setInputValue(value);
+  const handleElementChange = () => formRef.current.submit();
 
   return (
     <StyledWrapper>
@@ -62,6 +62,7 @@ const SearchInput = () => {
           name={searchType === "products" ? "type" : "nickName"}
           searchList={searchType === "products" ? types : userNickNameList}
           formRef={formRef}
+          handleElementChange={handleElementChange}
         />
       </StyledInputSearchWrapper>
     </StyledWrapper>

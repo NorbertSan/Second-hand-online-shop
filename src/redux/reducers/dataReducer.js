@@ -10,6 +10,7 @@ import {
   ADD_COMMENT,
   DELETE_COMMENT,
   EDIT_COMMENT,
+  SET_CONVERSATIONS_ROOMS,
 } from "redux/types";
 
 const initialState = {
@@ -18,6 +19,7 @@ const initialState = {
   singleProduct: {},
   userData: null,
   comments: [],
+  conversationRooms: [],
 };
 
 export default (state = initialState, action) => {
@@ -106,6 +108,11 @@ export default (state = initialState, action) => {
           if (comment._id === editedComment._id) return [...res, editedComment];
           else return [...res, comment];
         }, []),
+      };
+    case SET_CONVERSATIONS_ROOMS:
+      return {
+        ...state,
+        conversationRooms: action.payload,
       };
     default:
       return { ...state };

@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import SearchIcon from "assets/icons/search.svg";
@@ -11,9 +11,26 @@ import Input from "components/atoms/Input";
 const StyledInput = styled(Input)`
   padding-left: 25px;
   color: ${theme.colors.blackish};
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      border: none;
+      &::placeholder {
+        font-style: normal;
+        font-size: ${theme.fontSize.xs};
+      }
+      &:focus {
+        border: none !important;
+      }
+    `}
 `;
 const StyledWrapper = styled.div`
   position: relative;
+  ${({ secondary }) =>
+    secondary &&
+    css`
+      margin: 0 auto;
+    `}
 `;
 const StyledList = styled.ul`
   margin: 0;
@@ -58,11 +75,13 @@ const DownshiftInput = ({
   nickNameValue,
   handleInputChange,
   formRef,
+  secondary,
+  handleElementChange,
 }) => {
   return (
     <Downshift
       onInputValueChange={(value) => handleInputChange(value)}
-      onChange={(e) => formRef.current.submit()}
+      onChange={handleElementChange}
       itemToString={(item) => (item ? item.value : "")}
     >
       {({
@@ -75,15 +94,19 @@ const DownshiftInput = ({
         selectedItem,
         getRootProps,
       }) => (
-        <StyledWrapper>
+        <StyledWrapper secondary={secondary}>
           <div
             style={{ display: "inline-block" }}
             {...getRootProps({}, { suppressRefError: true })}
           >
-            <StyledButton type="submit">
-              <StyledIcon src={SearchIcon} alt="search icon" />
-            </StyledButton>
+            {!secondary && (
+              <StyledButton type="submit">
+                <StyledIcon src={SearchIcon} alt="search icon" />
+              </StyledButton>
+            )}
             <StyledInput
+              secondary={secondary}
+              spellCheck="false"
               placeholder={placeholder}
               name={name}
               {...getInputProps()}

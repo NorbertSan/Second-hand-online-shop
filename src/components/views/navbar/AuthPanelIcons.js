@@ -32,7 +32,7 @@ const StyledButton = styled.button`
 const AuthPanelIcons = () => {
   return (
     <StyledWrapper>
-      <StyledButton>
+      <StyledButton as={Link} to="/messages">
         <StyledIcon src={MailIcon} alt="mail icon" />
       </StyledButton>
       <StyledButton>

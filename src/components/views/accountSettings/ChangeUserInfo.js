@@ -33,6 +33,13 @@ const StyledValidateAlert = styled(ValidateAlert)`
   margin: 0;
   margin-top: 3px;
 `;
+const StyledTextarea = styled(Textarea)`
+  border: none;
+  box-shadow: 0 0 2px grey;
+  &:focus {
+    border: none;
+  }
+`;
 
 const ChangeUserInfo = ({ fullName, bio, setFullName, setBio, errors }) => {
   return (
@@ -41,6 +48,7 @@ const ChangeUserInfo = ({ fullName, bio, setFullName, setBio, errors }) => {
         <StyledField>
           <label>Full name :</label>
           <StyledInput
+            spellCheck="false"
             secondary
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
@@ -51,7 +59,8 @@ const ChangeUserInfo = ({ fullName, bio, setFullName, setBio, errors }) => {
         </StyledField>
         <StyledField>
           <label>Tell more about yourself :</label>
-          <Textarea
+          <StyledTextarea
+            spellCheck="false"
             secondary
             value={bio}
             onChange={(e) => setBio(e.target.value)}

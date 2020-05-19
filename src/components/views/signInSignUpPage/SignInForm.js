@@ -70,6 +70,7 @@ const SignInForm = () => {
       <StyledInputWrapper>
         <label htmlFor="email">Email :</label>
         <StyledInput
+          spellCheck="false"
           type="text"
           value={email}
           onChange={(e) => setEmailValue(e.target.value)}
@@ -79,6 +80,7 @@ const SignInForm = () => {
       <StyledInputWrapper>
         <label htmlFor="password">Password :</label>
         <StyledInput
+          spellCheck="false"
           value={password}
           onChange={(e) => setPasswordValue(e.target.value)}
           type="password"

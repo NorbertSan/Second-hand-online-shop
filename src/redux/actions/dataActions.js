@@ -9,6 +9,8 @@ import {
   DELETE_COMMENT,
   EDIT_COMMENT,
   LOADING_COMMENTS,
+  SET_MESSAGE,
+  SET_CONVERSATIONS_ROOMS,
 } from "redux/types";
 import axios from "axios";
 
@@ -89,6 +91,26 @@ export const editComment = (data, toggleAddCommentOpen, comment_id) => async (
     const res = await axios.put(`/comment/${comment_id}`, data);
     dispatch({ type: EDIT_COMMENT, payload: res.data });
     toggleAddCommentOpen(false);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// SEND MESSAGE
+export const sendMessage = (data) => async (dispatch) => {
+  try {
+    const res = await axios.post("/message/add", data);
+    console.log(res);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// SET CONVERSATION ROOMS
+export const getConversationRooms = (setLoading) => async (dispatch) => {
+  try {
+    const res = await axios.get("/message/rooms");
+    dispatch({ type: SET_CONVERSATIONS_ROOMS, payload: res.data });
+    console.log(res.data);
+    setLoading(false);
   } catch (err) {
     console.error(err);
   }

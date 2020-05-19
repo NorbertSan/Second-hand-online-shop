@@ -10,11 +10,11 @@ const StyledDefaultAvatar = styled.div`
   border-radius: 50%;
   flex-shrink: 1;
   border: 1px solid grey;
+  object-fit:cover;
   background: #eee;
   display: flex;
   align-items: center;
   justify-content: center;
-  object-fit:cover;
   font-size: ${theme.fontSize.xl};
   &:after {
     position: absolute;
@@ -76,8 +76,9 @@ const DefaultAvatar = ({
   productDetails,
   changeAvatar,
   productItem,
+  nickNameProvided,
 }) => {
-  const fullName = useSelector((state) => state.user.fullName);
+  const nickName = useSelector((state) => state.user.nickName);
   return (
     <StyledDefaultAvatar
       productItem={productItem}
@@ -86,7 +87,13 @@ const DefaultAvatar = ({
       userProfile={userProfile}
       productDetails={productDetails}
       changeAvatar={changeAvatar}
-      initial={fullName ? fullName.substr(0, 1) : ""}
+      initial={
+        nickNameProvided
+          ? nickNameProvided
+          : nickName
+          ? nickName.substr(0, 1)
+          : ""
+      }
     />
   );
 };
@@ -97,6 +104,7 @@ DefaultAvatar.propTypes = {
   userProfile: PropTypes.bool,
   productDetails: PropTypes.bool,
   changeAvatar: PropTypes.bool,
+  fullNameProvided: PropTypes.string,
 };
 
 export default DefaultAvatar;
