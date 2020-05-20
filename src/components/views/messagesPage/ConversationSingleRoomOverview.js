@@ -66,6 +66,7 @@ const ConversationSingleRoomOverview = ({ message }) => {
   const loggedUserNickName = useSelector((state) => state.user.nickName);
   const [interlocutorAvatar, setInterlocutorAvatar] = useState(null);
   const [interlocutorNickName, setInterlocutorNickName] = useState("");
+
   const [isRoomUnread, setRoomUnread] = useState(false);
   useEffect(() => {
     if (message.writer.nickName === loggedUserNickName) {

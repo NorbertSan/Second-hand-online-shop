@@ -7,9 +7,6 @@ const Input = styled.input`
   outline: none;
   border: 1px solid transparent;
   outline: none;
-  &::placeholder {
-    font-style: italic;
-  }
   &:focus {
     border-color: ${theme.colors.secondary};
   }

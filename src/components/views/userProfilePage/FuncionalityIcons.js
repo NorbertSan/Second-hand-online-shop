@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link, useParams } from "react-router-dom";
 // ICONS
 import BlueMail from "assets/icons/blueMail.svg";
 
@@ -22,9 +23,10 @@ const StyledIcon = styled.img`
 `;
 
 const FuncionalityIcons = () => {
+  const { nickName } = useParams();
   return (
     <StyledWrapper>
-      <StyledButton>
+      <StyledButton as={Link} to={`/messages/${nickName}`}>
         <StyledIcon src={BlueMail} alt="mail icon" />
       </StyledButton>
     </StyledWrapper>

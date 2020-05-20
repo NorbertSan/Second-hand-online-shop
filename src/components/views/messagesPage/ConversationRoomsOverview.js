@@ -6,10 +6,16 @@ import ConversationSingleRoomOverview from "./ConversationSingleRoomOverview";
 // REDUX
 import { useSelector, useDispatch } from "react-redux";
 import { getConversationRooms } from "redux/actions/dataActions";
+
 const StyledWrapper = styled.ul`
   padding: 0;
   margin: 0;
   list-style: none;
+`;
+const StyledNoMessageAlert = styled.div`
+  margin-top: 15px;
+  text-align: center;
+  font-size: 12px;
 `;
 
 const ConversationRoomsOverview = () => {
@@ -32,7 +38,9 @@ const ConversationRoomsOverview = () => {
           <ConversationSingleRoomOverview key={room._id} message={room} />
         ))
       ) : (
-        <div>no messages</div>
+        <StyledNoMessageAlert>
+          You do not have any conversations yet
+        </StyledNoMessageAlert>
       )}
     </StyledWrapper>
   );

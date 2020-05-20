@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import moment from "moment";
+import theme from "utils/theme";
 import { Link } from "react-router-dom";
 // ICON
 import RightIcon from "assets/icons/simpleRightArrow.svg";
@@ -53,7 +54,7 @@ const StyledIcon = styled.img`
   transform: translateY(-50%);
 `;
 const StyledBio = styled.p`
-  color: grey;
+  font-size: ${theme.fontSize.s};
 `;
 
 const MainInformation = ({ userData }) => {
@@ -73,7 +74,7 @@ const MainInformation = ({ userData }) => {
           <StyledTitle>{userData.nickName}</StyledTitle>
           <span>Name : {userData.fullName}</span>
           <span>Location : {userData.location}</span>
-          <span>Joined : {moment(userData.createdAt).fromNow()}</span>
+          <span>Joined : {moment(userData.createdAt).calendar()}</span>
         </StyledInformationWrapper>
       </StyledInnerWrapper>
       {userData.bio && <StyledBio>{userData.bio}</StyledBio>}

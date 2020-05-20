@@ -94,7 +94,7 @@ export const getUserData = (nickName, setUserNotFound) => async (dispatch) => {
     const res = await axios.get(`/user/${nickName}`);
     if (!res.data) {
       console.log("user not found");
-      setUserNotFound(true);
+      setUserNotFound && setUserNotFound(true);
     } else dispatch({ type: SET_USER_DATA, payload: res.data });
   } catch (err) {
     console.error(err);

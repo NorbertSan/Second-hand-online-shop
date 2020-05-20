@@ -40,6 +40,7 @@ const StyledList = styled.ul`
   width: 100%;
   box-shadow: 0 0 1px grey;
   color: grey;
+  z-index: 9;
 `;
 const StyledElement = styled.li`
   background: ${theme.colors.whiteish};

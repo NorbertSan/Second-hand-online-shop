@@ -123,9 +123,29 @@ export default (state = initialState, action) => {
         messages: action.payload,
       };
     case ADD_MESSAGE:
+      const {
+        recipient: { nickName },
+      } = action.payload;
+      let newConversationsRooms;
+      const index = state.conversationRooms.findIndex(
+        (room) =>
+          room.writer.nickName === nickName ||
+          room.recipient.nickName === nickName
+      );
+      if (index > -1)
+        newConversationsRooms = state.conversationRooms.reduce(
+          (result, current, ind) => {
+            if (ind === index) return [action.payload, ...result];
+            else return [...result, current];
+          },
+          []
+        );
+      else newConversationsRooms = [action.payload, ...state.conversationRooms];
+
       return {
         ...state,
         messages: [...state.messages, action.payload],
+        conversationRooms: newConversationsRooms,
       };
     default:
       return { ...state };
