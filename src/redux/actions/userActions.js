@@ -9,7 +9,6 @@ import {
   LOADING_USER,
   SET_USER_DATA,
   UPDATE_USER_INFO,
-  DELETE_ACCOUNT,
 } from "redux/types";
 import axios from "axios";
 

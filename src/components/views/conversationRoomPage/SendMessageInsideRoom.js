@@ -1,20 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { useParams } from "react-router-dom";
-import Textarea from "components/atoms/Textarea";
 import { ReactComponent as RightArrowIcon } from "assets/icons/rightArrow.svg";
 // REDUX
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { sendMessage } from "redux/actions/dataActions";
 
 const StyledWrapper = styled.form`
-  margin: 50px 15px 0 15px;
   border-top: 1px solid #eee;
   display: flex;
   align-items: center;
   padding-top: 15px;
-  z-index: 10;
+  z-index: 1;
 `;
 const StyledButton = styled.button`
   width: 20px;
@@ -44,6 +42,7 @@ const StyledTextarea = styled.textarea`
 
 const SendMessageInsideRoom = () => {
   const dispatch = useDispatch();
+  const formRef = useRef(null);
   const [body, setBodyValue] = useState("");
   const { nickName } = useParams();
   const handleChange = (e) => setBodyValue(e.target.value);
@@ -54,8 +53,15 @@ const SendMessageInsideRoom = () => {
       setBodyValue("");
     }
   };
+  useEffect(() => {
+    const form = formRef.current;
+    const enterListener = (e) => e.keyCode === 13 && handleSubmit(e);
+
+    form && form.addEventListener("keyup", enterListener);
+    return () => form.removeEventListener("keyup", enterListener);
+  });
   return (
-    <StyledWrapper onSubmit={handleSubmit}>
+    <StyledWrapper ref={formRef} onSubmit={handleSubmit}>
       <StyledTextarea
         spellcheck="false"
         value={body}

@@ -12,6 +12,7 @@ import {
   ADD_MESSAGE,
   SET_MESSAGES,
   SET_CONVERSATIONS_ROOMS,
+  SET_UNREAD_MESSAGES,
 } from "redux/types";
 import axios from "axios";
 
@@ -110,7 +111,6 @@ export const getConversationRooms = (setLoading) => async (dispatch) => {
   try {
     const res = await axios.get("/message/rooms");
     dispatch({ type: SET_CONVERSATIONS_ROOMS, payload: res.data });
-    console.log(res.data);
     setLoading(false);
   } catch (err) {
     console.error(err);
@@ -120,9 +120,17 @@ export const getConversationRooms = (setLoading) => async (dispatch) => {
 export const getMessages = (nickName, setLoading) => async (dispatch) => {
   try {
     const res = await axios.get(`/message/room/${nickName}`);
-    console.log(res.data);
     dispatch({ type: SET_MESSAGES, payload: res.data });
     setLoading(false);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// SET MESSAGES READ
+export const setMessagesRead = (interlocutor) => async (dispatch) => {
+  try {
+    const res = await axios.post("/message/read", { nickName: interlocutor });
+    dispatch({ type: SET_UNREAD_MESSAGES, payload: res.data });
   } catch (err) {
     console.error(err);
   }

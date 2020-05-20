@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled, { css } from "styled-components";
+import moment from "moment";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 // COMPONENTS
@@ -11,7 +12,11 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.li`
   display: flex;
+  flex-direction: column;
   margin-bottom: 10px;
+`;
+const StyledInnerWrapper = styled.div`
+  display: flex;
   ${({ isLoggedUserAuthor }) =>
     isLoggedUserAuthor &&
     css`
@@ -42,27 +47,63 @@ const StyledContent = styled.div`
       box-shadow: 0;
     `}
 `;
+const StyledDateInfo = styled.div`
+  font-size: ${theme.fontSize.xs};
+  padding: 0 40px;
+  ${({ isLoggedUserAuthor }) =>
+    isLoggedUserAuthor &&
+    css`
+      text-align: end;
+    `}
+  ${({ center }) =>
+    center &&
+    css`
+      margin-bottom: 3px;
+      text-align: center;
+    `}
+`;
 
-const MessageItem = ({ message }) => {
+const MessageItem = ({ message, lastElement }) => {
   const loggedUserNickName = useSelector((state) => state.user.nickName);
   const [isLoggedUserAuthor, setIsLoggedUserAuthor] = useState(false);
+  const [isDateShown, toggleDateShown] = useState(false);
   useEffect(() => {
     if (message.writer.nickName === loggedUserNickName)
       setIsLoggedUserAuthor(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <StyledWrapper isLoggedUserAuthor={isLoggedUserAuthor}>
-      {message.writer.avatar ? (
-        <StyledAvatar
-          src={`${BASE_URL}/${message.writer.avatar}`}
-          alt="user avatar"
-        />
-      ) : (
-        <DefaultAvatar productItem nickNameProvided={message.writer.nickName} />
+    <StyledWrapper>
+      {lastElement && (
+        <StyledDateInfo center isLoggedUserAuthor={isLoggedUserAuthor}>
+          {moment(message.createdAt).calendar()}
+        </StyledDateInfo>
       )}
-      <StyledContent isLoggedUserAuthor={isLoggedUserAuthor}>
-        {message.body}
-      </StyledContent>
+      <StyledInnerWrapper isLoggedUserAuthor={isLoggedUserAuthor}>
+        {message.writer.avatar ? (
+          <StyledAvatar
+            src={`${BASE_URL}/${message.writer.avatar}`}
+            alt="user avatar"
+          />
+        ) : (
+          <DefaultAvatar
+            productItem
+            nickNameProvided={message.writer.nickName}
+          />
+        )}
+        <StyledContent
+          onClick={() => toggleDateShown((prevState) => !prevState)}
+          isLoggedUserAuthor={isLoggedUserAuthor}
+        >
+          {message.body}
+        </StyledContent>
+      </StyledInnerWrapper>
+
+      {isDateShown && (
+        <StyledDateInfo isLoggedUserAuthor={isLoggedUserAuthor}>
+          {moment(message.createdAt).calendar()}
+        </StyledDateInfo>
+      )}
     </StyledWrapper>
   );
 };

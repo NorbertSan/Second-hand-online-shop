@@ -5,6 +5,7 @@ import {
   SET_UNAUTHENTICATED,
   TOGGLE_LIKE_PRODUCT,
   UPDATE_USER_INFO,
+  SET_UNREAD_MESSAGES,
 } from "redux/types";
 
 const initialState = {
@@ -42,6 +43,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...action.payload,
+      };
+    case SET_UNREAD_MESSAGES:
+      return {
+        ...state,
+        unreadMessages: action.payload,
       };
     default:
       return { ...state };

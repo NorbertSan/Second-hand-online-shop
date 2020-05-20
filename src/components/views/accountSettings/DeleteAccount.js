@@ -115,7 +115,7 @@ const DeleteAccount = () => {
   useEffect(() => {
     if (confirmDeleteValue === textToConfirmDelete) setIsButtonDisabled(false);
     else setIsButtonDisabled(true);
-  }, [confirmDeleteValue]);
+  }, [confirmDeleteValue, textToConfirmDelete]);
   const toggleDeleteForm = () => setIsDeleteFormOpen((prevState) => !prevState);
   const deleteAccountHandle = (e) => {
     console.log(e.target.value);

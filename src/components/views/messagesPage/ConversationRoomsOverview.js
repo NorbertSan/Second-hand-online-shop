@@ -20,7 +20,7 @@ const ConversationRoomsOverview = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getConversationRooms(setLoading));
-  }, []);
+  }, [dispatch]);
   if (loading)
     return (
       <BulletList backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />

@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import theme from "utils/theme";
 import { Link } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 // COMPONENTS
 import NickName from "components/atoms/NickName";
 import DefaultAvatar from "utils/DefaultAvatar";
@@ -18,6 +18,11 @@ const StyledWrapper = styled.li`
   display: flex;
   background: #fff;
   position: relative;
+  ${({ unread }) =>
+    unread &&
+    css`
+      background: rgba(0, 144, 158, 0.2);
+    `};
 `;
 const StyledAvatar = styled.img`
   width: 45px;
@@ -35,6 +40,12 @@ const StyledInnerWrapper = styled.div`
 const StyledMessageContent = styled.p`
   font-size: ${theme.fontSize.xs};
   color: grey;
+  ${({ unread }) =>
+    unread &&
+    css`
+      font-weight: bold;
+      color: ${theme.colors.blackish};
+    `}
 `;
 const StyledDateInfo = styled.span`
   position: absolute;
@@ -43,12 +54,19 @@ const StyledDateInfo = styled.span`
   font-size: ${theme.fontSize.xs};
   font-weight: bold;
   color: grey;
+  ${({ unread }) =>
+    unread &&
+    css`
+      color: ${theme.colors.blackish};
+    `}
 `;
 
 const ConversationSingleRoomOverview = ({ message }) => {
+  const unreadMessages = useSelector((state) => state.user.unreadMessages);
   const loggedUserNickName = useSelector((state) => state.user.nickName);
   const [interlocutorAvatar, setInterlocutorAvatar] = useState(null);
   const [interlocutorNickName, setInterlocutorNickName] = useState("");
+  const [isRoomUnread, setRoomUnread] = useState(false);
   useEffect(() => {
     if (message.writer.nickName === loggedUserNickName) {
       setInterlocutorAvatar(message.recipient.avatar);
@@ -57,10 +75,22 @@ const ConversationSingleRoomOverview = ({ message }) => {
       setInterlocutorAvatar(message.writer.avatar);
       setInterlocutorNickName(message.writer.nickName);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    unreadMessages &&
+      unreadMessages.includes(message._id) &&
+      setRoomUnread(true);
+  }, [unreadMessages, message._id]);
   return (
-    <StyledWrapper as={Link} to={`/messages/${interlocutorNickName}`}>
-      <StyledDateInfo>{moment(message.createdAt).fromNow()}</StyledDateInfo>
+    <StyledWrapper
+      unread={isRoomUnread ? "true" : undefined}
+      as={Link}
+      to={`/messages/${interlocutorNickName}`}
+    >
+      <StyledDateInfo unread={isRoomUnread}>
+        {moment(message.createdAt).fromNow()}
+      </StyledDateInfo>
       {interlocutorAvatar ? (
         <StyledAvatar
           src={`${BASE_URL}/${interlocutorAvatar}`}
@@ -73,7 +103,9 @@ const ConversationSingleRoomOverview = ({ message }) => {
         <NickName black big>
           {interlocutorNickName}
         </NickName>
-        <StyledMessageContent>{message.body}</StyledMessageContent>
+        <StyledMessageContent unread={isRoomUnread}>
+          {message.body}
+        </StyledMessageContent>
       </StyledInnerWrapper>
     </StyledWrapper>
   );
