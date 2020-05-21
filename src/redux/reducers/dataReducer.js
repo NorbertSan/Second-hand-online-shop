@@ -147,6 +147,7 @@ export default (state = initialState, action) => {
         messages: [...state.messages, action.payload],
         conversationRooms: newConversationsRooms,
       };
+
     default:
       return { ...state };
   }

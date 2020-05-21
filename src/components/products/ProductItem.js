@@ -41,8 +41,14 @@ const StyledAuthorInfo = styled.div`
   margin-bottom: 5px;
   padding: 5px;
 `;
-const StyledUserIcon = styled(UserIcon)`
-  margin-right: 5px;
+const StyledUserIcon = styled.img`
+  width: 25px;
+  height: 25px;
+  margin: 0 5px;
+  font-size: 16px;
+  border-radius: 50%;
+  flex-shrink: 1;
+  object-fit: cover;
 `;
 const StyledProductInformation = styled.div`
   position: relative;

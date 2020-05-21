@@ -9,6 +9,9 @@ import {
   LOADING_USER,
   SET_USER_DATA,
   UPDATE_USER_INFO,
+  SET_NOTIFICATIONS,
+  CLEAR_UNREAD_NOTIFICATIONS,
+  SET_NOTIFICATION_READ,
 } from "redux/types";
 import axios from "axios";
 
@@ -152,5 +155,35 @@ export const deleteAccount = (
     console.error(err);
     setLoading(false);
     setError(err.response.data);
+  }
+};
+// GET NOTIFICATIONS
+export const getNotifications = (setLoading) => async (dispatch) => {
+  setLoading(true);
+  try {
+    const res = await axios.get("/notification");
+    console.log(res.data);
+    dispatch({ type: SET_NOTIFICATIONS, payload: res.data });
+    setLoading(false);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// CLEAR NUMBER OF USER UNREAD NOTIFICATIONS
+export const clearUnreadNotifications = () => async (dispatch) => {
+  try {
+    await axios.put("/notification/clear_unread");
+    dispatch({ type: CLEAR_UNREAD_NOTIFICATIONS });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// MARK NOTIFICATION READ
+export const markNotificationRead = (notification_id) => async (dispatch) => {
+  try {
+    await axios.put("/notification/read", { notification_id });
+    dispatch({ type: SET_NOTIFICATION_READ, payload: notification_id });
+  } catch (err) {
+    console.error(err);
   }
 };

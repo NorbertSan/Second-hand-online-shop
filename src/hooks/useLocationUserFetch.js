@@ -23,7 +23,7 @@ const useLocationUserFetch = (setValue) => {
           setValue("");
         });
     });
-  }, []);
+  }, [setValue]);
 };
 
 export default useLocationUserFetch;

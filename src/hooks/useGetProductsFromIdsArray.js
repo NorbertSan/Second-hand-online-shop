@@ -24,7 +24,7 @@ const UseGetProductsFromIdsArray = (
       setProductsToLocalState &&
         setProductsToLocalState((prevState) => [...prevState, ...res.data]);
       setProductsToGlobalState && setProductsToGlobalState(res.data);
-      setLoading(false);
+      setLoading && setLoading(false);
     } catch (err) {
       console.error(err);
     }

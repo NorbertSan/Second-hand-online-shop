@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { Link } from "react-router-dom";
@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import MailIcon from "assets/icons/blueMail.svg";
 import BlueHeart from "assets/icons/blueHeart.svg";
 import NotificationIcon from "assets/icons/notification.svg";
+// COMPO
+import NotificationsDropDown from "./NotificationsDropDown";
 // REDUX
 import { useSelector } from "react-redux";
 
@@ -50,6 +52,10 @@ const StyledBadge = styled.div`
 
 const AuthPanelIcons = () => {
   const unreadMessages = useSelector((state) => state.user.unreadMessages);
+  const [isNotificationsOpen, toggleNotificationOpen] = useState(false);
+  const unreadNotificationsNumber = useSelector(
+    (state) => state.user.unreadNotificationsNumber
+  );
   return (
     <StyledWrapper>
       <StyledButton as={Link} to="/messages">
@@ -58,11 +64,22 @@ const AuthPanelIcons = () => {
         )}
         <StyledIcon src={MailIcon} alt="mail icon" />
       </StyledButton>
-      <StyledButton>
-        <StyledIcon src={NotificationIcon} alt="notification icon" />
-      </StyledButton>
       <StyledButton as={Link} to="/favourites">
         <StyledIcon src={BlueHeart} alt="heart icon" />
+      </StyledButton>
+      <StyledButton
+        style={{ outline: "none" }}
+        onClick={() => toggleNotificationOpen(true)}
+      >
+        {isNotificationsOpen && (
+          <NotificationsDropDown
+            toggleNotificationOpen={toggleNotificationOpen}
+          />
+        )}
+        {unreadNotificationsNumber > 0 && (
+          <StyledBadge>{unreadNotificationsNumber}</StyledBadge>
+        )}
+        <StyledIcon src={NotificationIcon} alt="notification icon" />
       </StyledButton>
     </StyledWrapper>
   );

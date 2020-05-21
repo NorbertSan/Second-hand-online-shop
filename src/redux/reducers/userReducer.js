@@ -6,6 +6,9 @@ import {
   TOGGLE_LIKE_PRODUCT,
   UPDATE_USER_INFO,
   SET_UNREAD_MESSAGES,
+  SET_NOTIFICATIONS,
+  CLEAR_UNREAD_NOTIFICATIONS,
+  SET_NOTIFICATION_READ,
 } from "redux/types";
 
 const initialState = {
@@ -48,6 +51,25 @@ export default (state = initialState, action) => {
       return {
         ...state,
         unreadMessages: action.payload,
+      };
+    case SET_NOTIFICATIONS:
+      return {
+        ...state,
+        notifications: action.payload,
+      };
+    case CLEAR_UNREAD_NOTIFICATIONS:
+      return {
+        ...state,
+        unreadNotificationsNumber: 0,
+      };
+    case SET_NOTIFICATION_READ:
+      return {
+        ...state,
+        notifications: state.notifications.reduce((result, current) => {
+          if (current._id === action.payload)
+            return [...result, { ...current, read: true }];
+          else return [...result, current];
+        }, []),
       };
     default:
       return { ...state };

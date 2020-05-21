@@ -78,7 +78,6 @@ const DefaultAvatar = ({
   changeAvatar,
   productItem,
   nickNameProvided,
-  message,
 }) => {
   const nickName = useSelector((state) => state.user.nickName);
   return (
