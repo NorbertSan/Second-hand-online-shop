@@ -55,7 +55,9 @@ export default (state = initialState, action) => {
     case SET_NOTIFICATIONS:
       return {
         ...state,
-        notifications: action.payload,
+        notifications: state.notifications
+          ? [...state.notifications, ...action.payload]
+          : action.payload,
       };
     case CLEAR_UNREAD_NOTIFICATIONS:
       return {

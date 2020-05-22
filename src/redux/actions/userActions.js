@@ -158,10 +158,10 @@ export const deleteAccount = (
   }
 };
 // GET NOTIFICATIONS
-export const getNotifications = (setLoading) => async (dispatch) => {
+export const getNotifications = (setLoading, variables) => async (dispatch) => {
   setLoading(true);
   try {
-    const res = await axios.get("/notification");
+    const res = await axios.post("/notification", variables);
     console.log(res.data);
     dispatch({ type: SET_NOTIFICATIONS, payload: res.data });
     setLoading(false);

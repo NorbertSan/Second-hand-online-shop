@@ -86,7 +86,10 @@ const AboutSeller = ({ authorInfo }) => {
             alt="user avatar"
           />
         ) : (
-          <DefaultAvatar productDetails />
+          <DefaultAvatar
+            productDetails
+            nickNameProvided={authorInfo.nickName}
+          />
         )}
         <StyledDetails>
           <StyledSingleInfo className="big">

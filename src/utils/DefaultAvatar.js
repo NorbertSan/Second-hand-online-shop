@@ -9,7 +9,7 @@ const StyledDefaultAvatar = styled.div`
   height: 70px;
   border-radius: 50%;
   flex-shrink: 1;
-  border: 1px solid grey;
+  border: 1px solid ${theme.colors.blackish};
   object-fit:cover;
   background: #eee;
   display: flex;
@@ -21,7 +21,7 @@ const StyledDefaultAvatar = styled.div`
     position: absolute;
     text-transform: uppercase;
     content: '${(props) => props.initial}';
-    color: grey;
+    color: ${theme.colors.blackish};
   }
   ${({ comment }) =>
     comment &&
@@ -52,6 +52,7 @@ const StyledDefaultAvatar = styled.div`
       padding: 2px;
       border: 2px solid ${theme.colors.blackish};
       margin-right: 10px;
+      font-size: 50px;
     `}
   
   ${({ changeAvatar }) =>
