@@ -72,6 +72,7 @@ const BackButton = styled.button`
 
 const UserCommentsPage = () => {
   const { nickName } = useParams();
+  const nickNameLoggedUser = useSelector((state) => state.user.nickName);
   const loading = useSelector((state) => state.UI.loadingComments);
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.data.comments);
@@ -86,7 +87,7 @@ const UserCommentsPage = () => {
       <BackButton as={Link} to={`/user/${nickName}`}>
         <img src={BackArrowIcon} alt="left arrow" />
       </BackButton>
-      <StyledTitle>Comments about user {nickName}</StyledTitle>
+      <StyledTitle>Opinions about user {nickName}</StyledTitle>
       {loading ? (
         <BulletList backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
       ) : comments.length > 0 ? (
@@ -102,11 +103,13 @@ const UserCommentsPage = () => {
           </StyledNotCommentsAlert>
         </>
       )}
-      <StyledAddCommentButton
-        onClick={() => toggleAddCommentOpen((prevState) => !prevState)}
-      >
-        <StyledIcon small src={PlusIcon} alt="plus in circle icon" />
-      </StyledAddCommentButton>
+      {nickNameLoggedUser !== nickName && (
+        <StyledAddCommentButton
+          onClick={() => toggleAddCommentOpen((prevState) => !prevState)}
+        >
+          <StyledIcon small src={PlusIcon} alt="plus in circle icon" />
+        </StyledAddCommentButton>
+      )}
       {isAddCommentOpen && (
         <AddComment toggleAddCommentOpen={toggleAddCommentOpen} />
       )}

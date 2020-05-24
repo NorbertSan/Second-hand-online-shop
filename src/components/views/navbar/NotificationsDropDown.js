@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
 import styled from "styled-components";
+import { BulletList } from "react-content-loader";
 // ICON
 import { ReactComponent as RightIcon } from "assets/icons/simpleRightArrow.svg";
 // HOOK
@@ -44,11 +45,15 @@ const StyledDownIcon = styled(RightIcon)`
     fill: ${theme.colors.primary};
   }
 `;
+const StyledNoNotificationsAlert = styled.div`
+  padding: 15px 10px;
+  color: ${theme.colors.primary};
+`;
 
 const NotificationsDropDown = ({ toggleNotificationOpen }) => {
   const limit = 6;
   const [skip, setSkip] = useState(0);
-  const [hasMore, setHasMore] = useState(true);
+  const [hasMore, setHasMore] = useState(false);
   const notificationsRef = useRef(null);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -63,7 +68,10 @@ const NotificationsDropDown = ({ toggleNotificationOpen }) => {
   }, []);
 
   useEffect(() => {
-    notifications && setHasMore(notifications.length % limit === 0);
+    notifications &&
+      setHasMore(
+        notifications.length === 0 ? false : notifications.length % limit === 0
+      );
   }, [notifications]);
 
   useDetectClickOutside(notificationsRef, toggleNotificationOpen);
@@ -78,7 +86,7 @@ const NotificationsDropDown = ({ toggleNotificationOpen }) => {
   };
   return (
     <StyledWrapper ref={notificationsRef}>
-      {loading && <div>LOADING...</div>}
+      {loading && <BulletList height={100} width={170} />}
       {notifications &&
         notifications.length > 0 &&
         notifications.map((notification) => (
@@ -89,7 +97,9 @@ const NotificationsDropDown = ({ toggleNotificationOpen }) => {
           />
         ))}
       {!loading && notifications && notifications.length === 0 && (
-        <div>NO NOTIFICATIONS</div>
+        <StyledNoNotificationsAlert>
+          You do not have any notifications
+        </StyledNoNotificationsAlert>
       )}
       {hasMore && (
         <StyledSeeMore onClick={loadMore}>

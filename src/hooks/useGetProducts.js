@@ -24,7 +24,11 @@ const UseGetProducts = (
       });
       setPages && setPages(parseInt(res.data.pages));
       setFetchMore &&
-        setFetchMore(res.data.products.length % queries.limit === 0);
+        setFetchMore(
+          res.data.products.length === 0
+            ? false
+            : res.data.products.length % queries.limit === 0
+        );
     } catch (err) {
       console.error(err);
     }

@@ -66,10 +66,19 @@ const ConversationSingleRoomOverview = ({ message }) => {
   const loggedUserNickName = useSelector((state) => state.user.nickName);
   const [interlocutorAvatar, setInterlocutorAvatar] = useState(null);
   const [interlocutorNickName, setInterlocutorNickName] = useState("");
+  const [isLoggedUserAuthor, setIsLoggedUserAuthor] = useState(false);
 
   const [isRoomUnread, setRoomUnread] = useState(false);
   useEffect(() => {
+    // MESSAGE TO YOURSELF
+    if (message.writer.nickName === message.recipient.nickName) {
+      setInterlocutorNickName("You");
+      setIsLoggedUserAuthor(true);
+      return;
+    }
+
     if (message.writer.nickName === loggedUserNickName) {
+      setIsLoggedUserAuthor(true);
       setInterlocutorAvatar(message.recipient.avatar);
       setInterlocutorNickName(message.recipient.nickName);
     } else {
@@ -105,7 +114,7 @@ const ConversationSingleRoomOverview = ({ message }) => {
           {interlocutorNickName}
         </NickName>
         <StyledMessageContent unread={isRoomUnread}>
-          {message.body}
+          {`${isLoggedUserAuthor ? "You :" : ""} ${message.body}`}
         </StyledMessageContent>
       </StyledInnerWrapper>
     </StyledWrapper>

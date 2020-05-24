@@ -32,7 +32,7 @@ const StyledFavProductsList = styled.ul`
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   grid-gap: 40px;
   justify-content: center;
   width: 100%;

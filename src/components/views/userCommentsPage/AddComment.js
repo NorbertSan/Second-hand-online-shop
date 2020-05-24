@@ -57,7 +57,6 @@ const AddComment = ({ toggleAddCommentOpen }) => {
       (comment) => comment.writer.nickName === nickNameLoggedUser
     )
   );
-
   return (
     <>
       {auth ? (

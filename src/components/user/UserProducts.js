@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 // ICON
@@ -14,7 +14,7 @@ const StyledWrapper = styled.ul`
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   grid-gap: 40px;
   justify-content: center;
   width: 100%;
@@ -39,11 +39,14 @@ const StyledSecondWrapper = styled.div`
 const UserProducts = ({ productsIds, nickName }) => {
   const [userProducts, setUserProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  useEffect(() => {
+    setUserProducts([]);
+  }, [productsIds]);
   useGetProductsFromIdsArray(
     productsIds,
     setUserProducts,
     null,
-    [],
+    [nickName, productsIds],
     setLoading
   );
   return (
@@ -58,10 +61,12 @@ const UserProducts = ({ productsIds, nickName }) => {
           </StyledWrapper>
         </>
       ) : (
-        <StyledSecondWrapper>
-          <StyledTitle>This user do not have products on sell </StyledTitle>
-          <StyledIcon src={HangerIcon} alt="hanger icon" />
-        </StyledSecondWrapper>
+        !loading && (
+          <StyledSecondWrapper>
+            <StyledTitle>This user do not have products on sell </StyledTitle>
+            <StyledIcon src={HangerIcon} alt="hanger icon" />
+          </StyledSecondWrapper>
+        )
       )}
       {loading && <ProductsSkeleton />}
     </>

@@ -1,7 +1,7 @@
 import React from "react";
 import theme from "utils/theme";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import PropTypes from "prop-types";
 // ICONS
 import EmptyHeart from "assets/icons/emptyHeart.svg";
@@ -43,17 +43,12 @@ const StyledIcon = styled.img`
   width: 20px;
   height: 20px;
   &.like {
-    width: 28px;
-    height: 28px;
-    padding: 4px;
-    position: relative;
-    right: -4px;
     border-radius: 50%;
     animation: ${pulse} 1.5s 1 forwards;
   }
 `;
 
-const FuncionalityButtons = ({ product_id }) => {
+const FuncionalityButtons = ({ product_id, nickName }) => {
   const likesProducts = useSelector((state) => state.user.likesProducts);
   const auth = useSelector((state) => state.user.auth);
   const history = useHistory();
@@ -64,7 +59,7 @@ const FuncionalityButtons = ({ product_id }) => {
       : history.push("/signup/select_type");
   return (
     <StyledWrapper>
-      <StyledButton tertiary>
+      <StyledButton tertiary="tertiary" as={Link} to={`/messages/${nickName}`}>
         <span>Ask for product</span>
         <StyledIcon src={BlackMailIcon} alt="mail icon" />
       </StyledButton>
@@ -100,6 +95,7 @@ const FuncionalityButtons = ({ product_id }) => {
 
 FuncionalityButtons.propTypes = {
   product_id: PropTypes.string.isRequired,
+  nickName: PropTypes.string.isRequired,
 };
 
 export default FuncionalityButtons;

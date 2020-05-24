@@ -17,7 +17,7 @@ const StyledWrapper = styled.ul`
   padding: 0 15px 60px 15px;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   grid-gap: 20px;
   justify-content: center;
   width: 100%;
@@ -43,7 +43,6 @@ const LatestProducts = () => {
   }, []);
 
   const loadMore = () => setPage((prevState) => prevState + 1);
-
   return (
     <>
       <StyledWrapper>

@@ -74,6 +74,8 @@ const StyledBackButton = styled.button`
   height: 22px;
   top: 0px;
   left: 15px;
+  display: flex;
+  flex-direction: column;
   img {
     width: 100%;
   }

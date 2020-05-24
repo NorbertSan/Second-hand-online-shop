@@ -29,6 +29,7 @@ const StyledDefaultAvatar = styled.div`
       width: 45px;
       height: 45px;
       margin-right: 15px;
+      font-size: 22px;
     `}
   ${({ smallMenuIcon }) =>
     smallMenuIcon &&

@@ -8,6 +8,7 @@ const StyledWrapper = styled.ul`
   margin: 0;
   padding: 0;
   list-style: none;
+  z-index: 6;
 `;
 
 const CommentsList = ({ comments }) => {

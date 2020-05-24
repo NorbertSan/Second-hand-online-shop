@@ -33,7 +33,9 @@ const UseGetProductsFromIdsArray = (
   const fetchMoreOnEndPage = () => {
     const spaceDown = document.body.offsetHeight - window.innerHeight;
     const presentPosition = window.scrollY;
-    if (presentPosition + 60 > spaceDown && productsIds.length / limit > page)
+    productsIds &&
+      presentPosition + 60 > spaceDown &&
+      productsIds.length / limit > page &&
       setPage((prevState) => prevState + 1);
   };
   useEffect(() => {

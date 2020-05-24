@@ -13,6 +13,7 @@ import {
   SET_CONVERSATIONS_ROOMS,
   SET_MESSAGES,
   ADD_MESSAGE,
+  DELETE_PRODUCT,
 } from "redux/types";
 
 const initialState = {
@@ -147,7 +148,18 @@ export default (state = initialState, action) => {
         messages: [...state.messages, action.payload],
         conversationRooms: newConversationsRooms,
       };
-
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        userData: {
+          ...state.userData,
+          likesProducts: [...state.userData.likesProducts],
+          comments: [...state.userData.comments],
+          products: [...state.userData.products].filter(
+            (product) => product !== action.payload
+          ),
+        },
+      };
     default:
       return { ...state };
   }

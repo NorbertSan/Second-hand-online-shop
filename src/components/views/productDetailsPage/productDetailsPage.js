@@ -23,16 +23,17 @@ const StyledWrapper = styled.section`
   position: relative;
 `;
 const StyledBackButton = styled.button`
+  margin: 0;
   padding: 3px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   background: transparent;
   border: none;
   position: absolute;
   top: 0;
   left: 20px;
 `;
-const StyledImg = styled.img`
+const StyledIcon = styled.img`
   width: 100%;
 `;
 
@@ -56,15 +57,19 @@ const ProductDetailsPage = () => {
         as={Link}
         to={state && state.prevPath ? state.prevPath : "/"}
       >
-        <StyledImg src={BackIcon} alt="left arrow" />
+        <StyledIcon src={BackIcon} alt="back icon" />
       </StyledBackButton>
+
       {loading ? (
         <Instagram backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
       ) : (
         <>
           <PhotosGallery product={product} />
           <ProductSummary product={product} />
-          <FuncionalityButtons product_id={product._id} />
+          <FuncionalityButtons
+            nickName={product.writer.nickName}
+            product_id={product._id}
+          />
           <AboutSeller authorInfo={product.writer} />
         </>
       )}

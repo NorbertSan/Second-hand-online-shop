@@ -21,13 +21,13 @@ const StyledUserInfo = styled.section`
   background: #eee;
   padding: 20px 10px;
   border-radius: 5px;
-  box-shadow: 0 0 3px ${theme.colors.blackish};
+  box-shadow: 0 0 1px ${theme.colors.blackish};
 `;
 const StyledAvatar = styled.img`
   width: 80px;
   height: 80px;
-  padding: 2px;
-  border: 2px solid ${theme.colors.blackish};
+  padding: 1px;
+  border: 1px solid ${theme.colors.blackish};
   margin-right: 10px;
   border-radius: 50%;
   object-fit: cover;
@@ -76,7 +76,6 @@ const StyledOnlineInfo = styled.div`
 const AboutSeller = ({ authorInfo }) => {
   // IF LESS THAN 1 MINUTE MEAN ONLINE
   const online = authorInfo.lastLogin + 60000 > Date.now();
-
   return (
     <StyledWrapper>
       <StyledUserInfo>

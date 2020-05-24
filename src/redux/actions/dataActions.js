@@ -13,6 +13,7 @@ import {
   SET_MESSAGES,
   SET_CONVERSATIONS_ROOMS,
   SET_UNREAD_MESSAGES,
+  DELETE_PRODUCT,
 } from "redux/types";
 import axios from "axios";
 
@@ -131,6 +132,18 @@ export const setMessagesRead = (interlocutor) => async (dispatch) => {
   try {
     const res = await axios.post("/message/read", { nickName: interlocutor });
     dispatch({ type: SET_UNREAD_MESSAGES, payload: res.data });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// DELETE PRODUCT
+export const deleteProduct = (product_id, setLoading) => async (dispatch) => {
+  setLoading(true);
+  try {
+    const res = await axios.delete(`/product/${product_id}`);
+    console.log(res.data);
+    dispatch({ type: DELETE_PRODUCT, payload: product_id });
+    setLoading(false);
   } catch (err) {
     console.error(err);
   }

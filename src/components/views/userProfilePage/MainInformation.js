@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import moment from "moment";
 import theme from "utils/theme";
@@ -9,6 +9,7 @@ import RightIcon from "assets/icons/simpleRightArrow.svg";
 // COMPONENTS
 import FuncionalityIcons from "./FuncionalityIcons";
 import DefaultAvatar from "utils/DefaultAvatar";
+import { useSelector } from "react-redux";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
@@ -38,7 +39,7 @@ const StyledInformationWrapper = styled.div`
   span {
     color: grey;
     font-size: 11px;
-    margin-bottom: 3px;
+    margin-bottom: 5px;
   }
 `;
 const StyledTitle = styled.h1`
@@ -54,10 +55,32 @@ const StyledIcon = styled.img`
   transform: translateY(-50%);
 `;
 const StyledBio = styled.p`
-  font-size: ${theme.fontSize.s};
+  font-size: 11px;
+`;
+const StyledLastLoginWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  span {
+    margin: 0;
+  }
+`;
+const StyledCircle = styled.div`
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background: ${theme.colors.redish};
+  ${({ online }) =>
+    online &&
+    css`
+      background: ${theme.colors.greenish};
+    `}
 `;
 
 const MainInformation = ({ userData }) => {
+  // IF LESS THAN 1 MINUTE MEAN ONLINE
+  const online = userData.lastLogin + 60000 > Date.now();
+  const loggedUserNickName = useSelector((state) => state.user.nickName);
   return (
     <StyledWrapper>
       <StyledInnerWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
@@ -68,13 +91,21 @@ const MainInformation = ({ userData }) => {
             alt="user avatar"
           />
         ) : (
-          <DefaultAvatar userProfile />
+          <DefaultAvatar userProfile nickNameProvided={userData.nickName} />
         )}
         <StyledInformationWrapper>
           <StyledTitle>{userData.nickName}</StyledTitle>
           <span>Name : {userData.fullName}</span>
           <span>Location : {userData.location}</span>
           <span>Joined : {moment(userData.createdAt).calendar()}</span>
+          {loggedUserNickName !== userData.nickName && (
+            <StyledLastLoginWrapper>
+              <StyledCircle online={online} />
+              <span>
+                {online ? "Online" : moment(userData.lastLogin).fromNow()}
+              </span>
+            </StyledLastLoginWrapper>
+          )}
         </StyledInformationWrapper>
       </StyledInnerWrapper>
       {userData.bio && <StyledBio>{userData.bio}</StyledBio>}
