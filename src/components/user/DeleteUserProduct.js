@@ -4,6 +4,7 @@ import theme from "utils/theme";
 import PropTypes from "prop-types";
 // COMP
 import Button from "components/atoms/Button";
+import Loader from "react-loader-spinner";
 // HOOK
 import useDetectClickOutside from "hooks/useDetectClickOutside";
 // REDUX STUFF
@@ -25,7 +26,6 @@ const StyledWrapper = styled.div`
   height: 100px;
   text-align: center;
   h5 {
-    font-size: ${theme.fontSize.xs};
     font-weight: bold;
     color: ${theme.colors.redish};
     margin: 0;
@@ -48,7 +48,19 @@ const DeleteUserProduct = ({ product_id, toggleDeleteFormOpen }) => {
   return (
     <StyledWrapper ref={deleteFormRef}>
       <h5>Are you sure to delete this product ?</h5>
-      <StyledButton onClick={handleDeleteProduct}>Delete</StyledButton>
+      <StyledButton onClick={handleDeleteProduct}>
+        {" "}
+        {loading ? (
+          <Loader
+            type="ThreeDots"
+            color={theme.colors.whiteish}
+            height={10}
+            width={60}
+          />
+        ) : (
+          "Delete"
+        )}
+      </StyledButton>
     </StyledWrapper>
   );
 };

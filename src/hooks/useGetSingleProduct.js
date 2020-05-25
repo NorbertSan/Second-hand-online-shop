@@ -25,7 +25,6 @@ const UseGetSingleProduct = (setLoading, setError) => {
   };
 
   useEffect(() => {
-    console.log("render");
     fetchProduct();
     return () => cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -4,7 +4,6 @@ import theme from "utils/theme";
 import PropTypes from "prop-types";
 import { Link, useLocation } from "react-router-dom";
 // COMPONENTS
-import UserIcon from "components/atoms/UserIcon";
 import NickName from "components/atoms/NickName";
 import LikeButton from "./LikeButton";
 import ImageSlider from "./ImageSlider";

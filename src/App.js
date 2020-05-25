@@ -22,6 +22,7 @@ import searchUserRedirect from "components/views/searchUserRedirect";
 import accountSettings from "components/views/accountSettings/accountSettings";
 import messagesPage from "components/views/messagesPage/messagesPage";
 import conversationRoomPage from "components/views/conversationRoomPage/conversationRoomPage";
+import shoppingCardPage from "components/views/shoppingCardPage/shoppingCardPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -66,6 +67,7 @@ const App = () => (
           path="/messages/:nickName"
           component={conversationRoomPage}
         />
+        <AuthRoute exact path="/shoppingCard" component={shoppingCardPage} />
       </Switch>
     </Router>
   </Provider>

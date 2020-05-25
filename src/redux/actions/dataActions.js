@@ -140,8 +140,7 @@ export const setMessagesRead = (interlocutor) => async (dispatch) => {
 export const deleteProduct = (product_id, setLoading) => async (dispatch) => {
   setLoading(true);
   try {
-    const res = await axios.delete(`/product/${product_id}`);
-    console.log(res.data);
+    await axios.delete(`/product/${product_id}`);
     dispatch({ type: DELETE_PRODUCT, payload: product_id });
     setLoading(false);
   } catch (err) {

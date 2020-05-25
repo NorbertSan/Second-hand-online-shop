@@ -68,7 +68,7 @@ const ProductDetailsPage = () => {
           <ProductSummary product={product} />
           <FuncionalityButtons
             nickName={product.writer.nickName}
-            product_id={product._id}
+            product={product}
           />
           <AboutSeller authorInfo={product.writer} />
         </>

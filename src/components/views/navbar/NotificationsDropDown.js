@@ -65,6 +65,7 @@ const NotificationsDropDown = ({ toggleNotificationOpen }) => {
     };
     !notifications && dispatch(getNotifications(setLoading, variables));
     dispatch(clearUnreadNotifications());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {

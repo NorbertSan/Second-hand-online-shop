@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import MailIcon from "assets/icons/blueMail.svg";
 import BlueHeart from "assets/icons/blueHeart.svg";
 import NotificationIcon from "assets/icons/notification.svg";
+import CartIcon from "assets/icons/blueCart.svg";
 // COMPO
 import NotificationsDropDown from "./NotificationsDropDown";
 // REDUX
@@ -66,6 +67,9 @@ const AuthPanelIcons = () => {
       </StyledButton>
       <StyledButton as={Link} to="/favourites">
         <StyledIcon src={BlueHeart} alt="heart icon" />
+      </StyledButton>
+      <StyledButton as={Link} to="/shoppingCard">
+        <StyledIcon src={CartIcon} alt="heart icon" />
       </StyledButton>
       <StyledButton
         style={{ outline: "none" }}

@@ -14,6 +14,8 @@ import {
   SET_MESSAGES,
   ADD_MESSAGE,
   DELETE_PRODUCT,
+  ADD_SHOPPING_LIST,
+  REMOVE_SHOPPING_LIST,
 } from "redux/types";
 
 const initialState = {
@@ -24,6 +26,7 @@ const initialState = {
   comments: [],
   messages: [],
   conversationRooms: [],
+  shoppingList: [],
 };
 
 export default (state = initialState, action) => {
@@ -159,6 +162,18 @@ export default (state = initialState, action) => {
             (product) => product !== action.payload
           ),
         },
+      };
+    case ADD_SHOPPING_LIST:
+      return {
+        ...state,
+        shoppingList: [action.payload, ...state.shoppingList],
+      };
+    case REMOVE_SHOPPING_LIST:
+      return {
+        ...state,
+        shoppingList: [...state.shoppingList].filter(
+          (product) => product._id !== action.payload
+        ),
       };
     default:
       return { ...state };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
 import { useHistory, Link } from "react-router-dom";
@@ -48,12 +48,22 @@ const StyledDataInfo = styled.div`
 const NotificationItem = ({ notification, toggleNotificationOpen }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  let description = "";
-  if (notification.type === "like") description = `likes your product.`;
+  const [description, setDescription] = useState("");
+  const [linkRoute, setLinkRoute] = useState("");
+  useEffect(() => {
+    if (notification.type === "like") {
+      setDescription("likes your product.");
+      setLinkRoute(`/product/${notification.product}`);
+    }
+    if (notification.type === "comment") {
+      setDescription("commented on your profile.");
+      setLinkRoute(`/user/${notification.recipient.nickName}/comments`);
+    }
+  }, [notification]);
 
-  const handleClick = () => {
+  const handleContentRedirect = () => {
     dispatch(markNotificationRead(notification._id));
-    history.push(`/product/${notification.product}`);
+    history.push(linkRoute);
     setTimeout(() => {
       toggleNotificationOpen(false);
     }, 0);
@@ -78,7 +88,7 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
           <DefaultAvatar nickNameProvided={notification.nickName} productItem />
         )}
       </Link>
-      <StyledContent onClick={handleClick}>
+      <StyledContent onClick={handleContentRedirect}>
         <StyledNickName>
           {notification.author.nickName} <span> {description}</span>
         </StyledNickName>

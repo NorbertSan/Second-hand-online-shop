@@ -36,3 +36,13 @@ export const appearAddComment = keyframes`
         transform:translateY(0);
     }
 `;
+
+export const slideUpAndDisappear = keyframes`
+  0%{
+    transform:translate(-50%,0);
+    opacity:1;
+  }100%{
+    transform:translate(-50%,20px);
+    opacity:0.5;
+  }
+`;
