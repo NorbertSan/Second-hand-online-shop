@@ -15,6 +15,8 @@ const isLessThanZero = (price) => price <= 0;
 const areImagesUpload = (images) => images.length > 0;
 const hasMoreThan100Chars = (field) => field.length > 100;
 const hasMoreThan2000Chars = (field) => field.length > 2000;
+const isInteger = (field) => Number.isInteger(field);
+const has9Digit = (field) => field.toString().length === 9;
 
 // SIGN UP VALIDATOR
 export const signUpValidator = (data) => {
@@ -92,5 +94,17 @@ export const validatePassword = (data) => {
     isEmpty(data.confirmNewPassword)
   )
     errors.password = "Fill all the fields";
+  return errors;
+};
+
+// RECIPIENT FORM VALIDATOR
+export const recipientFormValidator = (data) => {
+  let errors = {};
+  if (isEmpty(data.fullName)) errors.fullName = "Must not be empty";
+  if (isEmpty(data.email)) errors.email = "Must not be empty";
+  if (!isInteger(data.telephoneNumber)) errors.telephoneNumber = "Bad format";
+  if (!has9Digit(data.telephoneNumber)) errors.telephoneNumber = "Bad format";
+  if (!isEmail(data.email)) errors.email = "Bad format";
+
   return errors;
 };

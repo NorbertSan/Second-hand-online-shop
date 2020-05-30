@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 
 // COMPONENTS
 import CirclesNavigation from "./CirclesNavigation";
+import FormsNavigation from "./FormsNavigation";
 
 const StyledWrapper = styled.section`
   padding: 15px;
@@ -22,6 +23,11 @@ const FinalizationPage = () => {
   return (
     <StyledWrapper>
       <CirclesNavigation finalizationStep={finalizationStep} />
+      <FormsNavigation
+        prevStep={prevStep}
+        nextStep={nextStep}
+        finalizationStep={finalizationStep}
+      />
     </StyledWrapper>
   );
 };

@@ -22,9 +22,9 @@ const StyledCircle = styled.div`
     active &&
     css`
        {
-        border-color: ${theme.colors.secondary};
-        color: ${theme.colors.secondary};
-        background: rgba(187, 59, 14, 0.3);
+        border-color: ${theme.colors.blackish};
+        color: ${theme.colors.whiteish};
+        background: rgba(27, 27, 47, 1);
       }
     `};
 `;
@@ -40,7 +40,7 @@ const StyledConnectionLine = styled.div`
     height: 100%;
     top: 0;
     left: 0;
-    background: ${theme.colors.secondary};
+    background: ${theme.colors.blackish};
     transform-origin: left;
     transition: all 1s ease-in-out;
     transform: scaleX(0);

@@ -1,10 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { Link } from "react-router-dom";
 import LogoIcon from "assets/images/logo.png";
-// HOOK
-import useScrollNavigationDetect from "hooks/useScrollNavigationDetect";
 // COMPONENNTS
 import HamburgerButton from "./HamburgerButton";
 import Menu from "./Menu";
@@ -28,14 +26,6 @@ const StyledWrapper = styled.header`
   top: 0;
   left: 0;
   z-index: 7;
-
-  &.hidden {
-    transform: translateY(-160%);
-  }
-  &.active {
-    background: #fff;
-    transform: translateY(0);
-  }
 `;
 const StyledNavigationWrapper = styled.nav`
   display: flex;
@@ -54,16 +44,14 @@ const StyledLogo = styled.div`
 `;
 
 const Navbar = () => {
-  const NavbarRef = useRef(null);
   const [openMenu, toggleMenuOpen] = useState(false);
   const auth = useSelector((state) => state.user.auth);
-  useScrollNavigationDetect(NavbarRef, toggleMenuOpen);
   const handleLogoClick = () => {
     scroll.scrollToTop({ duration: 500 });
     toggleMenuOpen(false);
   };
   return (
-    <StyledWrapper ref={NavbarRef}>
+    <StyledWrapper>
       {openMenu && <Menu toggleMenuOpen={toggleMenuOpen} />}
       <StyledNavigationWrapper>
         <StyledLogo as={Link} to="/" onClick={handleLogoClick}>

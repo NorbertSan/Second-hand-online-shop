@@ -50,6 +50,12 @@ const Button = styled.button`
       background: transparent;
       font-weight: bold;
     `}
+    ${({ small }) =>
+      small &&
+      css`
+        padding: 5px 10px;
+        font-size: ${theme.fontSize.xs}!important;
+      `}
 `;
 
 export default Button;
