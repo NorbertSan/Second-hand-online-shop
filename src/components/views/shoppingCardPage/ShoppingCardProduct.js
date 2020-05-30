@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import ErrorCheck from "assets/icons/errorCheck.svg";
+import styled, { css } from "styled-components";
+import theme from "utils/theme";
 // REDUX
 import { useDispatch } from "react-redux";
 import { REMOVE_SHOPPING_LIST } from "redux/types";
@@ -9,43 +9,50 @@ import { REMOVE_SHOPPING_LIST } from "redux/types";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.li`
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  align-items: center;
-  padding: 6px;
-  text-align: center;
-  font-size: 11px;
-  color: grey;
-  border-bottom: 1px solid #eee;
+  display: flex;
   position: relative;
-  &:hover {
-    filter: invert(0.4);
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 5px;
+  img {
+    width: 75px;
+    height: 110px;
+    margin-right: 10px;
+    object-fit: cover;
   }
 `;
-const StyledProduct = styled.div`
+const StyledContentWrapper = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
-  img {
-    width: 20px;
-    height: 20px;
-    margin-right: 3px;
-  }
+  flex-direction: column;
+`;
+const StyledDescription = styled.p`
+  margin: 0;
+  font-size: ${theme.fontSize.xs};
+  font-weight: bold;
+  margin-bottom: 20px;
+`;
+const StyledLabel = styled.label`
+  color: grey;
+  font-size: ${theme.fontSize.xs};
+  margin-bottom: 5px;
+  ${({ price }) =>
+    price &&
+    css`
+      font-weight: 300;
+      font-size: ${theme.fontSize.s};
+      margin-top: auto;
+    `}
 `;
 const StyledRemoveButton = styled.button`
-  margin: 0;
-  padding: 0;
   border: none;
-  background: transparent;
-  width: 10px;
-  height: 10px;
+  background: none;
   position: absolute;
-  top: 50%;
-  right: 5px;
-  transform: translateY(-50%);
-  img {
-    width: 100%;
-  }
+  right: 10px;
+  bottom: 10px;
+  border-bottom: 1px solid #eee;
+  font-weight: bold;
+  color: grey;
+  font-size: ${theme.fontSize.xs};
 `;
 
 const ShoppingCardProduct = ({ product }) => {
@@ -54,16 +61,16 @@ const ShoppingCardProduct = ({ product }) => {
     dispatch({ type: REMOVE_SHOPPING_LIST, payload: product._id });
   return (
     <StyledWrapper>
-      <StyledProduct>
-        <img src={`${BASE_URL}/${product.images[0]}`} alt="product" />
-        <span>{product.type}</span>
-      </StyledProduct>
-      <span>{product.writer.nickName}</span>
-      <span>22.00 PLN</span>
-      <span>{product.size}</span>
-      <StyledRemoveButton onClick={removeProduct}>
-        <img src={ErrorCheck} alt="delete icon" />
-      </StyledRemoveButton>
+      <img src={`${BASE_URL}/${product.images[0]}`} alt="product" />
+      <StyledContentWrapper>
+        <StyledDescription>
+          {product.description.substr(0, 100)}
+        </StyledDescription>
+        <StyledLabel>Size : {product.size}</StyledLabel>
+        <StyledLabel>Brand : {product.brand}</StyledLabel>
+        <StyledLabel price>{product.price} PLN</StyledLabel>
+        <StyledRemoveButton onClick={removeProduct}>Remove</StyledRemoveButton>
+      </StyledContentWrapper>
     </StyledWrapper>
   );
 };

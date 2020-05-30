@@ -32,6 +32,24 @@ const Button = styled.button`
       background: ${theme.colors.whiteish};
       font-weight: bold;
     `}
+  ${({ black }) =>
+    black &&
+    css`
+      background: ${theme.colors.blackish};
+      color: ${theme.colors.whiteish};
+      border-radius: 0;
+      font-weight: bold;
+      font-size: ${theme.fontSize.s};
+    `}
+  ${({ transparent }) =>
+    transparent &&
+    css`
+      color: ${theme.colors.blackish}!important;
+      border: 1px solid ${theme.colors.blackish};
+      border-radius: 0;
+      background: transparent;
+      font-weight: bold;
+    `}
 `;
 
 export default Button;

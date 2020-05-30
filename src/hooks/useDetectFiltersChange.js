@@ -12,7 +12,7 @@ const useDetectFiltersChange = (filters) => {
         filters[category].length > 0 &&
         filters[category].map((filter) => (newUrl += `&${category}=${filter}`))
     );
-    history.push(newUrl);
+    history.push(newUrl, { filterPath: newUrl });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 };
