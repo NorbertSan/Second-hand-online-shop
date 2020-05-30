@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { Link, useLocation, useHistory } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Button from "components/atoms/Button";
 
@@ -30,8 +30,6 @@ const ShoppingCardSummary = () => {
   const [totalPrice, setTotalPrice] = useState(0);
   const shoppingList = useSelector((state) => state.data.shoppingList);
   const location = useLocation();
-  const history = useHistory();
-  console.log(history);
   useEffect(() => {
     if (shoppingList) {
       const prices = shoppingList.map((product) => parseFloat(product.price));
@@ -47,7 +45,7 @@ const ShoppingCardSummary = () => {
       </StyledPriceWrapper>
       <StyledButton black>Finalization</StyledButton>
       <StyledButton
-        transparent
+        transparent="transparent"
         as={Link}
         to={
           location.state && location.state.prevState

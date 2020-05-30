@@ -23,6 +23,7 @@ import accountSettings from "components/views/accountSettings/accountSettings";
 import messagesPage from "components/views/messagesPage/messagesPage";
 import conversationRoomPage from "components/views/conversationRoomPage/conversationRoomPage";
 import shoppingCardPage from "components/views/shoppingCardPage/shoppingCardPage";
+import finalizationPage from "components/views/finalizationPage/finalizationPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
@@ -68,6 +69,7 @@ const App = () => (
           component={conversationRoomPage}
         />
         <AuthRoute exact path="/shoppingCard" component={shoppingCardPage} />
+        <AuthRoute exact path="/finalization" component={finalizationPage} />
       </Switch>
     </Router>
   </Provider>

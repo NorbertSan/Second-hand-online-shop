@@ -9,7 +9,6 @@ import {
   SET_NOTIFICATIONS,
   CLEAR_UNREAD_NOTIFICATIONS,
   SET_NOTIFICATION_READ,
-  SET_SHOPPING_CARD,
 } from "redux/types";
 
 const initialState = {

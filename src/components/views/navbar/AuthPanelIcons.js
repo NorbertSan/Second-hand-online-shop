@@ -56,7 +56,6 @@ const AuthPanelIcons = () => {
   const shoppingList = useSelector((state) => state.data.shoppingList);
   const [isNotificationsOpen, toggleNotificationOpen] = useState(false);
   const location = useLocation();
-  console.log(location);
   const unreadNotificationsNumber = useSelector(
     (state) => state.user.unreadNotificationsNumber
   );
