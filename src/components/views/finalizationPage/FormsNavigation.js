@@ -39,7 +39,12 @@ const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
         addressData={addressData}
         setAddressData={setAddressData}
       />
-      <PaymentForm prevStep={prevStep} nonVisible={finalizationStep !== 3} />
+      <PaymentForm
+        addressData={addressData}
+        recipientData={recipientData}
+        prevStep={prevStep}
+        nonVisible={finalizationStep !== 3}
+      />
     </StyledWrapper>
   );
 };

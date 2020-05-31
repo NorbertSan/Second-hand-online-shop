@@ -1,8 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { useParams, useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
+import axios from "axios";
+// COMP
 import Paypal from "./Paypal";
 import PrevButton from "./PrevButton";
+// REDUX
+import { useDispatch } from "react-redux";
+import { REMOVE_SHOPPING_LIST } from "redux/types";
 
 const StyledWrapper = styled.div`
   min-width: 100%;
@@ -28,11 +34,28 @@ const StyledButtonsWrapper = styled.div`
   align-self: flex-start;
 `;
 
-const PaymentForm = ({ prevStep, nonVisible }) => {
+const PaymentForm = ({ prevStep, nonVisible, addressData, recipientData }) => {
+  const { product_id } = useParams();
+  const history = useHistory();
+  const dispatch = useDispatch();
+  const createOrder = async (payment) => {
+    try {
+      await axios.post("/payment", {
+        paymentData: payment,
+        recipientData,
+        product_id,
+        addressData,
+      });
+      dispatch({ type: REMOVE_SHOPPING_LIST, payload: product_id });
+      history.push("/purchases");
+    } catch (err) {
+      console.error(err);
+    }
+  };
   return (
     <StyledWrapper nonVisible={nonVisible}>
       <StyledTitle>Payment form</StyledTitle>
-      <Paypal />
+      <Paypal createOrder={createOrder} />
       <StyledButtonsWrapper>
         <PrevButton prevStep={prevStep} />
       </StyledButtonsWrapper>
@@ -43,6 +66,8 @@ const PaymentForm = ({ prevStep, nonVisible }) => {
 PaymentForm.propTypes = {
   prevStep: PropTypes.func.isRequired,
   nonVisible: PropTypes.bool.isRequired,
+  addressData: PropTypes.object.isRequired,
+  recipientData: PropTypes.object.isRequired,
 };
 
 export default PaymentForm;

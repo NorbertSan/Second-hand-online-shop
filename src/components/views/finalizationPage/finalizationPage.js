@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 
 // COMPONENTS
 import CirclesNavigation from "./CirclesNavigation";
