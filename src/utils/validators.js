@@ -17,6 +17,21 @@ const hasMoreThan100Chars = (field) => field.length > 100;
 const hasMoreThan2000Chars = (field) => field.length > 2000;
 const isInteger = (field) => Number.isInteger(field);
 const has9Digit = (field) => field.toString().length === 9;
+const isZipCode = (field) => {
+  const parts = field.split("-");
+  const [firstPart, secondPart] = parts;
+  if (
+    field[2] !== "-" ||
+    field.length !== 6 ||
+    parts.length !== 2 ||
+    !Number.isInteger(Number(firstPart)) ||
+    !Number.isInteger(Number(secondPart)) ||
+    firstPart.length !== 2 ||
+    secondPart.length !== 3
+  )
+    return false;
+  else return true;
+};
 
 // SIGN UP VALIDATOR
 export const signUpValidator = (data) => {
@@ -105,6 +120,16 @@ export const recipientFormValidator = (data) => {
   if (!isInteger(data.telephoneNumber)) errors.telephoneNumber = "Bad format";
   if (!has9Digit(data.telephoneNumber)) errors.telephoneNumber = "Bad format";
   if (!isEmail(data.email)) errors.email = "Bad format";
+
+  return errors;
+};
+// ADDRESS FORM VALIDATOR
+export const addressFormValidator = (data) => {
+  let errors = {};
+  if (isEmpty(data.city)) errors.city = "Must not be empty";
+  if (isEmpty(data.zipCode)) errors.zipCode = "Must not be empty";
+  if (isEmpty(data.buildingNumber)) errors.buildingNumber = "Must not be empty";
+  if (!isZipCode(data.zipCode)) errors.zipCode = "Bad format";
 
   return errors;
 };

@@ -69,7 +69,11 @@ const App = () => (
           component={conversationRoomPage}
         />
         <AuthRoute exact path="/shoppingCard" component={shoppingCardPage} />
-        <AuthRoute exact path="/finalization" component={finalizationPage} />
+        <AuthRoute
+          exact
+          path="/finalization/:product_id"
+          component={finalizationPage}
+        />
       </Switch>
     </Router>
   </Provider>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import { recipientFormValidator } from "utils/validators";
@@ -13,7 +13,15 @@ const StyledWrapper = styled.form`
   margin-top: 30px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  min-width: 100%;
+  transition: all 0.4s ease-in-out;
+  ${({ nonVisible }) =>
+    nonVisible &&
+    css`
+      pointer-events: none;
+      opacity: 0;
+      /* visibility: none; */
+    `}
 `;
 const StyledTitle = styled.h3`
   text-align: center;
@@ -45,7 +53,12 @@ const StyledInput = styled(Input)`
   font-size: 12px;
 `;
 
-const RecipientForm = ({ nextStep, recipientData, setRecipientData }) => {
+const RecipientForm = ({
+  nextStep,
+  recipientData,
+  setRecipientData,
+  nonVisible,
+}) => {
   const [isNextStepDisable, setNextStepDisable] = useState(true);
   const { fullName, email } = useSelector((state) => state.user);
   useEffect(() => {
@@ -72,7 +85,7 @@ const RecipientForm = ({ nextStep, recipientData, setRecipientData }) => {
   }, [recipientData]);
 
   return (
-    <StyledWrapper onSubmit={handleSubmit}>
+    <StyledWrapper nonVisible={nonVisible} onSubmit={handleSubmit}>
       <StyledTitle>Recipient form</StyledTitle>
       <StyledFieldWrapper>
         <label htmlFor="full name">Full name *</label>
@@ -97,12 +110,12 @@ const RecipientForm = ({ nextStep, recipientData, setRecipientData }) => {
       <StyledFieldWrapper>
         <label htmlFor="telephone number">Telephone number *</label>
         <StyledInput
+          autoComplete="new-password"
           spellCheck="false"
           value={recipientData.telephoneNumber}
           name="telephoneNumber"
           onChange={handleInputChange}
           type="number"
-          maxLength={9}
         />
       </StyledFieldWrapper>
       <StyledButtonWrapper>
@@ -116,6 +129,7 @@ RecipientForm.propTypes = {
   nextStep: PropTypes.func.isRequired,
   recipientData: PropTypes.object.isRequired,
   setRecipientData: PropTypes.func.isRequired,
+  nonVisible: PropTypes.bool.isRequired,
 };
 
 export default RecipientForm;

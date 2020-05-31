@@ -6,13 +6,12 @@ import axios from "axios";
 
 const UseGetSingleProduct = (setLoading, setError) => {
   const dispatch = useDispatch();
-  const params = useParams();
-  const id = params.product_id;
+  const { product_id } = useParams();
   let cancel;
   const fetchProduct = async () => {
     setLoading(true);
     try {
-      const res = await axios.get(`/product/singleProduct/${id}`, {
+      const res = await axios.get(`/product/singleProduct/${product_id}`, {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       });
       dispatch({ type: SET_SINGLE_PRODUCT, payload: res.data });
@@ -28,7 +27,7 @@ const UseGetSingleProduct = (setLoading, setError) => {
     fetchProduct();
     return () => cancel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [product_id]);
 };
 
 export default UseGetSingleProduct;

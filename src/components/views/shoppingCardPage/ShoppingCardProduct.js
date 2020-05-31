@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
 import theme from "utils/theme";
+import { Link } from "react-router-dom";
+import Button from "components/atoms/Button";
 // REDUX
 import { useDispatch } from "react-redux";
 import { REMOVE_SHOPPING_LIST } from "redux/types";
@@ -54,6 +56,12 @@ const StyledRemoveButton = styled.button`
   color: grey;
   font-size: ${theme.fontSize.xs};
 `;
+const StyledButton = styled(Button)`
+  width: 60px;
+  font-weight: 300;
+  height: 22px;
+  margin-top: 20px;
+`;
 
 const ShoppingCardProduct = ({ product }) => {
   const dispatch = useDispatch();
@@ -70,6 +78,14 @@ const ShoppingCardProduct = ({ product }) => {
         <StyledLabel>Brand : {product.brand}</StyledLabel>
         <StyledLabel price>{product.price} PLN</StyledLabel>
         <StyledRemoveButton onClick={removeProduct}>Remove</StyledRemoveButton>
+        <StyledButton
+          black="black"
+          small="small"
+          as={Link}
+          to={`/finalization/${product._id}`}
+        >
+          ORDER
+        </StyledButton>
       </StyledContentWrapper>
     </StyledWrapper>
   );

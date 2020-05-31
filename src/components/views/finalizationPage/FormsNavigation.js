@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 //FORMS
-import AdressForm from "./AdressForm";
+import AddressForm from "./AddressForm";
 import RecipientForm from "./RecipientForm";
 
 const StyledWrapper = styled.section`
   display: flex;
-  overflow: hidden;
+  transition: transform 0.4s ease-in-out;
+  transform: translateX(${(props) => (props.finalizationStep - 1) * -100}%);
 `;
 
 const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
@@ -16,14 +17,27 @@ const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
     email: "",
     telephoneNumber: "",
   });
+  const [addressData, setAddressData] = useState({
+    companyName: "",
+    city: "",
+    zipCode: "",
+    buildingNumber: "",
+  });
   return (
-    <StyledWrapper>
+    <StyledWrapper finalizationStep={finalizationStep}>
       <RecipientForm
+        nonVisible={finalizationStep !== 1}
         nextStep={nextStep}
         recipientData={recipientData}
         setRecipientData={setRecipientData}
       />
-      {/* <AdressForm /> */}
+      <AddressForm
+        nonVisible={finalizationStep !== 2}
+        nextStep={nextStep}
+        prevStep={prevStep}
+        addressData={addressData}
+        setAddressData={setAddressData}
+      />
     </StyledWrapper>
   );
 };

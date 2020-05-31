@@ -1,7 +1,15 @@
 import React from "react";
-import styled, { css } from "styled-components";
+import styled, { css, keyframes } from "styled-components";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
+
+const setBackground = keyframes`
+  100%{
+    background: rgba(27, 27, 47, 1);
+    color: ${theme.colors.whiteish};
+    border-color: ${theme.colors.blackish};
+  }
+`;
 
 const StyledWrapper = styled.div`
   width: 70%;
@@ -17,14 +25,14 @@ const StyledCircle = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+  background: transparent;
+  color: ${theme.colors.blackish};
   border: 2px solid #ddd;
   ${({ active }) =>
     active &&
     css`
        {
-        border-color: ${theme.colors.blackish};
-        color: ${theme.colors.whiteish};
-        background: rgba(27, 27, 47, 1);
+        animation: ${setBackground} 0s 0.4s forwards;
       }
     `};
 `;
@@ -42,7 +50,7 @@ const StyledConnectionLine = styled.div`
     left: 0;
     background: ${theme.colors.blackish};
     transform-origin: left;
-    transition: all 1s ease-in-out;
+    transition: all 0.4s ease-in-out;
     transform: scaleX(0);
     opacity: 0.4;
   }
@@ -52,7 +60,7 @@ const StyledConnectionLine = styled.div`
        {
         &::after {
           transform: scaleX(1);
-          transition: transform 0.5s ease-in-out;
+          transition: transform 0.4s ease-in-out;
           opacity: 1;
         }
       }

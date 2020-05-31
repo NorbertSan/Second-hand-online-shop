@@ -2,7 +2,6 @@ import React from "react";
 import styled from "styled-components";
 // COMP
 import ShoppingCardProduct from "./ShoppingCardProduct";
-import ShoppingCardSummary from "./ShoppingCardSummary";
 import NoProductsInCartAlert from "./NoProductsInCartAlert";
 // REDUX
 import { useSelector } from "react-redux";
@@ -39,7 +38,6 @@ const ShoppingCardPage = () => {
               <ShoppingCardProduct key={product._id} product={product} />
             ))}
           </StyledProductsWrapper>
-          <ShoppingCardSummary />
         </>
       ) : (
         <NoProductsInCartAlert />
