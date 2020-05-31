@@ -89,6 +89,7 @@ const StyledLink = styled(Link)`
 const CommentItem = ({ comment }) => {
   const authUserNickName = useSelector((state) => state.user.nickName);
   const [isDropDownMenuOpen, toggleDropDownMenu] = useState(false);
+  console.log(comment);
   return (
     <StyledWrapper>
       {authUserNickName && authUserNickName === comment.writer.nickName && (

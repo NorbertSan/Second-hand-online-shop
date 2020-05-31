@@ -1,68 +1,36 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## SHORT DESCRIPTION
 
-## Available Scripts
+Second hand online shop created in MERN technologies ( mongodb, express, react, node.js ).
 
-In the project directory, you can run:
+You are in fron-end site now. Check REST API for this application there [Back-end site](https://github.com/NorbertSan/Second-hand-online-shop-BACKEND)
 
-### `npm start`
+Application created with mobile first design pattern (present version in only adapted for small screens) and allow to all basics functionalities which you can see on popular websites similar to this project such as :
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Sign up, sign in ( based on JWT )
+- Create, remove advert
+- Notifications, messages, like, add to favorite
+- Filter products (URL changes without reload)
+- Order a product and payment with PayPal
+- Customize account information (change image,email,password,description)
+- Review user (add comment with stars)
+- Private and public routes
+- And more ...
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Screens
 
-### `npm test`
+<img src="./src/assets/READMEscreens/screen1.png" alt="Kitten"
+	title="signin signup" width="200"  />
+<img src="./src/assets/READMEscreens/screen2.png" alt="Kitten"
+	title="menu" width="200"  />
+<img src="./src/assets/READMEscreens/screen3.png" alt="Kitten"
+	title="user reviews" width="200"  />
+<img src="./src/assets/READMEscreens/screen4.png" alt="Kitten"
+	title="products filter" width="200"  />
+<img src="./src/assets/READMEscreens/screen5.png" alt="Kitten"
+	title="messages" width="200"  />
+<img src="./src/assets/READMEscreens/screen6.png" alt="Kitten"
+	title="order form" width="200"  />
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Additional
 
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+Project is still being developed :)
