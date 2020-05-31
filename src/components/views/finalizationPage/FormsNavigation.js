@@ -23,6 +23,7 @@ const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
     city: "",
     zipCode: "",
     buildingNumber: "",
+    street: "",
   });
   return (
     <StyledWrapper finalizationStep={finalizationStep}>

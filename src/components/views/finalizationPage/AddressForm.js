@@ -134,6 +134,16 @@ const AddressForm = ({
         />
       </StyledFieldWrapper>
       <StyledFieldWrapper>
+        <label>Street</label>
+        <StyledInput
+          spellCheck="false"
+          type="text"
+          value={addressData.street}
+          name="street"
+          onChange={handleInputChange}
+        />
+      </StyledFieldWrapper>
+      <StyledFieldWrapper>
         <label>Building number *</label>
         <StyledInput
           spellCheck="false"

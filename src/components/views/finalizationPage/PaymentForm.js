@@ -47,9 +47,11 @@ const PaymentForm = ({ prevStep, nonVisible, addressData, recipientData }) => {
         addressData,
       });
       dispatch({ type: REMOVE_SHOPPING_LIST, payload: product_id });
-      history.push("/purchases");
+      history.push("/account/purchases");
+      return;
     } catch (err) {
       console.error(err);
+      return;
     }
   };
   return (

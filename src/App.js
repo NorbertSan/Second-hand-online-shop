@@ -24,12 +24,13 @@ import messagesPage from "components/views/messagesPage/messagesPage";
 import conversationRoomPage from "components/views/conversationRoomPage/conversationRoomPage";
 import shoppingCardPage from "components/views/shoppingCardPage/shoppingCardPage";
 import finalizationPage from "components/views/finalizationPage/finalizationPage";
+import purchasesPage from "components/views/purchasesPage/purchasesPage";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 axios.defaults.baseURL = BASE_URL;
 
 AuthenticateToken();
-
+// TODO, CREATE SALES PAGE
 const App = () => (
   <Provider store={store}>
     <Router>
@@ -74,6 +75,7 @@ const App = () => (
           path="/finalization/:product_id"
           component={finalizationPage}
         />
+        <AuthRoute exact path="/account/purchases" component={purchasesPage} />
       </Switch>
     </Router>
   </Provider>

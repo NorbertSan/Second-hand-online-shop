@@ -45,7 +45,7 @@ const ProductNotFound = ({ title, info }) => {
       <StyledButton as={Link} to="/">
         Back to home
       </StyledButton>
-      <StyledButton as={Link} to="/products" secondary>
+      <StyledButton as={Link} to="/products" secondary="secondary">
         Browse products
       </StyledButton>
     </StyledWrapper>

@@ -54,10 +54,12 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
     if (notification.type === "like") {
       setDescription("likes your product.");
       setLinkRoute(`/product/${notification.product}`);
-    }
-    if (notification.type === "comment") {
+    } else if (notification.type === "comment") {
       setDescription("commented on your profile.");
       setLinkRoute(`/user/${notification.recipient.nickName}/comments`);
+    } else if (notification.type === "sell") {
+      setDescription("bought your product");
+      setLinkRoute(`/purchases/${notification.product}`);
     }
   }, [notification]);
 

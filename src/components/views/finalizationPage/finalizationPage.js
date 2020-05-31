@@ -15,14 +15,14 @@ const StyledWrapper = styled.section`
 `;
 
 const FinalizationPage = () => {
-  const [finalizationStep, setFinalizationStep] = useState(3);
+  const [finalizationStep, setFinalizationStep] = useState(1);
   const prevStep = () =>
     setFinalizationStep(finalizationStep <= 1 ? 1 : finalizationStep - 1);
   const nextStep = () =>
     setFinalizationStep(finalizationStep >= 3 ? 3 : finalizationStep + 1);
   return (
     <StyledWrapper>
-      {/* <ProductOverwiev /> */}
+      <ProductOverwiev />
       <CirclesNavigation finalizationStep={finalizationStep} />
       <FormsNavigation
         prevStep={prevStep}
