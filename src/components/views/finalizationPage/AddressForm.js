@@ -10,7 +10,6 @@ import PrevButton from "./PrevButton";
 import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.form`
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   min-width: 100%;

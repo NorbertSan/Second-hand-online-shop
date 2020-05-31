@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 //FORMS
 import AddressForm from "./AddressForm";
 import RecipientForm from "./RecipientForm";
+import PaymentForm from "./PaymentForm";
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -38,6 +39,7 @@ const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
         addressData={addressData}
         setAddressData={setAddressData}
       />
+      <PaymentForm prevStep={prevStep} nonVisible={finalizationStep !== 3} />
     </StyledWrapper>
   );
 };

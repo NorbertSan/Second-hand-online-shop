@@ -10,7 +10,6 @@ import Input from "components/atoms/Input";
 import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.form`
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   min-width: 100%;
@@ -20,7 +19,6 @@ const StyledWrapper = styled.form`
     css`
       pointer-events: none;
       opacity: 0;
-      /* visibility: none; */
     `}
 `;
 const StyledTitle = styled.h3`
@@ -90,6 +88,7 @@ const RecipientForm = ({
       <StyledFieldWrapper>
         <label htmlFor="full name">Full name *</label>
         <StyledInput
+          autoComplete="new-password"
           spellCheck="false"
           value={recipientData.fullName}
           name="fullName"

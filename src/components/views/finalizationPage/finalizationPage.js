@@ -16,7 +16,7 @@ const StyledWrapper = styled.section`
 `;
 
 const FinalizationPage = () => {
-  const [finalizationStep, setFinalizationStep] = useState(2);
+  const [finalizationStep, setFinalizationStep] = useState(3);
   const prevStep = () =>
     setFinalizationStep(finalizationStep <= 1 ? 1 : finalizationStep - 1);
   const nextStep = () =>

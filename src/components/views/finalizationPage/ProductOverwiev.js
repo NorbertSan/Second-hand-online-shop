@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 30px;
   background: #eee;
   padding: 10px;
   display: flex;
