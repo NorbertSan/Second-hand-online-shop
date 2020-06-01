@@ -85,7 +85,6 @@ const ProductDetailsPage = () => {
         >
           <StyledIcon src={BackIcon} alt="back icon" />
         </StyledBackButton>
-
         {loading ? (
           <Instagram
             backgroundColor="rgba(0,0,0,0.05)"

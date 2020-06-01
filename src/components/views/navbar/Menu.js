@@ -141,8 +141,14 @@ const Menu = ({ toggleMenuOpen }) => {
                 to="/account/purchases"
                 onClick={() => toggleMenuOpen(false)}
               >
-                {" "}
                 Purchases
+              </StyledAuthLink>
+              <StyledAuthLink
+                as={Link}
+                to="/account/sales"
+                onClick={() => toggleMenuOpen(false)}
+              >
+                Sales
               </StyledAuthLink>
             </StyledAuthLinks>
             <Logout />
