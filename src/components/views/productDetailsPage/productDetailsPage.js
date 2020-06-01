@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import theme from "utils/theme";
 import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 // ICON
@@ -21,6 +22,12 @@ const StyledWrapper = styled.section`
   display: flex;
   flex-direction: column;
   position: relative;
+  ${({ sold }) =>
+    sold &&
+    css`
+      opacity: 0.5;
+      pointer-events: none;
+    `}
 `;
 const StyledBackButton = styled.button`
   margin: 0;
@@ -35,6 +42,21 @@ const StyledBackButton = styled.button`
 `;
 const StyledIcon = styled.img`
   width: 100%;
+`;
+const StyledSoldAlert = styled.div`
+  width: 250px;
+  padding: 10px;
+  text-align: center;
+  top: 100px;
+  margin: auto;
+  background: ${theme.colors.redish};
+  position: fixed;
+  left: 50%;
+  top: 140px;
+  transform: translateX(-50%);
+  color: ${theme.colors.whiteish};
+  box-shadow: 0 0 3px ${theme.colors.redish};
+  z-index: 3;
 `;
 
 const ProductDetailsPage = () => {
@@ -52,28 +74,36 @@ const ProductDetailsPage = () => {
       />
     );
   return (
-    <StyledWrapper>
-      <StyledBackButton
-        as={Link}
-        to={state && state.prevPath ? state.prevPath : "/"}
-      >
-        <StyledIcon src={BackIcon} alt="back icon" />
-      </StyledBackButton>
-
-      {loading ? (
-        <Instagram backgroundColor="rgba(0,0,0,0.05)" foregroundColor="#eee" />
-      ) : (
-        <>
-          <PhotosGallery product={product} />
-          <ProductSummary product={product} />
-          <FuncionalityButtons
-            nickName={product.writer.nickName}
-            product={product}
-          />
-          <AboutSeller authorInfo={product.writer} />
-        </>
+    <>
+      {product.sold && (
+        <StyledSoldAlert>This product is already sold</StyledSoldAlert>
       )}
-    </StyledWrapper>
+      <StyledWrapper sold={product.sold}>
+        <StyledBackButton
+          as={Link}
+          to={state && state.prevPath ? state.prevPath : "/"}
+        >
+          <StyledIcon src={BackIcon} alt="back icon" />
+        </StyledBackButton>
+
+        {loading ? (
+          <Instagram
+            backgroundColor="rgba(0,0,0,0.05)"
+            foregroundColor="#eee"
+          />
+        ) : (
+          <>
+            <PhotosGallery product={product} />
+            <ProductSummary product={product} />
+            <FuncionalityButtons
+              nickName={product.writer.nickName}
+              product={product}
+            />
+            <AboutSeller authorInfo={product.writer} />
+          </>
+        )}
+      </StyledWrapper>
+    </>
   );
 };
 

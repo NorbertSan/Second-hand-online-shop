@@ -18,17 +18,17 @@ Application created with mobile first design pattern (present version in only ad
 
 ## Screens
 
-<img src="./src/assets/READMEscreens/screen1.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen1.png" alt="signin signup"
 	title="signin signup" width="200"  />
-<img src="./src/assets/READMEscreens/screen2.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen2.png" alt="menu"
 	title="menu" width="200"  />
-<img src="./src/assets/READMEscreens/screen3.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen3.png" alt="user reviews"
 	title="user reviews" width="200"  />
-<img src="./src/assets/READMEscreens/screen4.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen4.png" alt="products filter"
 	title="products filter" width="200"  />
-<img src="./src/assets/READMEscreens/screen5.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen5.png" alt="messages"
 	title="messages" width="200"  />
-<img src="./src/assets/READMEscreens/screen6.png" alt="Kitten"
+<img src="./src/assets/READMEscreens/screen6.png" alt="order form"
 	title="order form" width="200"  />
 
 ## Additional

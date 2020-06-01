@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import theme from "utils/theme";
 import moment from "moment";
 import styled, { css } from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Input from "components/atoms/Input";
 import { ReactComponent as RightIcon } from "assets/icons/simpleRightArrow.svg";
 
@@ -84,6 +84,7 @@ const StyledRightIcon = styled(RightIcon)`
 `;
 
 const PurchaseItem = ({ purchase }) => {
+  const location = useLocation();
   const [isAdditionalInfoOpen, setAdditionalInfoOpen] = useState(false);
   const formatedAddress = `${purchase.addressData.zipCode} ${purchase.addressData.city}, ${purchase.addressData.street} ${purchase.addressData.buildingNumber}`;
   return (
@@ -126,7 +127,10 @@ const PurchaseItem = ({ purchase }) => {
         <StyledFieldWrapper
           className="link"
           as={Link}
-          to={`/product/${purchase.product._id}`}
+          to={{
+            pathname: `/product/${purchase.product._id}`,
+            state: { prevPath: location.pathname },
+          }}
         >
           <label htmlFor="product">Product :</label>
           <Input disabled secondary value={purchase.product.type} />
