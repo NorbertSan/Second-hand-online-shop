@@ -12,6 +12,7 @@ import {
   SET_NOTIFICATIONS,
   CLEAR_UNREAD_NOTIFICATIONS,
   SET_NOTIFICATION_READ,
+  SET_FOLLOWING,
 } from "redux/types";
 import axios from "axios";
 
@@ -183,6 +184,17 @@ export const markNotificationRead = (notification_id) => async (dispatch) => {
   try {
     await axios.put("/notification/read", { notification_id });
     dispatch({ type: SET_NOTIFICATION_READ, payload: notification_id });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// TOGGLE USER FOLLOW
+export const toggleFollowUser = (nickName) => async (dispatch) => {
+  try {
+    const {
+      data: { refreshFollowing }, // true || false
+    } = await axios.post(`/user/${nickName}/toggleFollow`);
+    dispatch({ type: SET_FOLLOWING, payload: refreshFollowing });
   } catch (err) {
     console.error(err);
   }

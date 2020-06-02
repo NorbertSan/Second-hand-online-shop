@@ -109,7 +109,12 @@ const MainInformation = ({ userData }) => {
         </StyledInformationWrapper>
       </StyledInnerWrapper>
       {userData.bio && <StyledBio>{userData.bio}</StyledBio>}
-      <FuncionalityIcons />
+      {loggedUserNickName !== userData.nickName && (
+        <FuncionalityIcons
+          user_id={userData._id}
+          nickName={userData.nickName}
+        />
+      )}
     </StyledWrapper>
   );
 };

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import BackArrow from "assets/icons/backArrow.svg";
 import MagnifierIcon from "assets/icons/magnifier.svg";
 
@@ -39,7 +39,7 @@ const InterlocutorNotExist = () => {
   const { nickName } = useParams();
   return (
     <StyledWrapper>
-      <StyledBackButton>
+      <StyledBackButton as={Link} to="/messages">
         <img src={BackArrow} alt="back arrow" />
       </StyledBackButton>
       <h2>Something went wrong</h2>

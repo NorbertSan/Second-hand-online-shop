@@ -9,6 +9,7 @@ import {
   SET_NOTIFICATIONS,
   CLEAR_UNREAD_NOTIFICATIONS,
   SET_NOTIFICATION_READ,
+  SET_FOLLOWING,
 } from "redux/types";
 
 const initialState = {
@@ -72,6 +73,11 @@ export default (state = initialState, action) => {
             return [...result, { ...current, read: true }];
           else return [...result, current];
         }, []),
+      };
+    case SET_FOLLOWING:
+      return {
+        ...state,
+        following: action.payload,
       };
     default:
       return { ...state };
