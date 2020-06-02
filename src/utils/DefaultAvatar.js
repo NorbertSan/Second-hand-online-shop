@@ -71,6 +71,14 @@ const StyledDefaultAvatar = styled.div`
       margin: 0 5px;
       font-size: 16px;
     `}
+  ${({ followingItem }) =>
+    followingItem &&
+    css`
+      width: 25px;
+      height: 25px;
+      margin-right: 8px;
+      font-size: 16px;
+    `}
 `;
 const DefaultAvatar = ({
   comment,
@@ -80,6 +88,7 @@ const DefaultAvatar = ({
   changeAvatar,
   productItem,
   nickNameProvided,
+  followingItem,
 }) => {
   const nickName = useSelector((state) => state.user.nickName);
   return (
@@ -90,6 +99,7 @@ const DefaultAvatar = ({
       userProfile={userProfile}
       productDetails={productDetails}
       changeAvatar={changeAvatar}
+      followingItem={followingItem}
       initial={
         nickNameProvided
           ? nickNameProvided.substr(0, 1)
@@ -107,6 +117,7 @@ DefaultAvatar.propTypes = {
   userProfile: PropTypes.bool,
   productDetails: PropTypes.bool,
   changeAvatar: PropTypes.bool,
+  followingItem: PropTypes.bool,
   nickNameProvided: PropTypes.string,
 };
 

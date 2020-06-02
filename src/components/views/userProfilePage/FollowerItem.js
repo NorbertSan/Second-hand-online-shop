@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
@@ -32,7 +33,7 @@ const FollowerItem = ({ follower }) => {
   return (
     <StyledWrapper>
       <img src={`${BASE_URL}/${follower.avatar}`} alt="avatar" />
-      <StyledUserInfo>
+      <StyledUserInfo as={Link} to={`/user/${follower.nickName}`}>
         <span>{follower.nickName}</span>
         <span className="grey">{follower.fullName}</span>
       </StyledUserInfo>

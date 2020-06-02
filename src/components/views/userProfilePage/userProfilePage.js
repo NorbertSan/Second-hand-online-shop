@@ -21,6 +21,7 @@ const StyledFacebook = styled(Facebook)`
 `;
 
 const UserProfilePage = () => {
+  const { nickName: loggedUserNickName } = useSelector((state) => state.user);
   const userData = useSelector((state) => state.data.userData);
   const loading = useSelector((state) => state.UI.loadingUserData);
   const [userNotFound, setUserNotFound] = useState(false);
@@ -48,7 +49,7 @@ const UserProfilePage = () => {
       {userData && (
         <>
           <MainInformation userData={userData} />
-          {userData.nickName === nickName && <FollowSection />}
+          {loggedUserNickName === nickName && <FollowSection />}
           <UserProducts
             productsIds={userData.products}
             nickName={userData.nickName}

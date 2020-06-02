@@ -33,7 +33,7 @@ const FollowersList = () => {
   return (
     <StyledWrapper>
       {loading ? (
-        <BulletList />
+        <BulletList backgroundColor="#eee" />
       ) : followers.length === 0 ? (
         <StyledAlert>You do not have any followers yet ☹</StyledAlert>
       ) : (
