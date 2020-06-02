@@ -60,6 +60,9 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
     } else if (notification.type === "sell") {
       setDescription("bought your product");
       setLinkRoute(`/purchases/${notification.product}`);
+    } else if (notification.type === "follow") {
+      setDescription("started following you");
+      setLinkRoute(`/user/${notification.author.nickName}`);
     }
   }, [notification]);
 
