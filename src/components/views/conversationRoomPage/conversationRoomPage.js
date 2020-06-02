@@ -9,6 +9,7 @@ import ScrollToBottom from "react-scroll-to-bottom";
 import MessageItem from "./MessageItem";
 import { BulletList } from "react-content-loader";
 import SendMessageInsideRoom from "./SendMessageInsideRoom";
+import InterlocutorNotExist from "./InterlocutorNotExist";
 // ICON
 import BackIcon from "assets/icons/backArrow.svg";
 import { ReactComponent as HandIcon } from "assets/icons/hand.svg";
@@ -108,6 +109,7 @@ const StyledHandIcon = styled(HandIcon)`
 const ConversationRoomPage = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
+  const [interlocutorNotFound, setInterlocutorNotFound] = useState(false);
   const messages = useSelector((state) => state.data.messages);
   const userData = useSelector((state) => state.data.userData);
   const [isOnline, setIsOnline] = useState(false);
@@ -118,7 +120,7 @@ const ConversationRoomPage = () => {
   useEffect(() => {
     dispatch(getMessages(nickName, setLoading));
     dispatch(setMessagesRead(nickName));
-    dispatch(getUserData(nickName));
+    dispatch(getUserData(nickName, setInterlocutorNotFound));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
@@ -127,38 +129,44 @@ const ConversationRoomPage = () => {
 
   return (
     <StyledWrapper>
-      <StyledHeader>
-        <StyledBackButton as={Link} to="/messages">
-          <img src={BackIcon} alt="left arrow" />
-        </StyledBackButton>
-        <Link to={`/user/${nickName}`}>
-          <StyledUserName online={isOnline}>{nickName}</StyledUserName>
-        </Link>
-        {!isOnline && userData && (
-          <StyledOnlineInfo>
-            {moment(userData.lastLogin).fromNow()}
-          </StyledOnlineInfo>
-        )}
-      </StyledHeader>
-      {loading ? (
-        <BulletList />
-      ) : messages.length > 0 ? (
-        <StyledMessagesWrapper as={ScrollToBottom} animating={false}>
-          {messages.map((message, index) => (
-            <MessageItem
-              key={message._id}
-              message={message}
-              lastElement={messages.length === index + 1}
-            />
-          ))}
-        </StyledMessagesWrapper>
+      {interlocutorNotFound ? (
+        <InterlocutorNotExist />
       ) : (
-        <StyledNoMessagesAlert>
-          <span>Say hello !</span>
-          <StyledHandIcon />
-        </StyledNoMessagesAlert>
+        <>
+          <StyledHeader>
+            <StyledBackButton as={Link} to="/messages">
+              <img src={BackIcon} alt="left arrow" />
+            </StyledBackButton>
+            <Link to={`/user/${nickName}`}>
+              <StyledUserName online={isOnline}>{nickName}</StyledUserName>
+            </Link>
+            {!isOnline && userData && (
+              <StyledOnlineInfo>
+                {moment(userData.lastLogin).fromNow()}
+              </StyledOnlineInfo>
+            )}
+          </StyledHeader>
+          {loading ? (
+            <BulletList />
+          ) : messages.length > 0 ? (
+            <StyledMessagesWrapper as={ScrollToBottom} animating={false}>
+              {messages.map((message, index) => (
+                <MessageItem
+                  key={message._id}
+                  message={message}
+                  lastElement={messages.length === index + 1}
+                />
+              ))}
+            </StyledMessagesWrapper>
+          ) : (
+            <StyledNoMessagesAlert>
+              <span>Say hello !</span>
+              <StyledHandIcon />
+            </StyledNoMessagesAlert>
+          )}
+          <SendMessageInsideRoom />
+        </>
       )}
-      <SendMessageInsideRoom />
     </StyledWrapper>
   );
 };
