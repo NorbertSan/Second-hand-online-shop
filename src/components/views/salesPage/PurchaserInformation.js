@@ -2,7 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import theme from "utils/theme";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import MailIcon from "assets/icons/blueMail.svg";
 
 const StyledUserDetailsWrapper = styled.ul`
   margin: 0;
@@ -16,6 +18,22 @@ const StyledUserDetailsWrapper = styled.ul`
 const StyledUserDetailsElement = styled.li`
   font-size: ${theme.fontSize.xs};
   margin-bottom: 3px;
+  &.fullname {
+    display: flex;
+    align-items: center;
+    button {
+      border: none;
+      background: none;
+      padding: 2px;
+      margin: 0;
+      width: 16px;
+      height: 16px;
+      margin-left: 5px;
+      img {
+        width: 100%;
+      }
+    }
+  }
 `;
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -36,8 +54,16 @@ const PurchaserInformation = ({ sale }) => {
         <StyledDateInfo>{moment(sale.createdAt).calendar()}</StyledDateInfo>
       </StyledInnerWrapper>
       <StyledUserDetailsWrapper>
-        <StyledUserDetailsElement style={{ marginTop: 10 }}>
-          Fullname : {sale.recipientData.fullName}
+        <StyledUserDetailsElement
+          className="fullname"
+          style={{ marginTop: 10 }}
+        >
+          <span>Fullname : {sale.recipientData.fullName}</span>
+          <Link to={`/messages/${sale.recipientData.nickName}`}>
+            <button>
+              <img src={MailIcon} alt="mail" />
+            </button>
+          </Link>
         </StyledUserDetailsElement>
         <StyledUserDetailsElement>
           Email : {sale.recipientData.email}

@@ -19,9 +19,12 @@ const StyledWrapper = styled.section`
   padding: 50px 15px 15px 15px;
   margin: 150px auto 30px;
   max-width: 960px;
+  position: relative;
+`;
+
+const StyledInnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
   ${({ sold }) =>
     sold &&
     css`
@@ -37,11 +40,11 @@ const StyledBackButton = styled.button`
   background: transparent;
   border: none;
   position: absolute;
-  top: 0;
   left: 20px;
-`;
-const StyledIcon = styled.img`
-  width: 100%;
+  top: 0;
+  img {
+    width: 24px;
+  }
 `;
 const StyledSoldAlert = styled.div`
   width: 250px;
@@ -74,17 +77,17 @@ const ProductDetailsPage = () => {
       />
     );
   return (
-    <>
+    <StyledWrapper style={{ position: "relative" }}>
       {product.sold && (
         <StyledSoldAlert>This product is already sold</StyledSoldAlert>
       )}
-      <StyledWrapper sold={product.sold}>
-        <StyledBackButton
-          as={Link}
-          to={state && state.prevPath ? state.prevPath : "/"}
-        >
-          <StyledIcon src={BackIcon} alt="back icon" />
-        </StyledBackButton>
+      <StyledBackButton
+        as={Link}
+        to={state && state.prevPath ? state.prevPath : "/"}
+      >
+        <img src={BackIcon} alt="back icon" />
+      </StyledBackButton>
+      <StyledInnerWrapper sold={product.sold}>
         {loading ? (
           <Instagram
             backgroundColor="rgba(0,0,0,0.05)"
@@ -101,8 +104,8 @@ const ProductDetailsPage = () => {
             <AboutSeller authorInfo={product.writer} />
           </>
         )}
-      </StyledWrapper>
-    </>
+      </StyledInnerWrapper>
+    </StyledWrapper>
   );
 };
 

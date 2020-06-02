@@ -11,10 +11,15 @@ import DownshiftInput from "./DownshiftInput";
 const StyledWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 10px 30px;
+  padding: 10px 0;
+  max-width: 960px;
+  margin: auto;
   background: ${theme.colors.whiteish};
-  box-shadow: 0 0 1px grey;
+  top: 1px;
+  position: relative;
+  @media screen and (max-width: 960px) {
+    padding-left: 10px;
+  }
 `;
 const StyledInputSearchWrapper = styled.form`
   position: relative;
@@ -22,6 +27,7 @@ const StyledInputSearchWrapper = styled.form`
 
 const StyledDropDown = styled.select`
   padding: 7px 10px;
+  margin-right: 30px;
   border: none;
   background: #eee;
   border-radius: 5px;

@@ -17,7 +17,7 @@ const scroll = Scroll.animateScroll;
 const StyledWrapper = styled.header`
   width: 100vw;
   height: 10vh;
-  border-bottom: 1px solid grey;
+  border-bottom: 1px solid #eee;
   margin-bottom: 50px;
   background: ${theme.colors.whiteish};
   transform-origin: 50% 0%;
@@ -33,6 +33,8 @@ const StyledNavigationWrapper = styled.nav`
   height: 100%;
   justify-content: space-between;
   padding: 0 30px;
+  max-width: 960px;
+  margin: auto;
 `;
 const StyledLogo = styled.div`
   width: 45px;

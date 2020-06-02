@@ -8,12 +8,15 @@ const GlobalStyles = createGlobalStyle`
     html{
         font-size:62.5%;
         overflow-x:hidden;
+        min-height:100vh;
     }
     body{
+        min-height:100vh;
         overflow-x:hidden;
         font-size:1.6rem;
         font-family: 'Roboto', sans-serif;
         background:${theme.colors.whiteish};
+        /* background:#fff; */
         color:${theme.colors.blackish};
         margin:0;
         width:100vw;

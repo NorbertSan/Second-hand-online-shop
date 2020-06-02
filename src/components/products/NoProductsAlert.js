@@ -7,6 +7,10 @@ const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
 `;
 const StyledIcon = styled.img`
   margin-top: 50px;

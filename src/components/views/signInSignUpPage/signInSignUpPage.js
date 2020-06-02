@@ -7,7 +7,7 @@ import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 
 const StyledWrapper = styled.section`
-  margin-top: 150px;
+  margin-top: 120px;
   padding: 15px;
   text-align: center;
 `;

@@ -4,6 +4,7 @@ import theme from "utils/theme";
 import useGetSales from "hooks/useGetSales";
 import Loader from "react-loader-spinner";
 import SaleItem from "./SaleItem";
+import NoSalesAlert from "./NoSalesAlert";
 
 const StyledWrapper = styled.section`
   padding: 50px 15px 15px 15px;
@@ -56,7 +57,7 @@ const SalesPage = () => {
           width={200}
         />
       ) : sales.length === 0 ? (
-        <div>no items...</div>
+        <NoSalesAlert />
       ) : (
         <StyledSalesWrapper>
           <StyledTitle>Your sales ( {sales.length} )</StyledTitle>

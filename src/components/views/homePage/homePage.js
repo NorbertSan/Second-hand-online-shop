@@ -8,9 +8,16 @@ import womenSearchingClothes from "assets/images/womenSearchingClothes.jpg";
 import Button from "components/atoms/Button";
 import LatestProducts from "./LatestProducts";
 
-const StyledWrapper = styled.section``;
+const StyledWrapper = styled.section`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 960px;
+  margin: 120px auto 0px auto;
+  background: #fafafa;
+`;
 const StyledHero = styled.img`
-  height: 300px;
+  width: 100%;
 `;
 const StyledWellcomeInfo = styled.section`
   margin-top: 30px;

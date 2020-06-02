@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 //FORMS
 import AddressForm from "./AddressForm";
 import RecipientForm from "./RecipientForm";
@@ -13,10 +14,12 @@ const StyledWrapper = styled.section`
 `;
 
 const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
+  const { nickName } = useSelector((state) => state.user);
   const [recipientData, setRecipientData] = useState({
     fullName: "",
     email: "",
     telephoneNumber: "",
+    nickName: "",
   });
   const [addressData, setAddressData] = useState({
     companyName: "",
@@ -25,6 +28,13 @@ const FormsNavigation = ({ finalizationStep, nextStep, prevStep }) => {
     buildingNumber: "",
     street: "",
   });
+  useEffect(() => {
+    nickName &&
+      setRecipientData((prevState) => ({
+        ...prevState,
+        nickName,
+      }));
+  }, [nickName]);
   return (
     <StyledWrapper finalizationStep={finalizationStep}>
       <RecipientForm

@@ -44,7 +44,7 @@ const StyledAvatar = styled.img`
   height: 40px;
   margin-right: 5px;
   border-radius: 50%;
-  border: 2px solid ${theme.colors.secondary};
+  border: 1px solid grey;
 `;
 
 const StyledUserInfo = styled.div`

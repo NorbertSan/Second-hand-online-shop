@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
 import PurchaserInformation from "./PurchaserInformation";
@@ -36,9 +36,16 @@ const StyledProductWrapper = styled.div`
 `;
 
 const SaleItem = ({ sale }) => {
+  const location = useLocation();
   return (
     <StyledWrapper>
-      <StyledProductWrapper as={Link} to={`/product/${sale.product._id}`}>
+      <StyledProductWrapper
+        as={Link}
+        to={{
+          pathname: `/product/${sale.product._id}`,
+          state: { prevPath: location.pathname },
+        }}
+      >
         <img src={`${BASE_URL}/${sale.product.images[0]}`} alt="product" />
         <span>+{sale.product.price} PLN</span>
       </StyledProductWrapper>
