@@ -6,6 +6,7 @@ import { Facebook, Code } from "react-content-loader";
 import MainInformation from "./MainInformation";
 import NotFoundPage from "utils/NotFoundPage";
 import UserProducts from "components/user/UserProducts";
+import FollowSection from "./FollowSection";
 // REACT STUFF
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "redux/actions/userActions";
@@ -47,6 +48,7 @@ const UserProfilePage = () => {
       {userData && (
         <>
           <MainInformation userData={userData} />
+          {userData.nickName === nickName && <FollowSection />}
           <UserProducts
             productsIds={userData.products}
             nickName={userData.nickName}
