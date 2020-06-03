@@ -8,7 +8,6 @@ import NickName from "components/atoms/NickName";
 import LikeButton from "./LikeButton";
 import ImageSlider from "./ImageSlider";
 import DefaultAvatar from "utils/DefaultAvatar";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.li`
   position: relative;
@@ -40,15 +39,6 @@ const StyledAuthorInfo = styled.div`
   margin-bottom: 5px;
   padding: 5px;
 `;
-const StyledUserIcon = styled.img`
-  width: 25px;
-  height: 25px;
-  margin: 0 5px;
-  font-size: 16px;
-  border-radius: 50%;
-  flex-shrink: 1;
-  object-fit: cover;
-`;
 const StyledProductInformation = styled.div`
   position: relative;
   display: flex;
@@ -67,17 +57,11 @@ const ProductItem = ({ product }) => {
   return (
     <StyledWrapper>
       <StyledAuthorInfo as={Link} to={`/user/${product.writer.nickName}`}>
-        {product.writer.avatar ? (
-          <StyledUserIcon
-            src={`${BASE_URL}/${product.writer.avatar}`}
-            alt="user icon"
-          />
-        ) : (
-          <DefaultAvatar
-            productItem
-            nickNameProvided={product.writer.nickName}
-          />
-        )}
+        <DefaultAvatar
+          avatar={product.writer.avatar}
+          productItem
+          nickName={product.writer.nickName}
+        />
         <NickName black>{product.writer.nickName}</NickName>
       </StyledAuthorInfo>
       <Link

@@ -50,21 +50,28 @@ const StyledButton = styled.button`
 
 const FollowSection = () => {
   const { followers, following } = useSelector((state) => state.user);
-  const [sectionOpen, setSectionOpen] = useState(0); // 0 - hidden, 1-followers, 2 - followings
+  const [sectionOpen, setSectionOpen] = useState(1); // 0 - hidden, 1-followers, 2 - followings
+  const handleSectionChange = (e) => {
+    const value = parseInt(e.target.value);
+    if (sectionOpen === value) setSectionOpen(0);
+    else setSectionOpen(value);
+  };
   return (
     <StyledWrapper>
       <StyledInnerWrapper>
         {followers && following && (
           <>
             <StyledButton
+              value={1}
               active={sectionOpen === 1}
-              onClick={() => setSectionOpen(1)}
+              onClick={handleSectionChange}
             >
               Followers ({followers.length})
             </StyledButton>
             <StyledButton
+              value={2}
               active={sectionOpen === 2}
-              onClick={() => setSectionOpen(2)}
+              onClick={handleSectionChange}
             >
               Following ({following.length})
             </StyledButton>

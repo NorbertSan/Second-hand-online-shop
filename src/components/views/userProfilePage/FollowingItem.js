@@ -39,6 +39,7 @@ const StyledButton = styled(Button)`
   top: 50%;
   right: 30px;
   transform: translateY(-50%);
+  border-radius: 5px;
 `;
 
 const FollowingItem = ({ following, unfollow }) => {
@@ -52,7 +53,7 @@ const FollowingItem = ({ following, unfollow }) => {
       {following.avatar ? (
         <img src={`${BASE_URL}/${following.avatar}`} alt="avatar" />
       ) : (
-        <DefaultAvatar followingItem nickNameProvided={following.nickName} />
+        <DefaultAvatar followItem nickName={following.nickName} />
       )}
       <StyledUserInfo as={Link} to={`/user/${following.nickName}`}>
         <span>{following.nickName}</span>

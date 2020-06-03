@@ -8,8 +8,6 @@ import DefaultAvatar from "utils/DefaultAvatar";
 // REDUX
 import { useSelector } from "react-redux";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 const StyledWrapper = styled.li`
   display: flex;
   flex-direction: column;
@@ -22,14 +20,6 @@ const StyledInnerWrapper = styled.div`
     css`
       flex-direction: row-reverse;
     `}
-`;
-const StyledAvatar = styled.img`
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  object-fit: cover;
-  flex-shrink: 1;
-  margin: 0 5px;
 `;
 const StyledContent = styled.div`
   padding: 5px 10px;
@@ -80,17 +70,11 @@ const MessageItem = ({ message, lastElement }) => {
         </StyledDateInfo>
       )}
       <StyledInnerWrapper isLoggedUserAuthor={isLoggedUserAuthor}>
-        {message.writer.avatar ? (
-          <StyledAvatar
-            src={`${BASE_URL}/${message.writer.avatar}`}
-            alt="user avatar"
-          />
-        ) : (
-          <DefaultAvatar
-            productItem
-            nickNameProvided={message.writer.nickName}
-          />
-        )}
+        <DefaultAvatar
+          avatar={message.writer.avatar}
+          productItem
+          nickName={message.writer.nickName}
+        />
         <StyledContent
           onClick={() => toggleDateShown((prevState) => !prevState)}
           isLoggedUserAuthor={isLoggedUserAuthor}

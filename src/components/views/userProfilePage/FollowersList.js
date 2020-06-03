@@ -30,6 +30,11 @@ const FollowersList = () => {
   useEffect(() => {
     fetchFollowers();
   }, []);
+  const blockUser = (user_id) =>
+    setFollowers((prevState) =>
+      prevState.filter((follower) => follower._id !== user_id)
+    );
+
   return (
     <StyledWrapper>
       {loading ? (
@@ -38,7 +43,11 @@ const FollowersList = () => {
         <StyledAlert>You do not have any followers yet ☹</StyledAlert>
       ) : (
         followers.map((follower) => (
-          <FollowerItem key={follower._id} follower={follower} />
+          <FollowerItem
+            blockUser={blockUser}
+            key={follower._id}
+            follower={follower}
+          />
         ))
       )}
     </StyledWrapper>

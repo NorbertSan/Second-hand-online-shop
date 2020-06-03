@@ -1,18 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-
 // COMPONENTS
 import Button from "components/atoms/Button";
 const StyledWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
 `;
-const StyledTitle = styled.h4``;
+const StyledTitle = styled.h4`
+  text-align: center;
+`;
 
 const NoFavProductsAlert = () => {
   return (

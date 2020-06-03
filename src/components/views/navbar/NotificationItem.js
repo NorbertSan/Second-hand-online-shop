@@ -10,8 +10,6 @@ import DefaultAvatar from "utils/DefaultAvatar";
 import { useDispatch } from "react-redux";
 import { markNotificationRead } from "redux/actions/userActions";
 
-const BASE_URL = process.env.REACT_APP_BASE_URL;
-
 const StyledWrapper = styled.li`
   padding: 10px 5px;
   border-bottom: 1px solid #eee;
@@ -21,12 +19,6 @@ const StyledWrapper = styled.li`
     css`
       background: rgba(0, 144, 158, 0.2);
     `}
-`;
-const StyledAvatar = styled.img`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 5px;
 `;
 const StyledContent = styled.div`
   text-align: start;
@@ -84,14 +76,11 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
         to={`/user/${notification.author.nickName}`}
         onClick={handleCloseDropdown}
       >
-        {notification.author.avatar ? (
-          <StyledAvatar
-            src={`${BASE_URL}/${notification.author.avatar}`}
-            alt={notification.type}
-          />
-        ) : (
-          <DefaultAvatar nickNameProvided={notification.nickName} productItem />
-        )}
+        <DefaultAvatar
+          avatar={notification.author.avatar}
+          nickName={notification.nickName}
+          productItem
+        />
       </Link>
       <StyledContent onClick={handleContentRedirect}>
         <StyledNickName>

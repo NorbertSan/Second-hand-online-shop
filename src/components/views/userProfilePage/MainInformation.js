@@ -10,7 +10,6 @@ import RightIcon from "assets/icons/simpleRightArrow.svg";
 import FuncionalityIcons from "./FuncionalityIcons";
 import DefaultAvatar from "utils/DefaultAvatar";
 import { useSelector } from "react-redux";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -26,12 +25,6 @@ const StyledInnerWrapper = styled.div`
   &:hover {
     background: rgba(0, 0, 0, 0.01);
   }
-`;
-const StyledAvatar = styled.img`
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  margin-right: 15px;
 `;
 const StyledInformationWrapper = styled.div`
   display: flex;
@@ -85,14 +78,12 @@ const MainInformation = ({ userData }) => {
     <StyledWrapper>
       <StyledInnerWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
         <StyledIcon src={RightIcon} alt="right icon" />
-        {userData.avatar ? (
-          <StyledAvatar
-            src={`${BASE_URL}/${userData.avatar}`}
-            alt="user avatar"
-          />
-        ) : (
-          <DefaultAvatar userProfile nickNameProvided={userData.nickName} />
-        )}
+        <DefaultAvatar
+          avatar={userData.avatar}
+          userProfile
+          nickName={userData.nickName}
+        />
+
         <StyledInformationWrapper>
           <StyledTitle>{userData.nickName}</StyledTitle>
           <span>Name : {userData.fullName}</span>

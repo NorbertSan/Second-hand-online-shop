@@ -9,7 +9,6 @@ import NickName from "components/atoms/NickName";
 import DefaultAvatar from "utils/DefaultAvatar";
 // REDUX STUFF
 import { useSelector } from "react-redux";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.li`
   background: #fff;
@@ -23,15 +22,6 @@ const StyledWrapper = styled.li`
     css`
       background: rgba(0, 144, 158, 0.2);
     `};
-`;
-const StyledAvatar = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  flex-shrink: 1;
-  border: 1px solid grey;
-  object-fit: cover;
-  margin-right: 15px;
 `;
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -101,14 +91,12 @@ const ConversationSingleRoomOverview = ({ message }) => {
       <StyledDateInfo unread={isRoomUnread}>
         {moment(message.createdAt).fromNow()}
       </StyledDateInfo>
-      {interlocutorAvatar ? (
-        <StyledAvatar
-          src={`${BASE_URL}/${interlocutorAvatar}`}
-          alt="user avatar"
-        />
-      ) : (
-        <DefaultAvatar comment nickNameProvided={interlocutorNickName} />
-      )}
+      <DefaultAvatar
+        avatar={interlocutorAvatar}
+        comment
+        nickName={interlocutorNickName}
+      />
+
       <StyledInnerWrapper>
         <NickName black big>
           {interlocutorNickName}

@@ -1,15 +1,14 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import theme from "utils/theme";
-import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledDefaultAvatar = styled.div`
     width: 70px;
   height: 70px;
   border-radius: 50%;
   flex-shrink: 1;
-  border: 1px solid ${theme.colors.blackish};
   object-fit:cover;
   background: #eee;
   display: flex;
@@ -44,14 +43,14 @@ const StyledDefaultAvatar = styled.div`
       width: 90px;
       height: 90px;
       margin-right: 15px;
+      border: 1px solid ${theme.colors.blackish};
     `}
   ${({ productDetails }) =>
     productDetails &&
     css`
       width: 80px;
       height: 80px;
-      padding: 2px;
-      border: 2px solid ${theme.colors.blackish};
+      border: 1px solid ${theme.colors.blackish};
       margin-right: 10px;
       font-size: 50px;
     `}
@@ -68,11 +67,11 @@ const StyledDefaultAvatar = styled.div`
     css`
       width: 25px;
       height: 25px;
-      margin: 0 5px;
+      margin-right: 5px;
       font-size: 16px;
     `}
-  ${({ followingItem }) =>
-    followingItem &&
+  ${({ followItem }) =>
+    followItem &&
     css`
       width: 25px;
       height: 25px;
@@ -81,32 +80,29 @@ const StyledDefaultAvatar = styled.div`
     `}
 `;
 const DefaultAvatar = ({
+  avatar,
   comment,
   smallMenuIcon,
   userProfile,
   productDetails,
   changeAvatar,
   productItem,
-  nickNameProvided,
-  followingItem,
+  nickName,
+  followItem,
 }) => {
-  const nickName = useSelector((state) => state.user.nickName);
   return (
     <StyledDefaultAvatar
+      as={avatar && "img"}
+      alt="avatar"
+      src={`${BASE_URL}/${avatar}`}
       productItem={productItem}
       comment={comment}
       smallMenuIcon={smallMenuIcon}
       userProfile={userProfile}
       productDetails={productDetails}
       changeAvatar={changeAvatar}
-      followingItem={followingItem}
-      initial={
-        nickNameProvided
-          ? nickNameProvided.substr(0, 1)
-          : nickName
-          ? nickName.substr(0, 1)
-          : ""
-      }
+      followItem={followItem}
+      initial={nickName && nickName.substr(0, 1)}
     />
   );
 };
@@ -117,8 +113,8 @@ DefaultAvatar.propTypes = {
   userProfile: PropTypes.bool,
   productDetails: PropTypes.bool,
   changeAvatar: PropTypes.bool,
-  followingItem: PropTypes.bool,
-  nickNameProvided: PropTypes.string,
+  followItem: PropTypes.bool,
+  nickName: PropTypes.string,
 };
 
 export default DefaultAvatar;

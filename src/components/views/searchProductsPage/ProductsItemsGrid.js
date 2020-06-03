@@ -19,6 +19,7 @@ const StyledWrapper = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 220px));
+  justify-content: center;
   grid-gap: 20px;
   width: 100%;
   position: relative;

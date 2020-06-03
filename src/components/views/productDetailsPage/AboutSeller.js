@@ -10,7 +10,6 @@ import UserIcon from "assets/icons/user.svg";
 // COMPONENTS
 import UserProducts from "components/user/UserProducts";
 import DefaultAvatar from "utils/DefaultAvatar";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
   display: flex;
@@ -22,15 +21,6 @@ const StyledUserInfo = styled.section`
   padding: 20px 10px;
   border-radius: 5px;
   box-shadow: 0 0 1px ${theme.colors.blackish};
-`;
-const StyledAvatar = styled.img`
-  width: 80px;
-  height: 80px;
-  padding: 1px;
-  border: 1px solid ${theme.colors.blackish};
-  margin-right: 10px;
-  border-radius: 50%;
-  object-fit: cover;
 `;
 const StyledDetails = styled.div`
   display: flex;
@@ -79,17 +69,12 @@ const AboutSeller = ({ authorInfo }) => {
   return (
     <StyledWrapper>
       <StyledUserInfo>
-        {authorInfo.avatar ? (
-          <StyledAvatar
-            src={`${BASE_URL}/${authorInfo.avatar}`}
-            alt="user avatar"
-          />
-        ) : (
-          <DefaultAvatar
-            productDetails
-            nickNameProvided={authorInfo.nickName}
-          />
-        )}
+        <DefaultAvatar
+          avatar={authorInfo.avatar}
+          productDetails
+          nickNameProvided={authorInfo.nickName}
+        />
+
         <StyledDetails>
           <StyledSingleInfo className="big">
             <StyledIcon src={UserIcon} alt="user icon" />

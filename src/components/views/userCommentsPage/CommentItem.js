@@ -13,7 +13,6 @@ import ThreeDotsIcon from "assets/icons/threeDots.svg";
 import NickName from "components/atoms/NickName";
 import DropDownMenu from "./DropDownMenu";
 import DefaultAvatar from "utils/DefaultAvatar";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const stars = [1, 2, 3, 4, 5];
 const StyledWrapper = styled.li`
@@ -23,15 +22,6 @@ const StyledWrapper = styled.li`
   box-shadow: 0 0 10px 5px #eee;
   margin-bottom: 12px;
   position: relative;
-`;
-const StyledAvatar = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 15px;
-  padding: 3px;
-  border: 2px solid #eee;
-  flex-shrink: 0;
 `;
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -111,14 +101,11 @@ const CommentItem = ({ comment }) => {
           />
         ))}
       </StyledStarsWrapper>
-      {comment.writer.avatar ? (
-        <StyledAvatar
-          src={`${BASE_URL}/${comment.writer.avatar}`}
-          alt="user avatar"
-        />
-      ) : (
-        <DefaultAvatar comment nickNameProvided={comment.writer.nickName} />
-      )}
+      <DefaultAvatar
+        avatar={comment.writer.avatar}
+        comment
+        nickName={comment.writer.nickName}
+      />
       <StyledInnerWrapper>
         <StyledLink to={`/user/${comment.writer.nickName}`}>
           <NickName big>{comment.writer.nickName}</NickName>

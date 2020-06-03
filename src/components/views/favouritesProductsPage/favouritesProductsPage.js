@@ -33,6 +33,7 @@ const StyledFavProductsList = styled.ul`
   list-style: none;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(160px, 220px));
+  justify-content: center;
   grid-gap: 40px;
   width: 100%;
   position: relative;
@@ -70,8 +71,8 @@ const FavouritesProductsPage = () => {
           <ProductItem key={product._id} product={product} />
         ))}
         {loading && <ProductsSkeleton />}
-        {!loading && favProducts.length === 0 && <NoFavProductsAlert />}
       </StyledFavProductsList>
+      {!loading && favProducts.length === 0 && <NoFavProductsAlert />}
     </StyledWrapper>
   );
 };

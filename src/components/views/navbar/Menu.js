@@ -16,7 +16,6 @@ import GreyBackground from "components/atoms/GreyBackground";
 import DefaultAvatar from "utils/DefaultAvatar";
 // ANIMATIONS
 import { menuAppear } from "utils/keyframesAnimations";
-const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledMenuList = styled.ul`
   margin: 0;
@@ -39,14 +38,6 @@ const StyledButton = styled(Button)`
   margin-bottom: 10px;
   text-align: center;
 `;
-const StyledAvatar = styled.img`
-  width: 40px;
-  height: 40px;
-  margin-right: 5px;
-  border-radius: 50%;
-  border: 1px solid grey;
-`;
-
 const StyledUserInfo = styled.div`
   display: flex;
   align-items: center;
@@ -93,11 +84,12 @@ const Menu = ({ toggleMenuOpen }) => {
         {auth && (
           <StyledUserPanel>
             <StyledUserInfo>
-              {avatar ? (
-                <StyledAvatar src={`${BASE_URL}/${avatar}`} alt="user avatar" />
-              ) : (
-                <DefaultAvatar smallMenuIcon />
-              )}
+              <DefaultAvatar
+                avatar={avatar}
+                nickName={nickName}
+                smallMenuIcon
+              />
+
               <NickName black big>
                 {nickName}
               </NickName>
