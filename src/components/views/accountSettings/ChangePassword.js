@@ -17,7 +17,7 @@ import { useDispatch } from "react-redux";
 import { changePassword as changePasswordAction } from "redux/actions/userActions";
 
 const StyledWrapper = styled.div`
-  margin-top: 40px;
+  margin-top: 20px;
   display: flex;
   align-items: center;
   background: #fff;

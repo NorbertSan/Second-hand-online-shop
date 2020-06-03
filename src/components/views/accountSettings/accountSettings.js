@@ -7,6 +7,7 @@ import ChangeUserAvatarForm from "./ChangeUserAvatarForm";
 import ChangeUserInfo from "./ChangeUserInfo";
 import ChangePassword from "./ChangePassword";
 import DeleteAccount from "./DeleteAccount";
+import BlockedUsersList from "./BlockedUsersList ";
 import Button from "components/atoms/Button";
 import Loader from "react-loader-spinner";
 // REDUX STUFF
@@ -16,7 +17,7 @@ import { changeUserInfo as changeUserInfoAction } from "redux/actions/userAction
 const StyledWrapper = styled.section`
   padding: 50px 15px 15px 15px;
   margin: 90px auto 30px;
-  max-width: 960px;
+  max-width: 760px;
   display: flex;
   flex-direction: column;
 `;
@@ -63,6 +64,7 @@ const AccountSettings = () => {
         setBio={setBio}
       />
       <ChangePassword />
+      <BlockedUsersList />
       <DeleteAccount />
       <StyledButton onClick={handleSaveChanges} tertiary>
         {isChanged ? (

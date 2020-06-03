@@ -78,6 +78,15 @@ const StyledDefaultAvatar = styled.div`
       margin-right: 8px;
       font-size: 16px;
     `}
+  ${({ blockedUser }) =>
+    blockedUser &&
+    css`
+      width: 35px;
+      height: 35px;
+      margin-right: 8px;
+      font-size: 16px;
+      border: 1px solid ${theme.colors.blackish};
+    `}
 `;
 const DefaultAvatar = ({
   avatar,
@@ -89,6 +98,7 @@ const DefaultAvatar = ({
   productItem,
   nickName,
   followItem,
+  blockedUser,
 }) => {
   return (
     <StyledDefaultAvatar
@@ -102,6 +112,7 @@ const DefaultAvatar = ({
       productDetails={productDetails}
       changeAvatar={changeAvatar}
       followItem={followItem}
+      blockedUser={blockedUser}
       initial={nickName && nickName.substr(0, 1)}
     />
   );
