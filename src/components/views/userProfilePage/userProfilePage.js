@@ -10,6 +10,7 @@ import FollowSection from "./FollowSection";
 // REACT STUFF
 import { useSelector, useDispatch } from "react-redux";
 import { getUserData } from "redux/actions/userActions";
+import useDetectUserBlocked from "hooks/useDetectUserBlocked";
 
 const StyledWrapper = styled.section`
   padding: 15px;
@@ -27,6 +28,7 @@ const UserProfilePage = () => {
   const [userNotFound, setUserNotFound] = useState(false);
   const { nickName } = useParams();
   const dispatch = useDispatch();
+  useDetectUserBlocked(setUserNotFound);
   useEffect(() => {
     dispatch(getUserData(nickName, setUserNotFound));
     // eslint-disable-next-line react-hooks/exhaustive-deps

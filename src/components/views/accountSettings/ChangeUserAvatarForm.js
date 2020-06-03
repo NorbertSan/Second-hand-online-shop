@@ -7,8 +7,7 @@ import styled from "styled-components";
 import Button from "components/atoms/Button";
 import ValidateAlert from "components/atoms/ValidateAlert";
 import DefaultAvatar from "utils/DefaultAvatar";
-
-const BASE_URL = process.env.REACT_APP_BASE_URL;
+import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -18,13 +17,6 @@ const StyledWrapper = styled.div`
   padding: 10px 30px;
   justify-content: space-between;
   position: relative;
-`;
-const StyledAvatar = styled.img`
-  width: 70px;
-  height: 70px;
-  border: 1px solid grey;
-  border-radius: 50%;
-  flex-shrink: 1;
 `;
 const StyledButton = styled(Button)`
   font-size: ${theme.fontSize.xs}!important;
@@ -41,6 +33,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
 const ChangeUserAvatarForm = ({ initial, avatar, setAvatar }) => {
   const inputFileRef = useRef(null);
   const [errors, setErrors] = useState({});
+  const { nickName } = useSelector((state) => state.user);
   const triggerAvatarChoose = () => inputFileRef.current.click();
   const avatarChange = async (e) => {
     const file = e.target.files[0];
@@ -66,11 +59,8 @@ const ChangeUserAvatarForm = ({ initial, avatar, setAvatar }) => {
   };
   return (
     <StyledWrapper>
-      {avatar ? (
-        <StyledAvatar src={`${BASE_URL}/${avatar}`} alt="user avatar" />
-      ) : (
-        <DefaultAvatar changeAvatar />
-      )}
+      <DefaultAvatar avatar={avatar} nickName={nickName} changeAvatar />
+
       <input type="file" ref={inputFileRef} hidden onChange={avatarChange} />
       <StyledButton tertiary onClick={triggerAvatarChoose}>
         Change avatar

@@ -50,7 +50,7 @@ const StyledButton = styled.button`
 
 const FollowSection = () => {
   const { followers, following } = useSelector((state) => state.user);
-  const [sectionOpen, setSectionOpen] = useState(1); // 0 - hidden, 1-followers, 2 - followings
+  const [sectionOpen, setSectionOpen] = useState(0); // 0 - hidden, 1-followers, 2 - followings
   const handleSectionChange = (e) => {
     const value = parseInt(e.target.value);
     if (sectionOpen === value) setSectionOpen(0);

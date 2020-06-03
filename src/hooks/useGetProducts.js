@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { SET_PRODUCTS, LOADING_PRODUCTS } from "redux/types";
 
 const UseGetProducts = (
@@ -10,24 +10,32 @@ const UseGetProducts = (
   setPages,
   setFetchMore
 ) => {
+  const { blockedUsers } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   let cancel;
   const fetchProducts = async () => {
     dispatch({ type: LOADING_PRODUCTS });
     try {
-      const res = await axios.post("/product", queries, {
+      const {
+        data: { products, pages },
+      } = await axios.post("/product", queries, {
         cancelToken: new axios.CancelToken((c) => (cancel = c)),
       });
+      const filterProducts = products.reduce((result, current) => {
+        if (blockedUsers && blockedUsers.includes(current.writer._id))
+          return result;
+        else return [...result, current];
+      }, []);
       dispatch({
         type: SET_PRODUCTS,
-        payload: { products: res.data.products, clearPrevious },
+        payload: { products: filterProducts, clearPrevious },
       });
-      setPages && setPages(parseInt(res.data.pages));
+      setPages && setPages(parseInt(pages));
       setFetchMore &&
         setFetchMore(
-          res.data.products.length === 0
+          filterProducts.length === 0
             ? false
-            : res.data.products.length % queries.limit === 0
+            : filterProducts.length % queries.limit === 0
         );
     } catch (err) {
       console.error(err);
@@ -37,7 +45,7 @@ const UseGetProducts = (
     fetchProducts();
     return () => cancel();
     //eslint-disable-next-line react-hooks/exhaustive-deps
-  }, params);
+  }, [...params, blockedUsers]);
 };
 
 export default UseGetProducts;

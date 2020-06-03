@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import theme from "utils/theme";
 // HOOK
 import useGetProducts from "hooks/useGetProducts";
 // COMPONENTS
@@ -26,11 +27,18 @@ const StyledWrapper = styled.ul`
 const StyledButton = styled(Button)`
   margin: 0 auto 15px;
 `;
+const StyledAlert = styled.div`
+  position: absolute;
+  text-align: center;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+`;
 
 const LatestProducts = () => {
   const limit = 8;
   const [page, setPage] = useState(1);
-  const [fetchMore, setFetchMore] = useState(true);
+  const [fetchMore, setFetchMore] = useState(false);
   const latestProducts = useSelector((state) => state.data.products);
   const loading = useSelector((state) => state.UI.loadingProducts);
   const dispatch = useDispatch();
@@ -46,12 +54,16 @@ const LatestProducts = () => {
   return (
     <>
       <StyledWrapper>
-        {latestProducts.length > 0 &&
-          latestProducts.map((product) => (
-            <ProductItem key={product._id} product={product} />
-          ))}
+        {latestProducts.length > 0
+          ? latestProducts.map((product) => (
+              <ProductItem key={product._id} product={product} />
+            ))
+          : !loading && (
+              <StyledAlert>There is no products to sell at now ☹</StyledAlert>
+            )}
         {loading && <ProductsSkeleton />}
       </StyledWrapper>
+
       {fetchMore && (
         <StyledButton secondary onClick={loadMore}>
           Load more

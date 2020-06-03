@@ -78,7 +78,7 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
       >
         <DefaultAvatar
           avatar={notification.author.avatar}
-          nickName={notification.nickName}
+          nickName={notification.author.nickName}
           productItem
         />
       </Link>
