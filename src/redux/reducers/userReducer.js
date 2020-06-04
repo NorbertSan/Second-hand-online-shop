@@ -12,6 +12,7 @@ import {
   SET_FOLLOWING,
   SET_FOLLOWERS,
   SET_BLOCK_USER,
+  SET_UNBLOCK_USER,
 } from "redux/types";
 
 const initialState = {
@@ -90,6 +91,13 @@ export default (state = initialState, action) => {
       return {
         ...state,
         blockedUsers: [action.payload, ...state.blockedUsers],
+      };
+    case SET_UNBLOCK_USER:
+      return {
+        ...state,
+        blockedUsers: [...state.blockedUsers].filter(
+          (user) => user !== action.payload
+        ),
       };
     default:
       return { ...state };

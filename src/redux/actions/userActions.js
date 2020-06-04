@@ -15,6 +15,7 @@ import {
   SET_FOLLOWING,
   SET_FOLLOWERS,
   SET_BLOCK_USER,
+  SET_UNBLOCK_USER,
 } from "redux/types";
 import axios from "axios";
 
@@ -213,6 +214,15 @@ export const blockUser = (user_id, history) => async (dispatch) => {
     dispatch({ type: SET_FOLLOWING, payload: refreshFollowing });
     dispatch({ type: SET_BLOCK_USER, payload: user_id });
     history && history.push("/");
+  } catch (err) {
+    console.error(err);
+  }
+};
+// UNBLOCK USER
+export const unblockUser = (user_id) => async (dispatch) => {
+  try {
+    await axios.put(`/user/${user_id}/unblock`);
+    dispatch({ type: SET_UNBLOCK_USER, payload: user_id });
   } catch (err) {
     console.error(err);
   }

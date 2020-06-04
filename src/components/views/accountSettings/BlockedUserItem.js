@@ -1,10 +1,11 @@
 import React from "react";
 import styled from "styled-components";
-import axios from "axios";
 import theme from "utils/theme";
 import DefaultAvatar from "utils/DefaultAvatar";
 import PropTypes from "prop-types";
 import Button from "components/atoms/Button";
+import { useDispatch } from "react-redux";
+import { unblockUser as unblockUserAction } from "redux/actions/userActions";
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -33,15 +34,10 @@ const StyledButton = styled(Button)`
 `;
 
 const BlockedUserItem = ({ user, unblock }) => {
-  const unblockHandle = async () => {
-    try {
-      const { data: userToUnblock_id } = await axios.put(
-        `/user/${user._id}/unblock`
-      );
-      unblock(userToUnblock_id);
-    } catch (err) {
-      console.error(err);
-    }
+  const dispatch = useDispatch();
+  const unblockHandle = () => {
+    dispatch(unblockUserAction(user._id));
+    unblock(user._id);
   };
   return (
     <StyledWrapper>

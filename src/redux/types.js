@@ -24,6 +24,7 @@ export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const SET_FOLLOWING = "SET_FOLLOWING";
 export const SET_FOLLOWERS = "SET_FOLLOWERS";
 export const SET_BLOCK_USER = "SET_BLOCK_USER";
+export const SET_UNBLOCK_USER = "SET_UNBLOCK_USER";
 
 // DATA
 export const SET_PRODUCTS = "SET_PRODUCTS";
