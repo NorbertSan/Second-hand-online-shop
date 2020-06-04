@@ -11,6 +11,7 @@ import {
   SET_NOTIFICATION_READ,
   SET_FOLLOWING,
   SET_FOLLOWERS,
+  SET_BLOCK_USER,
 } from "redux/types";
 
 const initialState = {
@@ -84,6 +85,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         followers: action.payload,
+      };
+    case SET_BLOCK_USER:
+      return {
+        ...state,
+        blockedUsers: [action.payload, ...state.blockedUsers],
       };
     default:
       return { ...state };

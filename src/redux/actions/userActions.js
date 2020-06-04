@@ -14,6 +14,7 @@ import {
   SET_NOTIFICATION_READ,
   SET_FOLLOWING,
   SET_FOLLOWERS,
+  SET_BLOCK_USER,
 } from "redux/types";
 import axios from "axios";
 
@@ -203,13 +204,15 @@ export const toggleFollowUser = (nickName) => async (dispatch) => {
   }
 };
 // BLOCK USER
-export const blockUser = (user_id) => async (dispatch) => {
+export const blockUser = (user_id, history) => async (dispatch) => {
   try {
     const {
       data: { refreshFollowers, refreshFollowing },
     } = await axios.put(`/user/${user_id}/block`);
     dispatch({ type: SET_FOLLOWERS, payload: refreshFollowers });
     dispatch({ type: SET_FOLLOWING, payload: refreshFollowing });
+    dispatch({ type: SET_BLOCK_USER, payload: user_id });
+    history && history.push("/");
   } catch (err) {
     console.error(err);
   }

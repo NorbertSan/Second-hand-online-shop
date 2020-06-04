@@ -23,6 +23,7 @@ export const UPDATE_USER_INFO = "UPDATE_USER_INFO";
 export const DELETE_ACCOUNT = "DELETE_ACCOUNT";
 export const SET_FOLLOWING = "SET_FOLLOWING";
 export const SET_FOLLOWERS = "SET_FOLLOWERS";
+export const SET_BLOCK_USER = "SET_BLOCK_USER";
 
 // DATA
 export const SET_PRODUCTS = "SET_PRODUCTS";

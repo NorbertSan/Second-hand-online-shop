@@ -6,8 +6,10 @@ import { Link } from "react-router-dom";
 // ICONS
 import BlueMail from "assets/icons/blueMail.svg";
 import { ReactComponent as Follow } from "assets/icons/follow.svg";
+import { ReactComponent as Block } from "assets/icons/block.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFollowUser as toggleFollowUserAction } from "redux/actions/userActions";
+import BlockUser from "./BlockUser";
 
 const StyledWrapper = styled.div`
   display: flex;
@@ -72,6 +74,7 @@ const StyledIcon = styled.img`
 const FuncionalityIcons = ({ nickName, user_id }) => {
   const dispatch = useDispatch();
   const [isAlreadyFollowing, setFollowing] = useState(false);
+  const [blockUserOpen, setBlockUserOpen] = useState(false);
   const { following } = useSelector((state) => state.user);
   const toggleFollowUser = () => {
     dispatch(toggleFollowUserAction(nickName));
@@ -81,6 +84,12 @@ const FuncionalityIcons = ({ nickName, user_id }) => {
   }, [following, user_id]);
   return (
     <StyledWrapper>
+      {blockUserOpen && (
+        <BlockUser setBlockUserOpen={setBlockUserOpen} user_id={user_id} />
+      )}
+      <StyledButton onClick={() => setBlockUserOpen(true)} tooltip="Block">
+        <Block />
+      </StyledButton>
       <StyledButton tooltip="Follow" onClick={toggleFollowUser}>
         <Follow className={isAlreadyFollowing ? "active" : undefined} />
       </StyledButton>

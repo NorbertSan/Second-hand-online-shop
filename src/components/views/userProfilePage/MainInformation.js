@@ -73,7 +73,9 @@ const StyledCircle = styled.div`
 const MainInformation = ({ userData }) => {
   // IF LESS THAN 1 MINUTE MEAN ONLINE
   const online = userData.lastLogin + 60000 > Date.now();
-  const loggedUserNickName = useSelector((state) => state.user.nickName);
+  const { nickName: loggedUserNickName, auth } = useSelector(
+    (state) => state.user
+  );
   return (
     <StyledWrapper>
       <StyledInnerWrapper as={Link} to={`/user/${userData.nickName}/comments`}>
@@ -100,7 +102,7 @@ const MainInformation = ({ userData }) => {
         </StyledInformationWrapper>
       </StyledInnerWrapper>
       {userData.bio && <StyledBio>{userData.bio}</StyledBio>}
-      {loggedUserNickName !== userData.nickName && (
+      {auth && loggedUserNickName !== userData.nickName && (
         <FuncionalityIcons
           user_id={userData._id}
           nickName={userData.nickName}

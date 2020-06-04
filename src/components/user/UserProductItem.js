@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
 import { Link, useLocation } from "react-router-dom";
@@ -7,6 +8,7 @@ import { ReactComponent as ErrorCheck } from "assets/icons/errorCheck.svg";
 // COMPONENTS
 import ImageSlider from "components/products/ImageSlider";
 import DeleteUserProduct from "./DeleteUserProduct";
+import { useSelector } from "react-redux";
 
 const StyledWrapper = styled.li`
   display: flex;
@@ -37,8 +39,12 @@ const StyledDeleteButton = styled.button`
   background: transparent;
   border: none;
 `;
-const StyledDeleteIcon = styled(ErrorCheck)``;
+
 const UserProductItem = ({ product }) => {
+  const { nickName } = useParams();
+  const { nickName: loggedUserNickName, auth } = useSelector(
+    (state) => state.user
+  );
   const { pathname } = useLocation();
   const [isDeleteFormOpen, toggleDeleteFormOpen] = useState(false);
   return (
@@ -60,9 +66,11 @@ const UserProductItem = ({ product }) => {
               product_id={product._id}
             />
           )}
-          <StyledDeleteButton onClick={() => toggleDeleteFormOpen(true)}>
-            <StyledDeleteIcon />
-          </StyledDeleteButton>
+          {auth && nickName === loggedUserNickName && (
+            <StyledDeleteButton onClick={() => toggleDeleteFormOpen(true)}>
+              <ErrorCheck />
+            </StyledDeleteButton>
+          )}
         </StyledProductInformation>
       </StyledWrapper>
     </>
