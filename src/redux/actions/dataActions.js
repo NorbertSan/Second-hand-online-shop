@@ -118,13 +118,18 @@ export const getConversationRooms = (setLoading) => async (dispatch) => {
   }
 };
 // GET ALL MESSAGES FROM ONE CONVERSATION ROOM
-export const getMessages = (nickName, setLoading) => async (dispatch) => {
+export const getMessages = (
+  nickName,
+  setLoading,
+  setInterlocutorNotFound
+) => async (dispatch) => {
   try {
-    const res = await axios.get(`/message/room/${nickName}`);
-    dispatch({ type: SET_MESSAGES, payload: res.data });
+    const { data } = await axios.get(`/message/room/${nickName}`);
+    dispatch({ type: SET_MESSAGES, payload: data });
     setLoading(false);
   } catch (err) {
     console.error(err);
+    setInterlocutorNotFound(true);
   }
 };
 // SET MESSAGES READ

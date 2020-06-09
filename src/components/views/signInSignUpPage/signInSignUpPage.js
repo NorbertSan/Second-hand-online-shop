@@ -7,9 +7,10 @@ import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 
 const StyledWrapper = styled.section`
-  margin-top: 120px;
   padding: 15px;
   text-align: center;
+  max-width: 660px;
+  margin: 120px auto 30px auto;
 `;
 const StyledButtons = styled.div`
   color: grey;
@@ -18,7 +19,10 @@ const StyledButtons = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const StyledElement = styled.div`
+const StyledElement = styled.button`
+  background: transparent;
+  border: none;
+  outline: none;
   flex: 1;
   padding: 10px;
   ${({ active }) =>

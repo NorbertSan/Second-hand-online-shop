@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledImage = styled.img`
   width: 100%;
@@ -10,18 +11,21 @@ const StyledImage = styled.img`
   height: 140px;
 `;
 
-const ImageSlider = ({ images }) => {
-  return (
-    <Carousel showThumbs={false}>
-      {images &&
-        images.map((image, index) => (
-          <StyledImage
-            key={`product-photo ${index}`}
-            src={`http://localhost:5000/${image}`}
-          />
-        ))}
-    </Carousel>
-  );
+const ImageSlider = ({ images: imagesId }) => {
+  const [images, setImages] = useState([]);
+
+  useEffect(() => {
+    setImages(
+      imagesId.map((image, index) => (
+        <StyledImage
+          key={`product-photo ${index}`}
+          src={`${BASE_URL}/${image}`}
+        />
+      ))
+    );
+  }, [imagesId]);
+
+  return <Carousel showThumbs={false}>{images}</Carousel>;
 };
 ImageSlider.propTypes = {
   images: PropTypes.array.isRequired,

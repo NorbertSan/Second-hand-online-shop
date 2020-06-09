@@ -31,8 +31,7 @@ const UserProfilePage = () => {
   useDetectUserBlocked(setUserNotFound);
   useEffect(() => {
     dispatch(getUserData(nickName, setUserNotFound));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nickName]);
+  }, [nickName, dispatch]);
   if (userNotFound)
     return (
       <NotFoundPage

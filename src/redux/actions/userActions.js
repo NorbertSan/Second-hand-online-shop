@@ -94,11 +94,7 @@ export const createToken = (decodedToken) => async (dispatch) => {
   }
 };
 // GET USER DATA
-export const getUserData = (
-  nickName,
-  setUserNotFound,
-  blockedUsersId
-) => async (dispatch) => {
+export const getUserData = (nickName, setUserNotFound) => async (dispatch) => {
   dispatch({ type: LOADING_USER });
   try {
     const res = await axios.get(`/user/${nickName}`);

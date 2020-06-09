@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import theme from "utils/theme";
 // HOOK
 import useGetProducts from "hooks/useGetProducts";
 // COMPONENTS

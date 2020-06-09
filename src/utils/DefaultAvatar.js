@@ -69,6 +69,7 @@ const StyledDefaultAvatar = styled.div`
       height: 25px;
       margin-right: 5px;
       font-size: 16px;
+      border: 1px solid grey;
     `}
   ${({ followItem }) =>
     followItem &&

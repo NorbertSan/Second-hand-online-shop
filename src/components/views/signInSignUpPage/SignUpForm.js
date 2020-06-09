@@ -22,7 +22,6 @@ const StyledWrapper = styled.form`
   padding: 10px;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 1px ${theme.colors.secondary};
 `;
 const StyledInput = styled(Input)`
   margin-bottom: 15px;

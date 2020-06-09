@@ -118,7 +118,7 @@ const ConversationRoomPage = () => {
   // IF LESS THAN 1 MINUTE MEAN ONLINE
 
   useEffect(() => {
-    dispatch(getMessages(nickName, setLoading));
+    dispatch(getMessages(nickName, setLoading, setInterlocutorNotFound));
     dispatch(setMessagesRead(nickName));
     dispatch(getUserData(nickName, setInterlocutorNotFound));
     // eslint-disable-next-line react-hooks/exhaustive-deps

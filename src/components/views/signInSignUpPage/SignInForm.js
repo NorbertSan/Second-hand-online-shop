@@ -17,7 +17,6 @@ const StyledWrapper = styled.form`
   padding: 10px;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0 0 1px ${theme.colors.secondary};
 `;
 const StyledInputWrapper = styled.div`
   display: flex;
@@ -57,6 +56,7 @@ const SignInForm = () => {
   const [remember, setRemember] = useState(false);
   const checkboxRef = useRef(null);
   const history = useHistory();
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password.trim().length > 0 && email.trim().length > 0) {
