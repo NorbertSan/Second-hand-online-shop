@@ -16,7 +16,6 @@ const GlobalStyles = createGlobalStyle`
         font-size:1.6rem;
         font-family: 'Roboto', sans-serif;
         background:${theme.colors.whiteish};
-        /* background:#fff; */
         color:${theme.colors.blackish};
         margin:0;
         width:100vw;

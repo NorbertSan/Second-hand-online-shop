@@ -17,6 +17,16 @@ const StyledWrapper = styled.div`
   background: ${theme.colors.whiteish};
   top: 1px;
   position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 1px;
+    background: #eee;
+  }
   @media screen and (max-width: 960px) {
     padding-left: 10px;
   }

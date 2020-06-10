@@ -8,7 +8,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.div`
   width: 100%;
-  box-shadow: 0 0 1px grey;
   margin: 0 auto;
   z-index: 1;
 `;

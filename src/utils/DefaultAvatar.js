@@ -25,7 +25,8 @@ const StyledDefaultAvatar = styled.div`
   ${({ comment }) =>
     comment &&
     css`
-      width: 45px;
+      min-width: 45px;
+      max-width: 45px;
       height: 45px;
       margin-right: 15px;
       font-size: 22px;
@@ -67,7 +68,7 @@ const StyledDefaultAvatar = styled.div`
     css`
       width: 25px;
       height: 25px;
-      margin-right: 5px;
+      margin: 5px;
       font-size: 16px;
       border: 1px solid grey;
     `}

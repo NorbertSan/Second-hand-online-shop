@@ -72,7 +72,7 @@ const AboutSeller = ({ authorInfo }) => {
         <DefaultAvatar
           avatar={authorInfo.avatar}
           productDetails
-          nickNameProvided={authorInfo.nickName}
+          nickName={authorInfo.nickName}
         />
 
         <StyledDetails>

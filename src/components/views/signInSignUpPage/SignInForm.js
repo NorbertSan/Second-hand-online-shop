@@ -39,7 +39,7 @@ const StyledCheckboxWrapper = styled.div`
   align-items: center;
   align-self: start;
   font-size: ${theme.fontSize.xs};
-  margin-left: 30px;
+  margin-left: 10%;
   margin-bottom: 10px;
 `;
 const StyledValidateAlert = styled(ValidateAlert)`

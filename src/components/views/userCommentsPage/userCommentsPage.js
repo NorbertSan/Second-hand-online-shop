@@ -17,8 +17,8 @@ import { BulletList } from "react-content-loader";
 
 const StyledWrapper = styled.section`
   padding: 50px 15px 15px 15px;
-  margin: 150px auto 30px;
-  max-width: 960px;
+  margin: 130px auto 30px;
+  max-width: 760px;
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease-in-out;

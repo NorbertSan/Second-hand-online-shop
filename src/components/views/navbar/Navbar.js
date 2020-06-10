@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import theme from "utils/theme";
 import { Link } from "react-router-dom";
 import LogoIcon from "assets/images/logo.png";
@@ -16,7 +16,7 @@ const scroll = Scroll.animateScroll;
 
 const StyledWrapper = styled.header`
   width: 100vw;
-  height: 10vh;
+  min-height: 10vh;
   border-bottom: 1px solid #eee;
   margin-bottom: 50px;
   background: ${theme.colors.whiteish};
@@ -26,6 +26,12 @@ const StyledWrapper = styled.header`
   top: 0;
   left: 0;
   z-index: 7;
+  ${({ open }) =>
+    open &&
+    css`
+      min-height: 100vh;
+      overflow: auto;
+    `}
 `;
 const StyledNavigationWrapper = styled.nav`
   display: flex;
@@ -53,7 +59,7 @@ const Navbar = () => {
     toggleMenuOpen(false);
   };
   return (
-    <StyledWrapper>
+    <StyledWrapper open={openMenu}>
       {openMenu && <Menu toggleMenuOpen={toggleMenuOpen} />}
       <StyledNavigationWrapper>
         <StyledLogo as={Link} to="/" onClick={handleLogoClick}>

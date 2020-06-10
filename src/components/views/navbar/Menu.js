@@ -19,19 +19,22 @@ import { menuAppear } from "utils/keyframesAnimations";
 
 const StyledMenuList = styled.ul`
   margin: 0;
-  padding: 0;
   list-style: none;
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
+  /* right: 0; */
   background: ${theme.colors.whiteish};
   z-index: 15;
-  width: 100vw;
+  width: 100%;
+  max-width: 760px;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 100px 15px 15px 15px;
   animation: ${menuAppear} 0.4s ease forwards;
+  @media screen and (min-width: 760px) {
+    padding: 100px 60px 15px 60px;
+  }
 `;
 const StyledButton = styled(Button)`
   width: 100%;

@@ -11,15 +11,11 @@ import ManIcon from "assets/icons/man.svg";
 const StyledCategoryList = styled.ul`
   display: flex;
   flex-direction: column;
-  margin: 0;
+  margin: 40px 0 0 0;
   padding: 0;
   list-style: none;
-  border-top: 1px solid ${theme.colors.secondary};
   align-self: start;
   width: 100%;
-  h4 {
-    color: grey;
-  }
 `;
 const StyledLink = styled(Link)`
   display: flex;
@@ -49,7 +45,6 @@ const StyledIcon = styled.img`
 const GenderFilters = ({ toggleMenuOpen }) => {
   return (
     <StyledCategoryList>
-      <h4>Category</h4>
       <StyledLink
         to={`/products?&gender=Women`}
         onClick={() => toggleMenuOpen(false)}

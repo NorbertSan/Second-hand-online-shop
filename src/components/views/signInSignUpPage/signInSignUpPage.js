@@ -14,7 +14,7 @@ const StyledWrapper = styled.section`
 `;
 const StyledButtons = styled.div`
   color: grey;
-  margin: 50px 0;
+  margin: 50px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -25,6 +25,7 @@ const StyledElement = styled.button`
   outline: none;
   flex: 1;
   padding: 10px;
+  cursor: pointer;
   ${({ active }) =>
     active &&
     css`

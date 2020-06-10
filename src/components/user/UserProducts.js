@@ -14,7 +14,7 @@ const StyledWrapper = styled.ul`
   padding: 0;
   list-style: none;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 220px));
   grid-gap: 40px;
   justify-content: center;
   width: 100%;
@@ -53,7 +53,7 @@ const UserProducts = ({ productsIds, nickName }) => {
     <>
       {userProducts.length > 0 ? (
         <>
-          <StyledTitle>{`Items user ${nickName} (${productsIds.length} products)`}</StyledTitle>
+          <StyledTitle>{`Items user ${nickName} (${userProducts.length} products)`}</StyledTitle>
           <StyledWrapper>
             {userProducts.map((product) => (
               <UserProductItem key={product._id} product={product} />

@@ -66,7 +66,6 @@ const ConversationSingleRoomOverview = ({ message }) => {
       setIsLoggedUserAuthor(true);
       return;
     }
-
     if (message.writer.nickName === loggedUserNickName) {
       setIsLoggedUserAuthor(true);
       setInterlocutorAvatar(message.recipient.avatar);
