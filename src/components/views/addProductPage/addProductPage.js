@@ -106,9 +106,11 @@ const AddProductPage = () => {
     setInputsValue(initialState);
     setClearImages(true);
   };
+
   const setImagesHandle = (files) => {
     setInputsValue({ ...inputsValue, images: files });
   };
+
   return (
     <StyledWrapper autoComplete="off" onSubmit={handleSubmit}>
       {success && <AddProductAlert success text={success} />}

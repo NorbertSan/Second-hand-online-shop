@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -41,38 +41,40 @@ const StyledTextarea = styled(Textarea)`
   }
 `;
 
-const ChangeUserInfo = ({ fullName, bio, setFullName, setBio, errors }) => {
-  return (
-    <>
-      <StyledWrapper>
-        <StyledField>
-          <label>Full name :</label>
-          <StyledInput
-            spellCheck="false"
-            secondary
-            value={fullName}
-            onChange={(e) => setFullName(e.target.value)}
-          />
-          {errors.fullName && (
-            <StyledValidateAlert>{errors.fullName}</StyledValidateAlert>
-          )}
-        </StyledField>
-        <StyledField>
-          <label>Tell more about yourself :</label>
-          <StyledTextarea
-            spellCheck="false"
-            secondary
-            value={bio}
-            onChange={(e) => setBio(e.target.value)}
-          />
-          {errors.bio && (
-            <StyledValidateAlert>{errors.bio}</StyledValidateAlert>
-          )}
-        </StyledField>
-      </StyledWrapper>
-    </>
-  );
-};
+const ChangeUserInfo = memo(
+  ({ fullName, bio, setFullName, setBio, errors }) => {
+    return (
+      <>
+        <StyledWrapper>
+          <StyledField>
+            <label>Full name :</label>
+            <StyledInput
+              spellCheck="false"
+              secondary
+              value={fullName}
+              onChange={(e) => setFullName(e.target.value)}
+            />
+            {errors.fullName && (
+              <StyledValidateAlert>{errors.fullName}</StyledValidateAlert>
+            )}
+          </StyledField>
+          <StyledField>
+            <label>Tell more about yourself :</label>
+            <StyledTextarea
+              spellCheck="false"
+              secondary
+              value={bio}
+              onChange={(e) => setBio(e.target.value)}
+            />
+            {errors.bio && (
+              <StyledValidateAlert>{errors.bio}</StyledValidateAlert>
+            )}
+          </StyledField>
+        </StyledWrapper>
+      </>
+    );
+  }
+);
 
 ChangeUserInfo.propTypes = {
   fullName: PropTypes.string.isRequired,

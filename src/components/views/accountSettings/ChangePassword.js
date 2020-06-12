@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 import theme from "utils/theme";
 import styled, { css } from "styled-components";
 // ICON
@@ -87,7 +87,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
   margin-top: 5px;
 `;
 
-const ChangePassword = () => {
+const ChangePassword = memo(() => {
   const passwordInputRef = useRef(null);
   const dispatch = useDispatch();
   const [errors, setErrors] = useState({});
@@ -187,6 +187,6 @@ const ChangePassword = () => {
       )}
     </>
   );
-};
+});
 
 export default ChangePassword;

@@ -51,11 +51,7 @@ const AccountSettings = () => {
   };
   return (
     <StyledWrapper>
-      <ChangeUserAvatarForm
-        initial={fullName.substr(0, 1)}
-        avatar={avatar}
-        setAvatar={setAvatar}
-      />
+      <ChangeUserAvatarForm avatar={avatar} setAvatar={setAvatar} />
       <ChangeUserInfo
         errors={errors}
         fullName={fullName}

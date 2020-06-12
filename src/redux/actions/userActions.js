@@ -20,7 +20,6 @@ import {
 import axios from "axios";
 
 export const signUp = (data, switchToLoginForm) => async (dispatch) => {
-  console.log("sign up action");
   dispatch({ type: LOADING_SIGN_UP });
   try {
     await axios.post("/user/signup", data);
@@ -34,7 +33,6 @@ export const signUp = (data, switchToLoginForm) => async (dispatch) => {
 
 // LOGIN
 export const login = (data, history) => async (dispatch) => {
-  console.log("login action ");
   dispatch({ type: LOADING_LOGIN });
   try {
     const res = await axios.post("/user/login", data);
@@ -49,7 +47,6 @@ export const login = (data, history) => async (dispatch) => {
 };
 // GET LOGGED USER DATA
 export const getLoggedUserData = () => async (dispatch) => {
-  console.log("get logged user info");
   try {
     const res = await axios.get("/user");
     dispatch({
@@ -68,7 +65,6 @@ const setAuthorizationToken = (token) => {
 };
 // LOGOUT
 export const logout = (email) => async (dispatch) => {
-  console.log("logout action");
   try {
     localStorage.removeItem("AuthToken");
     delete axios.defaults.headers.common["Authorization"];
@@ -80,7 +76,6 @@ export const logout = (email) => async (dispatch) => {
 };
 // CREATE TOKEN
 export const createToken = (decodedToken) => async (dispatch) => {
-  console.log("create token action");
   try {
     const res = await axios.post("/user/token", { decodedToken });
     const newToken = res.data.newToken;
@@ -109,7 +104,6 @@ export const getUserData = (nickName, setUserNotFound) => async (dispatch) => {
 export const changeUserInfo = (data, setLoading, setIsChanged) => async (
   dispatch
 ) => {
-  console.log("save changes");
   setLoading(true);
   try {
     await axios.post("/user/update_info", data);
@@ -164,7 +158,6 @@ export const getNotifications = (setLoading, variables) => async (dispatch) => {
   setLoading(true);
   try {
     const res = await axios.post("/notification", variables);
-    console.log(res.data);
     dispatch({ type: SET_NOTIFICATIONS, payload: res.data });
     setLoading(false);
   } catch (err) {

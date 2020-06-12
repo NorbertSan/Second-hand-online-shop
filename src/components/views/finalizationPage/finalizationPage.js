@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import styled from "styled-components";
 
 // COMPONENTS
@@ -20,9 +20,10 @@ const FinalizationPage = () => {
     setFinalizationStep(finalizationStep <= 1 ? 1 : finalizationStep - 1);
   const nextStep = () =>
     setFinalizationStep(finalizationStep >= 3 ? 3 : finalizationStep + 1);
+  const ProductOverwievMemo = useMemo(() => <ProductOverwiev />, []);
   return (
     <StyledWrapper>
-      <ProductOverwiev />
+      {ProductOverwievMemo}
       <CirclesNavigation finalizationStep={finalizationStep} />
       <FormsNavigation
         prevStep={prevStep}
