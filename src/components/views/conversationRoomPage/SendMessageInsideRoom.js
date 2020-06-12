@@ -56,10 +56,10 @@ const SendMessageInsideRoom = () => {
   useEffect(() => {
     const form = formRef.current;
     const enterListener = (e) => e.keyCode === 13 && handleSubmit(e);
-
     form && form.addEventListener("keyup", enterListener);
     return () => form.removeEventListener("keyup", enterListener);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <StyledWrapper ref={formRef} onSubmit={handleSubmit}>
       <StyledTextarea

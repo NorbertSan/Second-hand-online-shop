@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import theme from "utils/theme";
 import { useHistory } from "react-router-dom";
 import styled, { css } from "styled-components";
@@ -101,7 +101,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
   font-size: ${theme.fontSize.s};
 `;
 
-const DeleteAccount = () => {
+const DeleteAccount = memo(() => {
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
   const [confirmDeleteValue, setConfirmDeleteValue] = useState("");
@@ -171,6 +171,6 @@ const DeleteAccount = () => {
       )}
     </>
   );
-};
+});
 
 export default DeleteAccount;

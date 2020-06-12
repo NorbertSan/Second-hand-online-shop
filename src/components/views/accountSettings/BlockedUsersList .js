@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
 import theme from "utils/theme";
 import axios from "axios";
 import styled, { css } from "styled-components";
@@ -52,7 +52,7 @@ const StyledUsersList = styled.ul`
   flex-direction: column;
 `;
 
-const BlockedUsersList = () => {
+const BlockedUsersList = memo(() => {
   const [blockedUsersList, setBlockedUsersList] = useState([]);
   const [listOpen, setListOpen] = useState(false);
   const fetchBlockedUsers = async () => {
@@ -94,6 +94,6 @@ const BlockedUsersList = () => {
       ) : null}
     </>
   );
-};
+});
 
 export default BlockedUsersList;

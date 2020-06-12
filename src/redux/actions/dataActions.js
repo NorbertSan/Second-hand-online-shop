@@ -19,7 +19,6 @@ import axios from "axios";
 
 // ADD PRODUCT
 export const addProduct = (data) => async (dispatch) => {
-  console.log("add product  action");
   dispatch({ type: LOADING_ADD_PRODUCT });
   dispatch({ type: CLEAR_ERRORS_ADD_PRODUCT });
   try {
@@ -32,7 +31,6 @@ export const addProduct = (data) => async (dispatch) => {
 };
 // TOGGLE LIKE ON PRODUCT
 export const toggleLike = (product_id) => async (dispatch) => {
-  console.log("toggle like action");
   try {
     const res = await axios.get(`product/${product_id}/like`);
     dispatch({
@@ -49,7 +47,6 @@ export const toggleLike = (product_id) => async (dispatch) => {
 };
 // GET ALL COMMENTS ON SPECIFIC USER
 export const getComments = (nickName) => async (dispatch) => {
-  console.log("get comments");
   dispatch({ type: LOADING_COMMENTS });
   try {
     const res = await axios.get(`/comment/user/${nickName}`);
@@ -60,7 +57,6 @@ export const getComments = (nickName) => async (dispatch) => {
 };
 // ADD COMMENT UNDER USER PROFILE
 export const addComment = (data, toggleAddCommentOpen) => async (dispatch) => {
-  console.log("add comment action");
   try {
     const res = await axios.post(`/comment`, data);
     dispatch({
@@ -77,7 +73,6 @@ export const addComment = (data, toggleAddCommentOpen) => async (dispatch) => {
 };
 // DELETE COMMENT UNDER USER PROFILE
 export const deleteComment = (comment_id, nickName) => async (dispatch) => {
-  console.log("delete comment");
   try {
     await axios.delete(`/comment/${comment_id}/${nickName}`);
     dispatch({ type: DELETE_COMMENT, payload: comment_id });
@@ -89,7 +84,6 @@ export const deleteComment = (comment_id, nickName) => async (dispatch) => {
 export const editComment = (data, toggleAddCommentOpen, comment_id) => async (
   dispatch
 ) => {
-  console.log("edit comment");
   try {
     const res = await axios.put(`/comment/${comment_id}`, data);
     dispatch({ type: EDIT_COMMENT, payload: res.data });

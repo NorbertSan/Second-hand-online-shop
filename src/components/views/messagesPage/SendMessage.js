@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useCallback, useMemo } from "react";
 import theme from "utils/theme";
 import styled from "styled-components";
 // ICONS
@@ -126,8 +126,11 @@ const SendMessage = () => {
   const searchType = "user";
   const disableYourself = true;
   useSearchUsers(setUserNickNameList, inputValue, searchType, disableYourself);
-  const toggleSentMessageForm = () =>
-    setIsSentMessageFormOpen((prevState) => !prevState);
+  const toggleSentMessageForm = useCallback(
+    () => setIsSentMessageFormOpen((prevState) => !prevState),
+    []
+  );
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (recipient) {
@@ -138,6 +141,14 @@ const SendMessage = () => {
       setIsSentMessageFormOpen(false);
     }
   };
+  const SentButtonMemo = useMemo(
+    () => (
+      <StyledSentButton>
+        <StyledSendIcon />
+      </StyledSentButton>
+    ),
+    []
+  );
   return (
     <StyledWrapper>
       <StyledAddMessageLabel onClick={toggleSentMessageForm}>
@@ -171,9 +182,7 @@ const SendMessage = () => {
               spellCheck="false"
               placeholder="Type message"
             />
-            <StyledSentButton>
-              <StyledSendIcon />
-            </StyledSentButton>
+            {SentButtonMemo}
           </StyledTextareaWrapper>
         </StyledAddMessageForm>
       )}

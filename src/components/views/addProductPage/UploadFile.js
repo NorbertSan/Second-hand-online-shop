@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import PropTypes from "prop-types";
 import theme from "utils/theme";
 import Dropzone from "react-dropzone";
 import axios from "axios";
@@ -108,6 +109,11 @@ const UploadFile = ({ refreshFunction, clearImages }) => {
       )}
     </StyledWrapper>
   );
+};
+
+UploadFile.propTypes = {
+  refreshFunction: PropTypes.func.isRequired,
+  clearImages: PropTypes.bool.isRequired,
 };
 
 export default UploadFile;

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import styled, { css } from "styled-components";
 import PropTypes from "prop-types";
 import theme from "utils/theme";
@@ -92,7 +92,7 @@ const AddressForm = ({
       zipCode: formatedValue,
     }));
   };
-
+  console.log("render");
   useEffect(() => {
     const validateErrors = addressFormValidator(addressData);
     setNextStepDisable(Object.keys(validateErrors).length !== 0);

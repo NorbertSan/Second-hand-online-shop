@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 import theme from "utils/theme";
 import PropTypes from "prop-types";
 import axios from "axios";
@@ -30,7 +30,7 @@ const StyledValidateAlert = styled(ValidateAlert)`
   text-align: center;
 `;
 
-const ChangeUserAvatarForm = ({ initial, avatar, setAvatar }) => {
+const ChangeUserAvatarForm = memo(({ avatar, setAvatar }) => {
   const inputFileRef = useRef(null);
   const [errors, setErrors] = useState({});
   const { nickName } = useSelector((state) => state.user);
@@ -70,10 +70,10 @@ const ChangeUserAvatarForm = ({ initial, avatar, setAvatar }) => {
       )}
     </StyledWrapper>
   );
-};
+});
 
 ChangeUserAvatarForm.propTypes = {
-  initial: PropTypes.string.isRequired,
+  avatar: PropTypes.string || PropTypes.null.isRequired,
   setAvatar: PropTypes.func.isRequired,
 };
 
