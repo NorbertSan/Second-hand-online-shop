@@ -5,6 +5,7 @@ import theme from "utils/theme";
 import PropTypes from "prop-types";
 // COMPONENTS
 import DefaultAvatar from "utils/DefaultAvatar";
+import SentImages from "./SentImages";
 // REDUX
 import { useSelector } from "react-redux";
 
@@ -40,6 +41,7 @@ const StyledContent = styled.div`
 const StyledDateInfo = styled.div`
   font-size: ${theme.fontSize.xs};
   padding: 0 40px;
+  margin-top: 3px;
   ${({ isLoggedUserAuthor }) =>
     isLoggedUserAuthor &&
     css`
@@ -79,10 +81,10 @@ const MessageItem = ({ message, lastElement }) => {
           onClick={() => toggleDateShown((prevState) => !prevState)}
           isLoggedUserAuthor={isLoggedUserAuthor}
         >
-          {message.body}
+          <SentImages images={message.images} />
+          <span>{message.body}</span>
         </StyledContent>
       </StyledInnerWrapper>
-
       {isDateShown && (
         <StyledDateInfo isLoggedUserAuthor={isLoggedUserAuthor}>
           {moment(message.createdAt).calendar()}

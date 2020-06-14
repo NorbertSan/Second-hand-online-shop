@@ -60,7 +60,6 @@ const ChangeUserAvatarForm = memo(({ avatar, setAvatar }) => {
   return (
     <StyledWrapper>
       <DefaultAvatar avatar={avatar} nickName={nickName} changeAvatar />
-
       <input type="file" ref={inputFileRef} hidden onChange={avatarChange} />
       <StyledButton tertiary onClick={triggerAvatarChoose}>
         Change avatar

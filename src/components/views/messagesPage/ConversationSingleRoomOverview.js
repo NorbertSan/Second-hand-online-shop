@@ -101,7 +101,9 @@ const ConversationSingleRoomOverview = ({ message }) => {
           {interlocutorNickName}
         </NickName>
         <StyledMessageContent unread={isRoomUnread}>
-          {`${isLoggedUserAuthor ? "You :" : ""} ${message.body}`}
+          {`${isLoggedUserAuthor ? "You :" : ""} ${
+            message.body || "Uploaded an image"
+          }`}
         </StyledMessageContent>
       </StyledInnerWrapper>
     </StyledWrapper>

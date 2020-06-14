@@ -18,7 +18,8 @@ const ImageSlider = ({ images: imagesId }) => {
     setImages(
       imagesId.map((image, index) => (
         <StyledImage
-          key={`product-photo ${index}`}
+          alt={`product ${index}`}
+          key={index}
           src={`${BASE_URL}/${image}`}
         />
       ))

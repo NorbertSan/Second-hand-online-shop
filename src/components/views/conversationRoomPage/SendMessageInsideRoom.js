@@ -7,6 +7,7 @@ import { ReactComponent as RightArrowIcon } from "assets/icons/rightArrow.svg";
 import { useDispatch } from "react-redux";
 import { sendMessage } from "redux/actions/dataActions";
 import FeatureButtons from "./FeatureButtons";
+import UploadedImages from "./UploadedImages";
 
 const StyledWrapper = styled.form`
   display: flex;
@@ -49,13 +50,22 @@ const SendMessageInsideRoom = () => {
   const dispatch = useDispatch();
   const formRef = useRef(null);
   const [body, setBodyValue] = useState("");
+  const [images, setImages] = useState([]);
   const { nickName } = useParams();
   const handleChange = (e) => setBodyValue(e.target.value);
+
+  const setImageHandle = (fileName) =>
+    setImages((prevState) => [fileName, ...prevState]);
+
+  const removePhoto = (fileName) =>
+    setImages((prevState) => prevState.filter((file) => file !== fileName));
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (body.trim().length > 0) {
-      dispatch(sendMessage({ recipient: nickName, body }));
+    if (body.trim().length > 0 || images.length > 0) {
+      dispatch(sendMessage({ recipient: nickName, body, images }));
       setBodyValue("");
+      setImages([]);
     }
   };
   useEffect(() => {
@@ -71,6 +81,9 @@ const SendMessageInsideRoom = () => {
 
   return (
     <StyledWrapper ref={formRef} onSubmit={handleSubmit}>
+      {images && images.length > 0 && (
+        <UploadedImages removePhoto={removePhoto} images={images} />
+      )}
       <StyledInnerWrapper>
         <StyledTextarea
           spellcheck="false"
@@ -82,7 +95,7 @@ const SendMessageInsideRoom = () => {
           <StyledSendIcon />
         </StyledSentButton>
       </StyledInnerWrapper>
-      <FeatureButtons addEmoji={addEmoji} />
+      <FeatureButtons setImage={setImageHandle} addEmoji={addEmoji} />
     </StyledWrapper>
   );
 };
