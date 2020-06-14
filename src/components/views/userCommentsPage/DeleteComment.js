@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import { deleteComment } from "redux/actions/dataActions";
 
 const StyledWrapper = styled.div`
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0 0 3px grey;
   background: #fff;
   display: flex;
@@ -19,6 +19,7 @@ const StyledWrapper = styled.div`
   z-index: 10;
   transform: translate(-50%, -50%);
   border-radius: 5px;
+  text-align: center;
 `;
 const StyledButton = styled.button`
   padding: 4px 10px;
@@ -37,7 +38,7 @@ const DeleteComment = ({ comment_id }) => {
   return (
     <>
       <StyledWrapper>
-        <h4>Are you sure to delete this comment ?</h4>
+        <h4>Are you sure to delete this comment?</h4>
         <StyledButton onClick={deleteCommentHandle}>Delete</StyledButton>
       </StyledWrapper>
     </>

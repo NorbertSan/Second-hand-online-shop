@@ -6,15 +6,20 @@ import { ReactComponent as RightArrowIcon } from "assets/icons/rightArrow.svg";
 // REDUX
 import { useDispatch } from "react-redux";
 import { sendMessage } from "redux/actions/dataActions";
+import FeatureButtons from "./FeatureButtons";
 
 const StyledWrapper = styled.form`
+  display: flex;
+  flex-direction: column;
+`;
+const StyledInnerWrapper = styled.div`
   border-top: 1px solid #eee;
   display: flex;
   align-items: center;
   padding-top: 15px;
   z-index: 1;
 `;
-const StyledButton = styled.button`
+const StyledSentButton = styled.button`
   width: 20px;
   height: 20px;
   padding: 2px;
@@ -60,17 +65,24 @@ const SendMessageInsideRoom = () => {
     return () => form.removeEventListener("keyup", enterListener);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const addEmoji = (emoji) =>
+    setBodyValue((prevState) => `${prevState}${emoji}`);
+
   return (
     <StyledWrapper ref={formRef} onSubmit={handleSubmit}>
-      <StyledTextarea
-        spellcheck="false"
-        value={body}
-        onChange={handleChange}
-        placeholder="Send message"
-      />
-      <StyledButton>
-        <StyledSendIcon />
-      </StyledButton>
+      <StyledInnerWrapper>
+        <StyledTextarea
+          spellcheck="false"
+          value={body}
+          onChange={handleChange}
+          placeholder="Send message"
+        />
+        <StyledSentButton>
+          <StyledSendIcon />
+        </StyledSentButton>
+      </StyledInnerWrapper>
+      <FeatureButtons addEmoji={addEmoji} />
     </StyledWrapper>
   );
 };

@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "downshift": "^5.2.7",
+    "emoji-picker-react": "^3.2.1",
     "jwt-decode": "^2.2.0",
     "query-string": "^6.12.1",
     "react": "^16.13.1",
@@ -51,7 +52,6 @@
     ]
   },
   "devDependencies": {
-    "http-proxy-middleware": "^1.0.3",
     "moment": "^2.25.3"
   }
 }

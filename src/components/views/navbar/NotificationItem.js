@@ -43,18 +43,25 @@ const NotificationItem = ({ notification, toggleNotificationOpen }) => {
   const [description, setDescription] = useState("");
   const [linkRoute, setLinkRoute] = useState("");
   useEffect(() => {
-    if (notification.type === "like") {
-      setDescription("likes your product.");
-      setLinkRoute(`/product/${notification.product}`);
-    } else if (notification.type === "comment") {
-      setDescription("commented on your profile.");
-      setLinkRoute(`/user/${notification.recipient.nickName}/comments`);
-    } else if (notification.type === "sell") {
-      setDescription("bought your product");
-      setLinkRoute(`/purchases/${notification.product}`);
-    } else if (notification.type === "follow") {
-      setDescription("started following you");
-      setLinkRoute(`/user/${notification.author.nickName}`);
+    switch (notification.type) {
+      case "like":
+        setDescription("likes your product.");
+        setLinkRoute(`/product/${notification.product}`);
+        break;
+      case "comment":
+        setDescription("commented on your profile.");
+        setLinkRoute(`/user/${notification.recipient.nickName}/comments`);
+        break;
+      case "sell":
+        setDescription("bought your product");
+        setLinkRoute(`/purchases/${notification.product}`);
+        break;
+      case "follow":
+        setDescription("started following you");
+        setLinkRoute(`/user/${notification.author.nickName}`);
+        break;
+      default:
+        break;
     }
   }, [notification]);
 

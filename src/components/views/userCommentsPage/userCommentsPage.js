@@ -79,8 +79,7 @@ const UserCommentsPage = () => {
   const [isAddCommentOpen, toggleAddCommentOpen] = useState(false);
   useEffect(() => {
     dispatch(getComments(nickName));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dispatch, nickName]);
 
   return (
     <StyledWrapper>
