@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
+import axios from "axios";
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const StyledWrapper = styled.section`
@@ -10,28 +11,32 @@ const StyledWrapper = styled.section`
   img {
     width: 50px;
     margin-right: 5px;
-    transition: transform 0.3s ease-in-out;
-    &.zoom {
-      transform: scale(3);
-      box-shadow: 0 0 3px grey;
-    }
   }
 `;
 
 const SentImages = ({ images: imagesId }) => {
   const [images, setImages] = useState(null);
-  const toggleZoom = (e) => {
-    if (e.target.classList.contains("zoom")) e.target.classList.remove("zoom");
-    else e.target.classList.add("zoom");
+
+  const download = async (imageName) => {
+    const url = `${BASE_URL}/${imageName}`;
+    const { data } = await axios.get(url, { responseType: "blob" });
+    const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+    const link = document.createElement("a");
+    link.href = downloadUrl;
+    link.setAttribute("download", imageName);
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
   };
+
   useEffect(() => {
     setImages(
       imagesId.map((image, index) => (
         <img
           alt={`upload ${index}`}
           src={`${BASE_URL}/${image}`}
+          onClick={() => download(image)}
           key={index}
-          onClick={toggleZoom}
         />
       ))
     );
