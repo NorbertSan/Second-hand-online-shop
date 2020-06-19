@@ -39,6 +39,13 @@ const StyledContent = styled.div`
       color: ${theme.colors.whiteish};
       box-shadow: 0;
     `}
+  ${({ deleted }) =>
+    deleted &&
+    css`
+      background: #eee;
+      color: ${theme.colors.blackish};
+      font-style: italic;
+    `}
 `;
 const StyledDateInfo = styled.div`
   font-size: ${theme.fontSize.xs};
@@ -83,9 +90,9 @@ const MessageItem = ({ message, lastElement }) => {
   }, []);
   return (
     <StyledWrapper ref={messageRef}>
-      {holdOptionsOpen && (
+      {!message.deleted && holdOptionsOpen && (
         <HoldSettings
-          content={message.body}
+          message={message}
           toggleDisplay={setHoldOptionsOpen}
           isLoggedUserAuthor={isLoggedUserAuthor}
         />
@@ -104,9 +111,10 @@ const MessageItem = ({ message, lastElement }) => {
         <StyledContent
           onClick={() => toggleDateShown((prevState) => !prevState)}
           isLoggedUserAuthor={isLoggedUserAuthor}
+          deleted={message.deleted}
         >
           <SentImages images={message.images} />
-          <span>{message.body}</span>
+          <span>{message.deleted ? "Message removed" : message.body}</span>
         </StyledContent>
       </StyledInnerWrapper>
       {isDateShown && (

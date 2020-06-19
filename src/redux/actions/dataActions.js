@@ -14,6 +14,7 @@ import {
   SET_CONVERSATIONS_ROOMS,
   SET_UNREAD_MESSAGES,
   DELETE_PRODUCT,
+  DELETE_MESSAGE,
 } from "redux/types";
 import axios from "axios";
 
@@ -142,6 +143,17 @@ export const deleteProduct = (product_id, setLoading) => async (dispatch) => {
     await axios.delete(`/product/${product_id}`);
     dispatch({ type: DELETE_PRODUCT, payload: product_id });
     setLoading(false);
+  } catch (err) {
+    console.error(err);
+  }
+};
+// REMOVE MESSAGE
+export const deleteMessage = (message_id) => async (dispatch) => {
+  try {
+    const {
+      data: { _id },
+    } = await axios.delete(`/message/${message_id}`);
+    dispatch({ type: DELETE_MESSAGE, payload: _id });
   } catch (err) {
     console.error(err);
   }

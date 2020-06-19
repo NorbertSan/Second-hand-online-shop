@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
-import styled from "styled-components";
-import CopyIcon from "assets/icons/copy.svg";
 import theme from "utils/theme";
+import styled from "styled-components";
+// ICONS
+import CopyIcon from "assets/icons/copy.svg";
 import BinIcon from "assets/icons/bin.svg";
+import { copyElement } from "utils/keyframesAnimations";
+// REDUX STUFF
+import { useDispatch } from "react-redux";
+import { deleteMessage as deleteMessageAction } from "redux/actions/dataActions";
 
 const StyledWrapper = styled.ul`
   margin: 0;
@@ -33,11 +38,21 @@ const StyledElement = styled.button`
     text-transform: capitalize;
     font-size: ${theme.fontSize.xs};
   }
+  &.active {
+    animation: ${copyElement} 1s ease-in-out;
+    border-radius: 50%;
+  }
 `;
-// const BinIcon
 
-const HoldSettingsOptions = ({ content }) => {
+const HoldSettingsOptions = ({
+  message: { body: content, _id: message_id },
+  isLoggedUserAuthor,
+}) => {
+  const copyElement = useRef(null);
+  const dispatch = useDispatch();
+  const [activeElement, setActiveElement] = useState(false);
   const copyContent = () => {
+    setActiveElement(true);
     const textarea = document.createElement("textarea");
     textarea.value = content;
     document.body.appendChild(textarea);
@@ -45,26 +60,37 @@ const HoldSettingsOptions = ({ content }) => {
     document.execCommand("copy");
     document.body.removeChild(textarea);
   };
+  const copyAnimationEnd = () => setActiveElement(false);
+
+  const removeMessage = () => dispatch(deleteMessageAction(message_id));
+
   return (
     <StyledWrapper>
-      <li>
-        <StyledElement onClick={copyContent}>
+      <li ref={copyElement}>
+        <StyledElement
+          onClick={copyContent}
+          onAnimationEnd={copyAnimationEnd}
+          className={activeElement ? "active" : ""}
+        >
           <img src={CopyIcon} alt="copy icon" />
           <span>copy</span>
         </StyledElement>
       </li>
-      <li>
-        <StyledElement>
-          <img src={BinIcon} alt="bion icon" />
-          <span>remove</span>
-        </StyledElement>
-      </li>
+      {isLoggedUserAuthor && (
+        <li>
+          <StyledElement onClick={removeMessage}>
+            <img src={BinIcon} alt="bion icon" />
+            <span>remove</span>
+          </StyledElement>
+        </li>
+      )}
     </StyledWrapper>
   );
 };
 
 HoldSettingsOptions.propTypes = {
-  content: PropTypes.string.isRequired,
+  message: PropTypes.object.isRequired,
+  isLoggedUserAuthor: PropTypes.bool.isRequired,
 };
 
 export default HoldSettingsOptions;

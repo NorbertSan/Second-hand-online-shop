@@ -12,8 +12,9 @@ const StyledWrapper = styled.section`
   position: absolute;
   background: ${theme.colors.whiteish};
   padding: 7px;
-  top: -10px;
-  transform: translateY(-100%);
+  top: 20px;
+  z-index: 9;
+  /* transform: translateY(-100%); */
   box-shadow: 0 0 1px grey;
   ${({ isLoggedUserAuthor }) =>
     isLoggedUserAuthor
@@ -25,7 +26,7 @@ const StyledWrapper = styled.section`
         `}
 `;
 
-const HoldSettings = ({ toggleDisplay, isLoggedUserAuthor, content }) => {
+const HoldSettings = ({ toggleDisplay, isLoggedUserAuthor, message }) => {
   const notificationRef = useRef(null);
 
   useDetectClickOutside(notificationRef, toggleDisplay, 1000);
@@ -35,13 +36,16 @@ const HoldSettings = ({ toggleDisplay, isLoggedUserAuthor, content }) => {
       ref={notificationRef}
     >
       <HoldSettingsEmojiOptions />
-      <HoldSettingsOptions content={content} />
+      <HoldSettingsOptions
+        isLoggedUserAuthor={isLoggedUserAuthor}
+        message={message}
+      />
     </StyledWrapper>
   );
 };
 HoldSettings.propTypes = {
   toggleDisplay: PropTypes.func.isRequired,
   isLoggedUserAuthor: PropTypes.bool.isRequired,
-  content: PropTypes.string.isRequired,
+  message: PropTypes.object.isRequired,
 };
 export default HoldSettings;

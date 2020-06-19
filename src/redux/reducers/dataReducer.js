@@ -16,6 +16,7 @@ import {
   DELETE_PRODUCT,
   ADD_SHOPPING_LIST,
   REMOVE_SHOPPING_LIST,
+  DELETE_MESSAGE,
 } from "redux/types";
 
 const initialState = {
@@ -174,6 +175,20 @@ export default (state = initialState, action) => {
         shoppingList: [...state.shoppingList].filter(
           (product) => product._id !== action.payload
         ),
+      };
+    case DELETE_MESSAGE:
+      const deletedMessageIndex = state.messages.findIndex(
+        (message) => message._id === action.payload
+      );
+      const deletedMessage = {
+        ...state.messages[deletedMessageIndex],
+        deleted: true,
+      };
+      state.messages[deletedMessageIndex] = deletedMessage;
+      const refreshMessages = [...state.messages];
+      return {
+        ...state,
+        messages: refreshMessages,
       };
     default:
       return { ...state };
