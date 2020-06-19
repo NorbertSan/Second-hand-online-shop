@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled, { css } from "styled-components";
 import moment from "moment";
 import theme from "utils/theme";
@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 // COMPONENTS
 import DefaultAvatar from "utils/DefaultAvatar";
 import SentImages from "./SentImages";
+import HoldSettings from "./HoldSettings";
 // REDUX
 import { useSelector } from "react-redux";
 
@@ -13,6 +14,7 @@ const StyledWrapper = styled.li`
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  position: relative;
 `;
 const StyledInnerWrapper = styled.div`
   display: flex;
@@ -57,15 +59,37 @@ const StyledDateInfo = styled.div`
 
 const MessageItem = ({ message, lastElement }) => {
   const loggedUserNickName = useSelector((state) => state.user.nickName);
+  const [holdOptionsOpen, setHoldOptionsOpen] = useState(false);
+  const messageRef = useRef(null);
   const [isLoggedUserAuthor, setIsLoggedUserAuthor] = useState(false);
   const [isDateShown, toggleDateShown] = useState(false);
   useEffect(() => {
+    let timer;
     if (message.writer.nickName === loggedUserNickName)
       setIsLoggedUserAuthor(true);
+
+    const handleDropDown = () => clearTimeout(timer);
+
+    const handleClick = (e) =>
+      (timer = setTimeout(() => setHoldOptionsOpen(true), 400));
+
+    if (messageRef) {
+      messageRef.current.addEventListener("mouseup", handleDropDown);
+      messageRef.current.addEventListener("touchend", handleDropDown);
+      messageRef.current.addEventListener("mousedown", handleClick);
+      messageRef.current.addEventListener("touchstart", handleClick);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
-    <StyledWrapper>
+    <StyledWrapper ref={messageRef}>
+      {holdOptionsOpen && (
+        <HoldSettings
+          content={message.body}
+          toggleDisplay={setHoldOptionsOpen}
+          isLoggedUserAuthor={isLoggedUserAuthor}
+        />
+      )}
       {lastElement && (
         <StyledDateInfo center isLoggedUserAuthor={isLoggedUserAuthor}>
           {moment(message.createdAt).calendar()}
