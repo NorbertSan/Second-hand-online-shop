@@ -98,9 +98,9 @@ const DefaultAvatar = ({
   productDetails,
   changeAvatar,
   productItem,
-  nickName,
   followItem,
   blockedUser,
+  nickName,
 }) => {
   return (
     <StyledDefaultAvatar

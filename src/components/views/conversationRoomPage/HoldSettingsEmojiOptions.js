@@ -1,5 +1,9 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styled from "styled-components";
+import { useDispatch } from "react-redux";
+import { reactMessage } from "redux/actions/dataActions";
+import emojis from "utils/emojis";
 
 const StyledWrapper = styled.ul`
   margin: 0;
@@ -27,31 +31,17 @@ const StyledEmoji = styled.li`
   }
 `;
 
-const emojis = [
-  {
-    emoji: "😍",
-    label: "love",
-  },
-  {
-    emoji: "😂",
-    label: "funny",
-  },
-  {
-    emoji: "👎",
-    label: "unlike",
-  },
-  {
-    emoji: "👍",
-    label: "like",
-  },
-];
-
-const HoldSettingsEmojiOptions = () => {
+const HoldSettingsEmojiOptions = ({ message_id, hidePanel }) => {
+  const dispatch = useDispatch();
+  const handleEmojiReact = (emojiIndex) => {
+    dispatch(reactMessage(message_id, emojiIndex));
+    hidePanel(false);
+  };
   return (
     <StyledWrapper>
       {emojis.map((emoji, index) => (
         <StyledEmoji key={index}>
-          <button>
+          <button onClick={() => handleEmojiReact(index)}>
             <span role="img" aria-labelledby={emoji.label}>
               {emoji.emoji}
             </span>
@@ -60,6 +50,11 @@ const HoldSettingsEmojiOptions = () => {
       ))}
     </StyledWrapper>
   );
+};
+
+HoldSettingsEmojiOptions.propTypes = {
+  message_id: PropTypes.string.isRequired,
+  hidePanel: PropTypes.func.isRequired,
 };
 
 export default HoldSettingsEmojiOptions;

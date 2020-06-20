@@ -15,6 +15,7 @@ import {
   SET_UNREAD_MESSAGES,
   DELETE_PRODUCT,
   DELETE_MESSAGE,
+  REACT_MESSAGE,
 } from "redux/types";
 import axios from "axios";
 
@@ -154,6 +155,17 @@ export const deleteMessage = (message_id) => async (dispatch) => {
       data: { _id },
     } = await axios.delete(`/message/${message_id}`);
     dispatch({ type: DELETE_MESSAGE, payload: _id });
+  } catch (err) {
+    console.error(err);
+  }
+};
+// REACT MESSAGE (EMOJI)
+export const reactMessage = (message_id, emojiIndex) => async (dispatch) => {
+  try {
+    const { data: message } = await axios.put(`/message/${message_id}/react`, {
+      emojiIndex,
+    });
+    dispatch({ type: REACT_MESSAGE, payload: message });
   } catch (err) {
     console.error(err);
   }

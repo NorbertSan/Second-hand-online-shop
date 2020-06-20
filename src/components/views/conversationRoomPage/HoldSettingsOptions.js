@@ -47,6 +47,7 @@ const StyledElement = styled.button`
 const HoldSettingsOptions = ({
   message: { body: content, _id: message_id },
   isLoggedUserAuthor,
+  hidePanel,
 }) => {
   const copyElement = useRef(null);
   const dispatch = useDispatch();
@@ -62,7 +63,10 @@ const HoldSettingsOptions = ({
   };
   const copyAnimationEnd = () => setActiveElement(false);
 
-  const removeMessage = () => dispatch(deleteMessageAction(message_id));
+  const removeMessage = () => {
+    dispatch(deleteMessageAction(message_id));
+    hidePanel(false);
+  };
 
   return (
     <StyledWrapper>
@@ -91,6 +95,7 @@ const HoldSettingsOptions = ({
 HoldSettingsOptions.propTypes = {
   message: PropTypes.object.isRequired,
   isLoggedUserAuthor: PropTypes.bool.isRequired,
+  hidePanel: PropTypes.func.isRequired,
 };
 
 export default HoldSettingsOptions;

@@ -17,6 +17,7 @@ import {
   ADD_SHOPPING_LIST,
   REMOVE_SHOPPING_LIST,
   DELETE_MESSAGE,
+  REACT_MESSAGE,
 } from "redux/types";
 
 const initialState = {
@@ -190,6 +191,25 @@ export default (state = initialState, action) => {
         ...state,
         messages: refreshMessages,
       };
+
+    case REACT_MESSAGE:
+      const {
+        _doc: { _id: message_id },
+        reacts,
+      } = action.payload;
+      const reactedMessageIndex = state.messages.findIndex(
+        (message) => message._id === message_id
+      );
+      const reactedMessage = {
+        ...state.messages[reactedMessageIndex],
+        reacts,
+      };
+      state.messages[reactedMessageIndex] = reactedMessage;
+      return {
+        ...state,
+        messages: [...state.messages],
+      };
+
     default:
       return { ...state };
   }

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import styled from "styled-components";
 import theme from "utils/theme";
 import { useParams } from "react-router-dom";
@@ -60,21 +60,23 @@ const SendMessageInsideRoom = () => {
   const removePhoto = (fileName) =>
     setImages((prevState) => prevState.filter((file) => file !== fileName));
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (body.trim().length > 0 || images.length > 0) {
-      dispatch(sendMessage({ recipient: nickName, body, images }));
-      setBodyValue("");
-      setImages([]);
-    }
-  };
+  const handleSubmit = useCallback(
+    (e) => {
+      e.preventDefault();
+      if (body.trim().length > 0 || images.length > 0) {
+        dispatch(sendMessage({ recipient: nickName, body, images }));
+        setBodyValue("");
+        setImages([]);
+      }
+    },
+    [body, dispatch, images, nickName]
+  );
   useEffect(() => {
     const form = formRef.current;
     const enterListener = (e) => e.keyCode === 13 && handleSubmit(e);
     form && form.addEventListener("keyup", enterListener);
     return () => form.removeEventListener("keyup", enterListener);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [handleSubmit]);
 
   const addEmoji = (emoji) =>
     setBodyValue((prevState) => `${prevState}${emoji}`);

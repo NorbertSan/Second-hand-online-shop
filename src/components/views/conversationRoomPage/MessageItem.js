@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import DefaultAvatar from "utils/DefaultAvatar";
 import SentImages from "./SentImages";
 import HoldSettings from "./HoldSettings";
+import MessageReacts from "./MessageReacts";
 // REDUX
 import { useSelector } from "react-redux";
 
@@ -90,10 +91,16 @@ const MessageItem = ({ message, lastElement }) => {
   }, []);
   return (
     <StyledWrapper ref={messageRef}>
+      {!message.deleted && (
+        <MessageReacts
+          isLoggedUserAuthor={isLoggedUserAuthor}
+          reacts={message.reacts}
+        />
+      )}
       {!message.deleted && holdOptionsOpen && (
         <HoldSettings
           message={message}
-          toggleDisplay={setHoldOptionsOpen}
+          hidePanel={setHoldOptionsOpen}
           isLoggedUserAuthor={isLoggedUserAuthor}
         />
       )}
@@ -113,7 +120,7 @@ const MessageItem = ({ message, lastElement }) => {
           isLoggedUserAuthor={isLoggedUserAuthor}
           deleted={message.deleted}
         >
-          <SentImages images={message.images} />
+          {!message.deleted && <SentImages images={message.images} />}
           <span>{message.deleted ? "Message removed" : message.body}</span>
         </StyledContent>
       </StyledInnerWrapper>
